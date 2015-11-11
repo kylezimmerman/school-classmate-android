@@ -9,6 +9,7 @@ Project Members are: [Kyle Zimmerman](https://github.com/kylezimmerman),  [Justi
 ## Project Timeline
 
 ### Official Due Dates
+See the [Offical Assignment Outline](https://drive.google.com/open?id=1sKS4xyNEArK0vDudESKrv_awUPtcPt2tujEm7kMJgJk) for full details.
 ##### November 15, 2015  (11:59:59 PM)
 - Project Description
 
@@ -19,7 +20,8 @@ Project Members are: [Kyle Zimmerman](https://github.com/kylezimmerman),  [Justi
 To be determined
 
 ## Project Structure
-To be determined
+- [Documents on Google Drive] (https://drive.google.com/drive/u/0/folders/0ByFnnu5DFHuTd21YcEo4MEx2Z0E)
+- Rest to be determined
 
 ## Setup
 To be determined
