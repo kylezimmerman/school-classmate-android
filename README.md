@@ -24,7 +24,17 @@ To be determined
 - Rest to be determined
 
 ## Setup
-To be determined
+Add a file called **parse.xml** to the values folder (/app/src/main/res/values/). The contents should be:
+
+```
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="parse_application_id">[ADD APPLICATION ID HERE]</string>
+    <string name="parse_client_key">[ADD CLIENT ID HERE]</string>
+</resources>
+```
+
+***DO NOT COMMIT THIS FILE***
 
 ## Building
 To be determined
