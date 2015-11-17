@@ -34,6 +34,7 @@ proguard/
 /.idea/tasks.xml
 /.idea/libraries
 *.iws
+/captures
 
 #Mac OS X Clutter
 *.DS_Store
