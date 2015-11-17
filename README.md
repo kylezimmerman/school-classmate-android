@@ -1,7 +1,4 @@
 # ClassMateAndroid
-
-***Note: Please don't commit the initial project here until we are together as a group***
-
 This repository is for the the final project for PROG3210 Programming: Mobile Applications.
 
 Project Members are: [Kyle Zimmerman](https://github.com/kylezimmerman),  [Justin Coschi](https://github.com/jcoschi) and [Sean Coombes](https://github.com/scoombes)
