@@ -1,3 +1,6 @@
+# Classmate Specific
+/app/src/main/res/values/parse.xml
+
 # Built application files
 *.apk
 *.ap_
