@@ -4,13 +4,10 @@ import android.app.Application;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
-<<<<<<< HEAD
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.courses.Course;
-=======
 import com.prog3210.classmate.core.ClassmateUser;
->>>>>>> d55b95411a82cb60b4d07a193e40e48164f7eb61
 
 public class ClassMateApplication extends Application {
 
