@@ -1,9 +1,13 @@
 package com.prog3210.classmate;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.parse.ParseUser;
+import com.prog3210.classmate.user.UserLoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -11,6 +15,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ParseUser currentUser = ParseUser.getCurrentUser();
+
+        if (currentUser == null){
+            Intent UserLogin = new Intent(this, UserLoginActivity.class);
+            startActivity(UserLogin);
+
+        }
+
+
     }
 
     @Override
