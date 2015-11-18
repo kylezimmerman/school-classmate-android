@@ -40,11 +40,34 @@ public class RegisterActivity extends BaseActivity {
         EditText firstNameEditText = (EditText)findViewById(R.id.first_name);
         EditText lastNameEditText = (EditText)findViewById(R.id.last_name);
 
+        EditText firstError = null;
+
+        if (emailEditText.getText().length() == 0) {
+            firstError = emailEditText;
+            emailEditText.setError("Please enter your email address");
+        } else if (userNameEditText.getText().length() == 0) {
+            firstError = userNameEditText;
+            userNameEditText.setError("Please enter a Username");
+        } else if (passwordEditText.getText().length() == 0) {
+            firstError = passwordEditText;
+            passwordEditText.setError("Please enter a password");
+        } else if (firstNameEditText.getText().length() == 0) {
+            firstError = firstNameEditText;
+            firstNameEditText.setError("Please enter your First Name");
+        } else if (lastNameEditText.getText().length() == 0) {
+            firstError = lastNameEditText;
+            lastNameEditText.setError("Please enter your Last Name");
+        }
+
+        if (firstError != null) {
+            firstError.requestFocus();
+            return;
+        }
+
         ClassmateUser user = new ClassmateUser();
         user.setUsername(userNameEditText.getText().toString());
         user.setEmail(emailEditText.getText().toString());
         user.setPassword(passwordEditText.getText().toString());
-
         user.setFirstName(firstNameEditText.getText().toString());
         user.setLastName(lastNameEditText.getText().toString());
 

@@ -51,7 +51,6 @@ public class UserLoginActivity extends BaseActivity {
                         if (user != null) {
                             Intent mainActivity = new Intent(UserLoginActivity.this, MainActivity.class);
                             startActivity(mainActivity);
-
                         } else {
                             Toast.makeText(getApplicationContext(), getString(R.string.failedLogin), Toast.LENGTH_SHORT).show();
                         }
