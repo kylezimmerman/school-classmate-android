@@ -46,13 +46,14 @@ public class CreateCourseActivity extends AppCompatActivity {
         EditText name = (EditText)findViewById(R.id.name);
         EditText year = (EditText)findViewById(R.id.year);
         Spinner semester = (Spinner)findViewById(R.id.semester);
+        EditText teacherName = (EditText)findViewById(R.id.teacher_name);
 
         Course course = new Course();
         course.setCourseCode(courseCode.getText().toString());
         course.setSection(section.getText().toString());
         course.setName(name.getText().toString());
         course.setYear(Integer.parseInt(year.getText().toString()));
-
-        //course.setSemester();
+        course.setTeacherName(teacherName.getText().toString());
+        course.setSemester((Semester)semester.getSelectedItem());
     }
 }
