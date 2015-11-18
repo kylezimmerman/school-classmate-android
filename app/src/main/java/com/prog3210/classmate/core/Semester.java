@@ -2,6 +2,7 @@ package com.prog3210.classmate.core;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 @ParseClassName("Semester")
 public class Semester extends ParseObject{
@@ -10,5 +11,9 @@ public class Semester extends ParseObject{
     }
     public void setSemesterName(String semesterName) {
         put("semesterName", semesterName);
+    }
+
+    public static ParseQuery<Semester> getQuery(){
+        return new ParseQuery(Semester.class);
     }
 }

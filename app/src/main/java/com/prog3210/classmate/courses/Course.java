@@ -31,9 +31,7 @@ public class Course extends ParseObject {
     public Semester getSemester() {
         return (Semester)getParseObject("semester");
     }
-    public void setSemester(Semester semester) {
-        put("semester", semester);
-    }
+    public void setSemester(Semester semester) { put("semester", semester); }
 
     public String getName() {
         return getString("name");

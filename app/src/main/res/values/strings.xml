@@ -13,4 +13,13 @@
     <string name="userNameEdit">userName_editview</string>
     <string name="passwordEdit">password_editview</string>
     <string name="title_activity_register">Register</string>
+
+    <string name="course_info_head">Course Info</string>
+    <string name="course_code">Course Code</string>
+    <string name="course_section">Section</string>
+    <string name="course_name">Name</string>
+    <string name="year">Year</string>
+    <string name="semester">Semester</string>
+    <string name="course_details_head">Course Details</string>
+    <string name="course_desc">Description</string>
 </resources>
