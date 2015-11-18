@@ -1,13 +1,11 @@
 package com.prog3210.classmate;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
-import com.prog3210.classmate.user.RegisterActivity;
 
 public class MainActivity extends BaseAuthenticatedActivity {
 
