@@ -21,9 +21,14 @@
             </intent-filter>
         </activity>
         <activity
+<<<<<<< HEAD
             android:name=".courses.CreateCourseActivity"
             android:label="@string/title_activity_create_course"
             android:theme="@style/AppTheme.NoActionBar" >
+=======
+            android:name=".user.RegisterActivity"
+            android:label="@string/title_activity_register" >
+>>>>>>> d55b95411a82cb60b4d07a193e40e48164f7eb61
         </activity>
     </application>
 

@@ -3,5 +3,9 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+<<<<<<< HEAD
     <string name="title_activity_create_course">Create Course</string>
+=======
+    <string name="title_activity_register">Register</string>
+>>>>>>> d55b95411a82cb60b4d07a193e40e48164f7eb61
 </resources>
