@@ -16,7 +16,7 @@ import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseActivity;
 
 public class UserLoginActivity extends BaseActivity {
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,11 +38,11 @@ public class UserLoginActivity extends BaseActivity {
 
             if (userName.getText() == null || userName.getText().length() == 0){
                 userName.requestFocus();
-                Toast.makeText(getApplicationContext(), R.string.missingUserName, Toast.LENGTH_SHORT).show();
+                userName.setError(getString(R.string.missingUserName));
             }
             else if(password.getText() == null || password.getText().length() == 0){
                 password.requestFocus();
-                Toast.makeText(getApplicationContext(), R.string.missingPassword, Toast.LENGTH_SHORT).show();
+                password.setError(getString(R.string.missingPassword));
             }
             else{
                 ParseUser.logInInBackground(userName.getText().toString(), password.getText().toString(), new LogInCallback() {
@@ -53,7 +53,7 @@ public class UserLoginActivity extends BaseActivity {
                             startActivity(mainActivity);
 
                         } else {
-                            Toast.makeText(getApplicationContext(), R.string.failedLogin, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), getString(R.string.failedLogin), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
