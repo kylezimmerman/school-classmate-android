@@ -47,7 +47,7 @@ public class UserLoginActivity extends BaseActivity {
                 userName.requestFocus();
                 Toast.makeText(getApplicationContext(), NOUSERNAME, Toast.LENGTH_SHORT).show();
             }
-            else if(password.getText() == null || userName.getText().length() == 0){
+            else if(password.getText() == null || password.getText().length() == 0){
                 password.requestFocus();
                 Toast.makeText(getApplicationContext(), NOPASSWORD, Toast.LENGTH_SHORT).show();
             }
