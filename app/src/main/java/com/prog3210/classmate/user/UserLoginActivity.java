@@ -43,11 +43,11 @@ public class UserLoginActivity extends BaseActivity {
             EditText userName = (EditText) findViewById(R.id.userName_editview);
             EditText password = (EditText) findViewById(R.id.password_editview);
 
-            if (userName.getText() == null && userName.getText().length() == 0){
+            if (userName.getText() == null || userName.getText().length() == 0){
                 userName.requestFocus();
                 Toast.makeText(getApplicationContext(), NOUSERNAME, Toast.LENGTH_SHORT).show();
             }
-            else if(password.getText() == null && userName.getText().length() == 0){
+            else if(password.getText() == null || userName.getText().length() == 0){
                 password.requestFocus();
                 Toast.makeText(getApplicationContext(), NOPASSWORD, Toast.LENGTH_SHORT).show();
             }

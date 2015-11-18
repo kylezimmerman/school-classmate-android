@@ -21,6 +21,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/userName_editview"
             android:hint="@string/username"
+            android:inputType="text"
             />
 
         <EditText
@@ -29,6 +30,7 @@
             android:id="@+id/password_editview"
             android:hint="@string/password"
             android:password="true"
+            android:inputType="textPassword"
            />
         <Button
             android:layout_width="match_parent"
