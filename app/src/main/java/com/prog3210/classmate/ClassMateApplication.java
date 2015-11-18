@@ -3,6 +3,8 @@ package com.prog3210.classmate;
 import android.app.Application;
 
 import com.parse.Parse;
+import com.parse.ParseObject;
+import com.prog3210.classmate.core.ClassmateUser;
 
 public class ClassMateApplication extends Application {
 
@@ -11,6 +13,7 @@ public class ClassMateApplication extends Application {
         super.onCreate();
 
         //Register Parse subclasses here
+        ParseObject.registerSubclass(ClassmateUser.class);
 
         Parse.enableLocalDatastore(this);
 
