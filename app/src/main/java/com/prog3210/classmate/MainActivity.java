@@ -1,30 +1,18 @@
 package com.prog3210.classmate;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.parse.ParseUser;
-import com.prog3210.classmate.user.UserLoginActivity;
+import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.core.ClassmateUser;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseAuthenticatedActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        ParseUser currentUser = ParseUser.getCurrentUser();
-
-        if (currentUser == null){
-            Intent UserLogin = new Intent(this, UserLoginActivity.class);
-            startActivity(UserLogin);
-
-        }
-
-
     }
 
     @Override
@@ -43,6 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_logout) {
+            ClassmateUser.logOut(this);
+            finish();
             return true;
         }
 
