@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.core.ClassmateUser;
 
 public class MainActivity extends BaseAuthenticatedActivity {
 
@@ -31,6 +31,10 @@ public class MainActivity extends BaseAuthenticatedActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        } else if (id == R.id.action_logout) {
+            ClassmateUser.logOut(this);
+            finish();
             return true;
         }
 

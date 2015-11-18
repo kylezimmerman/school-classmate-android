@@ -1,9 +1,12 @@
 package com.prog3210.classmate.user;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseActivity;
@@ -14,6 +17,14 @@ public class UserLoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+
+        ((Button)findViewById(R.id.register_button)).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent registerIntent = new Intent(UserLoginActivity.this, RegisterActivity.class);
+                startActivity(registerIntent);
+            }
+        });
     }
 
     @Override

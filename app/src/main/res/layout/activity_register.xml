@@ -24,11 +24,13 @@
             style="@style/TextAppearance.AppCompat.Large"/>
         <EditText
             android:id="@+id/email"
+            android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email Address"/>
         <EditText
             android:id="@+id/username"
+            android:inputType="text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"/>
@@ -36,6 +38,7 @@
             android:id="@+id/password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:inputType="textPassword"
             android:hint="Password"/>
 
         <TextView
@@ -46,11 +49,13 @@
             style="@style/TextAppearance.AppCompat.Large"/>
         <EditText
             android:id="@+id/first_name"
+            android:inputType="textCapWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="First Name"/>
         <EditText
             android:id="@+id/last_name"
+            android:inputType="textCapWords"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Last Name"/>
