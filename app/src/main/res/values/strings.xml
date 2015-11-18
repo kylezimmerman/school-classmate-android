@@ -12,4 +12,9 @@
 
     <string name="title_activity_register">Register</string>
     <string name="logout">Logout</string>
+    <string name="account_info">Account Info</string>
+    <string name="email_address">Email Address</string>
+    <string name="about_you">About You</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 </resources>
