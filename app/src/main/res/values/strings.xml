@@ -10,6 +10,10 @@
     <string name="password">Password</string>
     <string name="register">Register</string>
 
+    <string name="missingUserName">Please enter in your username</string>
+    <string name="missingPassword">Please enter in your password</string>
+    <string name="failedLogin">Username or Password incorrect please try again</string>
+
     <string name="title_activity_register">Register</string>
     <string name="logout">Logout</string>
     <string name="account_info">Account Info</string>

@@ -16,21 +16,14 @@ import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseActivity;
 
 public class UserLoginActivity extends BaseActivity {
-
-    Button login;
-    Button register;
-
-    private final static String NOUSERNAME = "Please enter in your username";
-    private final static String NOPASSWORD = "Please enter in your password";
-    private final static String BADLOGIN = "Username or Password incorrect please try again";
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
 
-        login = (Button) findViewById(R.id.login_button);
-        register = (Button) findViewById(R.id.register_button);
+        Button login = (Button) findViewById(R.id.login_button);
+        Button register = (Button) findViewById(R.id.register_button);
 
         login.setOnClickListener(attemptLogin);
         register.setOnClickListener(registerUser);
@@ -45,11 +38,11 @@ public class UserLoginActivity extends BaseActivity {
 
             if (userName.getText() == null || userName.getText().length() == 0){
                 userName.requestFocus();
-                Toast.makeText(getApplicationContext(), NOUSERNAME, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.missingUserName, Toast.LENGTH_SHORT).show();
             }
             else if(password.getText() == null || password.getText().length() == 0){
                 password.requestFocus();
-                Toast.makeText(getApplicationContext(), NOPASSWORD, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.missingPassword, Toast.LENGTH_SHORT).show();
             }
             else{
                 ParseUser.logInInBackground(userName.getText().toString(), password.getText().toString(), new LogInCallback() {
@@ -60,7 +53,7 @@ public class UserLoginActivity extends BaseActivity {
                             startActivity(mainActivity);
 
                         } else {
-                            Toast.makeText(getApplicationContext(), BADLOGIN, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getApplicationContext(), R.string.failedLogin, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
