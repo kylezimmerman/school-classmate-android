@@ -1,5 +1,6 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.prog3210.classmate.courses.CourseListFragment">
 
@@ -7,6 +8,5 @@
         android:id="@+id/course_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/course_list_item"
-        android:paddingLeft="@dimen/activity_horizontal_margin" />
+        tools:listitem="@layout/course_list_item" />
 </FrameLayout>
