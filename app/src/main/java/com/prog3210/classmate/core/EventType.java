@@ -2,6 +2,7 @@ package com.prog3210.classmate.core;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 
 @ParseClassName("EventType")
 public class EventType extends ParseObject{
@@ -10,5 +11,9 @@ public class EventType extends ParseObject{
     }
     public void setTypeName(String typeName) {
         put("typeName", typeName);
+    }
+
+    public static ParseQuery<EventType> getQuery(){
+        return new ParseQuery(EventType.class);
     }
 }
