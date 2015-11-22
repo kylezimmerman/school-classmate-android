@@ -10,12 +10,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseException;
-import com.parse.ParseQuery;
-import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.Semester;
+import com.prog3210.classmate.core.SemesterAdapter;
 
 public class CreateCourseActivity extends AppCompatActivity {
 
@@ -24,15 +24,8 @@ public class CreateCourseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_create);
 
-        ParseQueryAdapter.QueryFactory<Semester> factory =
-                new ParseQueryAdapter.QueryFactory<Semester>() {
-                    @Override
-                    public ParseQuery<Semester> create() {
-                        return Semester.getQuery();
-                    }
-                };
         Spinner semesterSpinner = (Spinner)findViewById(R.id.semester);
-        ParseQueryAdapter<Semester> semesterAdapter = new ParseQueryAdapter<>(this, factory);
+        SemesterAdapter semesterAdapter = new SemesterAdapter(this);
         semesterAdapter.setTextKey("semesterName");
         semesterSpinner.setAdapter(semesterAdapter);
 
@@ -84,6 +77,7 @@ public class CreateCourseActivity extends AppCompatActivity {
         course.setYear(Integer.parseInt(year.getText().toString()));
         course.setTeacherName(teacherName.getText().toString());
         course.setSemester((Semester) semester.getSelectedItem());
+        course.setCreator(ParseUser.getCurrentUser());
 
         course.saveInBackground(new SaveCallback() {
             @Override
