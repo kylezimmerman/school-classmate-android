@@ -66,4 +66,8 @@ public class Course extends ParseObject {
     public static ParseQuery<Course> getQuery() {
         return new ParseQuery<Course>(Course.class);
     }
+
+    public static void addMember(Course course){
+        course.getRelation("members").add(ClassmateUser.getCurrentUser());
+    }
 }
