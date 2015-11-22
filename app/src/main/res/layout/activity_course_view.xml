@@ -29,8 +29,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_marginTop="10dp"
-        android:padding="10dp"
-        android:background="@android:color/lighter_gray">
+        android:padding="10dp">
 
         <TextView
             android:id="@+id/course_info_head"
