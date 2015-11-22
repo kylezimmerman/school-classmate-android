@@ -9,8 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.parse.ParseRelation;
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.ClassmateUser;
 
 public class JoinCourseActivity extends AppCompatActivity {
 
@@ -38,6 +41,8 @@ public class JoinCourseActivity extends AppCompatActivity {
         });
     }
 
+                Course.addMember(course);
+                Toast.makeText(JoinCourseActivity.this ,"work", Toast.LENGTH_SHORT).show();
 
     private AdapterView.OnItemClickListener Selected = new AdapterView.OnItemClickListener() {
         @Override

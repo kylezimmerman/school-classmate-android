@@ -4,6 +4,7 @@ import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
+import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.Semester;
 
 @ParseClassName("Course")
@@ -55,5 +56,9 @@ public class Course extends ParseObject {
 
     public static ParseQuery<Course> getQuery() {
         return new ParseQuery<Course>(Course.class);
+    }
+
+    public static void addMember(Course course){
+        course.getRelation("members").add(ClassmateUser.getCurrentUser());
     }
 }
