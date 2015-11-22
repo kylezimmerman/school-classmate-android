@@ -82,7 +82,6 @@
             android:layout_toRightOf="@id/course_date_head"
             android:layout_alignBaseline="@id/course_date_head"
             android:paddingLeft="5dp"/>
-
     </RelativeLayout>
 
     <TextView

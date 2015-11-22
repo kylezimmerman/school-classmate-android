@@ -38,6 +38,10 @@
             android:label="@string/title_activity_course_view"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".courses.JoinCourseActivity"
+            android:label="@string/title_activity_join_course" >
+        </activity>
     </application>
 
 </manifest>
