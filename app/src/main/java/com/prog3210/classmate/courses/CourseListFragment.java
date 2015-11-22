@@ -4,12 +4,15 @@ package com.prog3210.classmate.courses;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.parse.ParseObject;
 import com.prog3210.classmate.R;
 
 /**
@@ -24,22 +27,31 @@ import com.prog3210.classmate.R;
 
             final CourseAdapter courseAdapter = new CourseAdapter(getActivity());
 
-        ListView courseList = (ListView)view.findViewById(R.id.course_list);
+            ListView courseList = (ListView)view.findViewById(R.id.course_list);
 
-        courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Course course = courseAdapter.getItem(position);
+            courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                    Course course = courseAdapter.getItem(position);
 
-                Intent viewCourseIntent = new Intent(getActivity(), CourseViewActivity.class);
-                viewCourseIntent.putExtra("course_id", course.getObjectId());
-                startActivity(viewCourseIntent);
-            }
-        });
+                    Intent viewCourseIntent = new Intent(getActivity(), CourseViewActivity.class);
+                    viewCourseIntent.putExtra("course_id", course.getObjectId());
+                    startActivity(viewCourseIntent);
+                }
+            });
 
-        courseList.setAdapter(courseAdapter);
+            FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.join_course_button);
+            fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent joinCourseIntent = new Intent(getActivity(), JoinCourseActivity.class);
+                    startActivity(joinCourseIntent);
+                }
+            });
 
-        return view;
+            courseList.setAdapter(courseAdapter);
+
+            return view;
     }
 
 
