@@ -22,7 +22,6 @@ public class CourseViewActivity extends AppCompatActivity {
         String courseId = k.getStringExtra("course_id");
 
         ParseQuery<Course> query = ParseQuery.getQuery(Course.class);
-
         query.getInBackground(courseId, new GetCallback<Course>() {
             @Override
             public void done(Course object, ParseException e) {
