@@ -31,7 +31,8 @@
         </activity>
         <activity
             android:name=".user.RegisterActivity"
-            android:label="@string/title_activity_register" >
+            android:label="@string/title_activity_register"
+            android:windowSoftInputMode="stateVisible|adjustResize">
         </activity>
         <activity
             android:name=".courses.CourseViewActivity"
