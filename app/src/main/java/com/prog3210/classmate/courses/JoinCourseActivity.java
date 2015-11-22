@@ -3,6 +3,7 @@ package com.prog3210.classmate.courses;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,16 +47,26 @@ public class JoinCourseActivity extends AppCompatActivity {
     private AdapterView.OnItemClickListener Selected = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            Course course = courseAdapter.getItem(position);
+            final Course course = courseAdapter.getItem(position);
 
            course.addMember(new SaveCallback() {
                @Override
                public void done(ParseException e) {
+
+                   final View coordinatorLayout = findViewById(R.id.snackbar);
+
                    if (e == null) {
-                       Toast.makeText(JoinCourseActivity.this, "worked", Toast.LENGTH_SHORT).show();
+                       Snackbar.make(coordinatorLayout, "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
+                               .setAction("UNDO", new View.OnClickListener() {
+                                   @Override
+                                   public void onClick(View view) {
+                                       Toast.makeText(JoinCourseActivity.this, "this will remove user from the course", Toast.LENGTH_SHORT).show();
+                                   }
+                               }).show();
+                       finish();
                    }
                    else{
-                       Toast.makeText(JoinCourseActivity.this, "nope", Toast.LENGTH_SHORT).show();
+                       Toast.makeText(JoinCourseActivity.this, "join failed", Toast.LENGTH_SHORT).show();
                    }
                }
            });
