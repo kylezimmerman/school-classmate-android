@@ -32,4 +32,8 @@ public class ClassmateUser extends ParseUser {
         Intent loginIntent = new Intent(context, UserLoginActivity.class);
         context.startActivity(loginIntent);
     }
+
+    public static ClassmateUser getCurrentUser() {
+        return (ClassmateUser)ParseUser.getCurrentUser();
+    }
 }
