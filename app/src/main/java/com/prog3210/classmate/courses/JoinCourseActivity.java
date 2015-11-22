@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,28 +31,18 @@ public class JoinCourseActivity extends AppCompatActivity {
         courseList.setAdapter(courseAdapter);
 
         courseList.setOnItemClickListener(Selected);
+        }
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.create_course_button);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        private AdapterView.OnItemClickListener Selected = new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent createCourseIntent = new Intent(view.getContext(), CreateCourseActivity.class);
-                startActivity(createCourseIntent);
-            }
-        });
-    }
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Course course = courseAdapter.getItem(position);
 
                 Course.addMember(course);
                 Toast.makeText(JoinCourseActivity.this ,"work", Toast.LENGTH_SHORT).show();
-
-    private AdapterView.OnItemClickListener Selected = new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-            Course course = courseAdapter.getItem(position);
-
-
-        }
-    };
+            }
+        };
 
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
