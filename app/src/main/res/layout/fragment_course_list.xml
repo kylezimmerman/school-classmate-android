@@ -13,6 +13,7 @@
         tools:listitem="@layout/course_list_item" />
 
     <android.support.design.widget.FloatingActionButton
+        android:id="@+id/join_course_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_white_24dp"
