@@ -13,19 +13,6 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
         super(context, createQueryFactory());
     }
 
-//    @Override
-//    public View getItemView(Semester semester, View view, ViewGroup parent) {
-//        if (view == null) {
-//            view = View.inflate(getContext(), R.layout.course_list_item, null);
-//        }
-//
-//        super.getItemView(semester, view, parent);
-//
-//        ((CourseItemView)view).updateValues(semester);
-//
-//        return view;
-//    }
-
     private static QueryFactory<Semester> createQueryFactory() {
         QueryFactory<Semester> factory = new QueryFactory<Semester>() {
             @Override
