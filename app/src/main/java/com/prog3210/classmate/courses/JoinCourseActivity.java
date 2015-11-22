@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import com.parse.ParseException;
+import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
 
 public class JoinCourseActivity extends AppCompatActivity {
@@ -38,13 +41,25 @@ public class JoinCourseActivity extends AppCompatActivity {
         });
     }
 
+
+
     private AdapterView.OnItemClickListener Selected = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             Course course = courseAdapter.getItem(position);
 
-            Course.addMember(course);
-            Toast.makeText(JoinCourseActivity.this ,"work", Toast.LENGTH_SHORT).show();
+           course.addMember(new SaveCallback() {
+               @Override
+               public void done(ParseException e) {
+                   if (e == null) {
+                       Toast.makeText(JoinCourseActivity.this, "worked", Toast.LENGTH_SHORT).show();
+                   }
+                   else{
+                       Toast.makeText(JoinCourseActivity.this, "nope", Toast.LENGTH_SHORT).show();
+                   }
+               }
+           });
+
         }
     };
 
