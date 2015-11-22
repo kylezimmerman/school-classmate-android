@@ -3,7 +3,10 @@ package com.prog3210.classmate.courses;
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
+import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.Semester;
 
 @ParseClassName("Course")
@@ -51,6 +54,13 @@ public class Course extends ParseObject {
     }
     public void setCreator(ParseUser creator) {
         put("creator", creator);
+    }
+
+    public void leave(SaveCallback saveCallback) {
+        ParseRelation<ClassmateUser> members = getRelation("members");
+        members.remove(ClassmateUser.getCurrentUser());
+
+        saveInBackground(saveCallback);
     }
 
     public static ParseQuery<Course> getQuery() {
