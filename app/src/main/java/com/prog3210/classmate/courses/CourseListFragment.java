@@ -1,6 +1,7 @@
 package com.prog3210.classmate.courses;
 
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.parse.GetCallback;
+import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.prog3210.classmate.R;
 
 /**
@@ -68,7 +73,7 @@ import com.prog3210.classmate.R;
                 @Override
                 public void onClick(View view) {
                     Intent joinCourseIntent = new Intent(getActivity(), JoinCourseActivity.class);
-                    startActivity(joinCourseIntent);
+                    startActivityForResult(joinCourseIntent, 1);
                 }
             });
 
@@ -77,5 +82,39 @@ import com.prog3210.classmate.R;
             return view;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == 1){
+            if (resultCode == Activity.RESULT_OK){
+                Course course = new Course();
+
+                ParseQuery<Course> query = ParseQuery.getQuery("Course");
+
+                query.getInBackground(data.getStringExtra("courseJoined"), new GetCallback<Course>() {
+                    @Override
+                    public void done(Course course, ParseException e) {
+                        if (e == null) {
+                            final View coordinatorLayout = getView().findViewById(R.id.snackbar);
+                            Snackbar.make(coordinatorLayout, "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
+                                    .setAction("UNDO", new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View view) {
+                                            Toast.makeText(getActivity(), "this will remove user from the course", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).show();
+                        } else {
+
+                        }
+                    }
+                });
+
+
+
+
+            }
+        }
+
+    }
 }
