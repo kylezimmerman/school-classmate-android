@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
 import com.prog3210.classmate.R;
 
 /**
@@ -14,7 +15,11 @@ import com.prog3210.classmate.R;
 public class CourseAdapter extends ParseQueryAdapter<Course> {
 
     public CourseAdapter(Context context) {
-        super(context, createQueryFactory());
+        this(context, false);
+    }
+
+    public CourseAdapter(Context context, boolean showOnlyJoinedCourses) {
+        super(context, createQueryFactory(showOnlyJoinedCourses));
     }
 
     @Override
@@ -30,12 +35,16 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         return view;
     }
 
-    private static QueryFactory<Course> createQueryFactory() {
+    private static QueryFactory<Course> createQueryFactory(final boolean showOnlyJoinedCourses) {
         QueryFactory<Course> factory = new QueryFactory<Course>() {
             @Override
             public ParseQuery<Course> create() {
                 ParseQuery<Course> query = Course.getQuery();
                 query.include("semester");
+
+                if (showOnlyJoinedCourses) {
+                    query.whereEqualTo("members", ParseUser.getCurrentUser());
+                }
 
                 return query;
             }
