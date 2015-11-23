@@ -122,8 +122,8 @@ import com.prog3210.classmate.R;
                     public void done(final Course course, ParseException e) {
                         if (e == null) {
 
-                            final View coordinatorLayout = getView().findViewById(R.id.snackbar);
-                            Snackbar.make(coordinatorLayout, "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
+                            Snackbar.make(getView(), "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
+
                                     .setAction("UNDO", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
