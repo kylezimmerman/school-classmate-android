@@ -31,12 +31,14 @@ import com.prog3210.classmate.R;
     */
     public class CourseListFragment extends Fragment {
 
+        private CourseAdapter courseAdapter;
+
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             final View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-            final CourseAdapter courseAdapter = new CourseAdapter(getActivity(), true);
+            courseAdapter = new CourseAdapter(getActivity(), true);
 
             ListView courseList = (ListView)view.findViewById(R.id.course_list);
 
@@ -112,31 +114,34 @@ import com.prog3210.classmate.R;
 
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
-                Course course = new Course();
 
                 ParseQuery<Course> query = ParseQuery.getQuery("Course");
 
                 query.getInBackground(data.getStringExtra("courseJoined"), new GetCallback<Course>() {
                     @Override
-                    public void done(Course course, ParseException e) {
+                    public void done(final Course course, ParseException e) {
                         if (e == null) {
+
                             final View coordinatorLayout = getView().findViewById(R.id.snackbar);
                             Snackbar.make(coordinatorLayout, "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
                                     .setAction("UNDO", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
-                                            Toast.makeText(getActivity(), "this will remove user from the course", Toast.LENGTH_SHORT).show();
+                                            course.leave(new SaveCallback() {
+                                                @Override
+                                                public void done(ParseException e) {
+                                                    Toast.makeText(getActivity(), "User removed from course", Toast.LENGTH_SHORT).show();
+                                                    courseAdapter.loadObjects();
+                                                }
+                                            });
                                         }
                                     }).show();
+                            courseAdapter.loadObjects();
                         } else {
 
                         }
                     }
                 });
-
-
-
-
             }
         }
 
