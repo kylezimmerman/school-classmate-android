@@ -38,6 +38,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
             public void onClick(View view) {
                 Intent createCourseIntent = new Intent(view.getContext(), CreateCourseActivity.class);
                 startActivity(createCourseIntent);
+                finish();
             }
         });
     }
