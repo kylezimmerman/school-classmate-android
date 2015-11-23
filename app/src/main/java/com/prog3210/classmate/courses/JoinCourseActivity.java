@@ -58,8 +58,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
                        result.putExtra("courseJoined", course.getObjectId());
                        setResult(Activity.RESULT_OK, result);
                        finish();
-                   }
-                   else{
+                   } else {
                        Toast.makeText(JoinCourseActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                    }
                }
