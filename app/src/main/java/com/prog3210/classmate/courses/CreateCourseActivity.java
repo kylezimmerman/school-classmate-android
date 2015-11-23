@@ -70,7 +70,7 @@ public class CreateCourseActivity extends AppCompatActivity {
             return;
         }
 
-        Course course = new Course();
+        final Course course = new Course();
         course.setCourseCode(courseCode.getText().toString());
         course.setSection(section.getText().toString());
         course.setName(name.getText().toString());
@@ -84,6 +84,7 @@ public class CreateCourseActivity extends AppCompatActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     Intent openMainIntent = new Intent(CreateCourseActivity.this, MainActivity.class);
+                    Toast.makeText(CreateCourseActivity.this, "Successfully created " + course.getName() + "!", Toast.LENGTH_LONG).show();
                     startActivity(openMainIntent);
                     finish();
                 } else {
