@@ -22,8 +22,7 @@
         </activity>
         <activity
             android:name=".courses.CreateCourseActivity"
-            android:label="@string/title_activity_create_course"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:label="@string/title_activity_create_course">
         </activity>
         <activity
             android:name=".user.UserLoginActivity"
