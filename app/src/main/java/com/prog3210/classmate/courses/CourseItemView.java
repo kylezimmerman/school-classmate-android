@@ -12,7 +12,7 @@ import com.prog3210.classmate.R;
  */
 public class CourseItemView extends LinearLayout {
 
-    TextView courseCode;
+    TextView courseCodeSection;
     TextView courseName;
     TextView teacherName;
     TextView semesterName;
@@ -34,7 +34,7 @@ public class CourseItemView extends LinearLayout {
     }
 
     private void getViews() {
-        courseCode = (TextView)findViewById(R.id.course_code);
+        courseCodeSection = (TextView)findViewById(R.id.course_code);
         courseName = (TextView)findViewById(R.id.course_name);
         teacherName = (TextView)findViewById(R.id.teacher_name);
         semesterName = (TextView)findViewById(R.id.semester);
@@ -44,7 +44,7 @@ public class CourseItemView extends LinearLayout {
     public void updateValues(Course course) {
         getViews();
 
-        courseCode.setText(course.getCourseCode());
+        courseCodeSection.setText(course.getCourseCode() + " - " + course.getSection());
         courseName.setText(course.getName());
         teacherName.setText(course.getTeacherName());
         semesterName.setText(course.getSemester().getSemesterName());
