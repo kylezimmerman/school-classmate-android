@@ -10,8 +10,10 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.BaseActivity;
+import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 
-public class CourseViewActivity extends AppCompatActivity {
+public class CourseViewActivity extends BaseAuthenticatedActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

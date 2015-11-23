@@ -16,8 +16,10 @@ import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.BaseActivity;
+import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 
-public class JoinCourseActivity extends AppCompatActivity {
+public class JoinCourseActivity extends BaseAuthenticatedActivity {
 
     private CourseAdapter courseAdapter;
 
@@ -57,8 +59,7 @@ public class JoinCourseActivity extends AppCompatActivity {
                        result.putExtra("courseJoined", course.getObjectId());
                        setResult(Activity.RESULT_OK, result);
                        finish();
-                   }
-                   else{
+                   } else {
                        Toast.makeText(JoinCourseActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                    }
                }

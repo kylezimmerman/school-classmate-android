@@ -14,10 +14,12 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.BaseActivity;
+import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.core.SemesterAdapter;
 
-public class CreateCourseActivity extends AppCompatActivity {
+public class CreateCourseActivity extends BaseAuthenticatedActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
