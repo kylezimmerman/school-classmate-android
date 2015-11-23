@@ -14,12 +14,14 @@ import com.prog3210.classmate.R;
  */
 public class CourseAdapter extends ParseQueryAdapter<Course> {
 
-    public CourseAdapter(Context context) {
-        this(context, false);
+    public enum FilterMode {
+        All,
+        Joined,
+        Unjoined
     }
 
-    public CourseAdapter(Context context, boolean showOnlyJoinedCourses) {
-        super(context, createQueryFactory(showOnlyJoinedCourses));
+    public CourseAdapter(Context context, FilterMode mode) {
+        super(context, createQueryFactory(mode));
     }
 
     @Override
@@ -35,15 +37,17 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         return view;
     }
 
-    private static QueryFactory<Course> createQueryFactory(final boolean showOnlyJoinedCourses) {
+    private static QueryFactory<Course> createQueryFactory(final FilterMode filterMode) {
         QueryFactory<Course> factory = new QueryFactory<Course>() {
             @Override
             public ParseQuery<Course> create() {
                 ParseQuery<Course> query = Course.getQuery();
                 query.include("semester");
 
-                if (showOnlyJoinedCourses) {
+                if (filterMode == FilterMode.Joined) {
                     query.whereEqualTo("members", ParseUser.getCurrentUser());
+                } else if (filterMode == FilterMode.Unjoined) {
+                    query.whereNotEqualTo("members", ParseUser.getCurrentUser());
                 }
 
                 return query;

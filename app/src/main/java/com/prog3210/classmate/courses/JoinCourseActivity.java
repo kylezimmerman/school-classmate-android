@@ -27,7 +27,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_join);
 
-        courseAdapter = new CourseAdapter(this);
+        courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
 
         ListView courseList = (ListView) findViewById(R.id.joinCourseList);
         courseList.setAdapter(courseAdapter);

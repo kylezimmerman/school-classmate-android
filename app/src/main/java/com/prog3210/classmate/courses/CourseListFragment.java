@@ -38,7 +38,7 @@ import com.prog3210.classmate.R;
                                  Bundle savedInstanceState) {
             final View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-            courseAdapter = new CourseAdapter(getActivity(), true);
+            courseAdapter = new CourseAdapter(getActivity(), CourseAdapter.FilterMode.Joined);
 
             ListView courseList = (ListView)view.findViewById(R.id.course_list);
 
