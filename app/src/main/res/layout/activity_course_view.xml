@@ -3,94 +3,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context="com.prog3210.classmate.courses.CourseViewActivity">
 
-    <TextView
-        android:id="@+id/course_code"
-        android:text="@string/course_code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Headline"/>
+    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
 
-    <TextView
-        android:id="@+id/course_name"
-        android:text="@string/course_name"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        style="@style/TextAppearance.AppCompat.Headline"/>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="10dp"
-        android:padding="10dp">
-
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin">
         <TextView
-            android:id="@+id/course_info_head"
-            android:text="@string/course_info_head"
+            android:id="@+id/course_code"
+            android:text="@string/course_code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Body2"/>
+            style="@style/TextAppearance.AppCompat.Headline"/>
 
         <TextView
-            android:id="@+id/course_section_head"
-            android:layout_width="wrap_content"
+            android:id="@+id/course_name"
+            android:text="@string/course_name"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/course_section_head"
-            android:layout_below="@id/course_info_head"/>
+            style="@style/TextAppearance.AppCompat.Headline"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="10dp"
+            android:padding="10dp">
+
+            <TextView
+                android:id="@+id/course_info_head"
+                android:text="@string/course_info_head"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextAppearance.AppCompat.Body2"/>
+
+            <TextView
+                android:id="@+id/course_section_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_section_head"
+                android:layout_below="@id/course_info_head"/>
+
+            <TextView
+                android:id="@+id/course_section"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/course_section_head"
+                android:layout_alignBaseline="@id/course_section_head"
+                android:paddingLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/course_instructor_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_instructor_head"
+                android:layout_below="@id/course_section_head"/>
+
+            <TextView
+                android:id="@+id/course_instructor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/course_instructor_head"
+                android:layout_alignBaseline="@id/course_instructor_head"
+                android:paddingLeft="5dp"/>
+
+            <TextView
+                android:id="@+id/course_date_head"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/course_date_head"
+                android:layout_below="@id/course_instructor_head"/>
+
+            <TextView
+                android:id="@+id/course_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/course_date_head"
+                android:layout_alignBaseline="@id/course_date_head"
+                android:paddingLeft="5dp"/>
+        </RelativeLayout>
 
         <TextView
-            android:id="@+id/course_section"
-            android:layout_width="wrap_content"
+            android:id="@+id/event_list_head"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/course_section_head"
-            android:layout_alignBaseline="@id/course_section_head"
-            android:paddingLeft="5dp"/>
-
-        <TextView
-            android:id="@+id/course_instructor_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/course_instructor_head"
-            android:layout_below="@id/course_section_head"/>
-
-        <TextView
-            android:id="@+id/course_instructor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/course_instructor_head"
-            android:layout_alignBaseline="@id/course_instructor_head"
-            android:paddingLeft="5dp"/>
-
-        <TextView
-            android:id="@+id/course_date_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/course_date_head"
-            android:layout_below="@id/course_instructor_head"/>
-
-        <TextView
-            android:id="@+id/course_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/course_date_head"
-            android:layout_alignBaseline="@id/course_date_head"
-            android:paddingLeft="5dp"/>
-    </RelativeLayout>
-
-    <TextView
-        android:id="@+id/event_list_head"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/event_list_head"
-        android:layout_marginTop="10dp"
-        style="@style/TextAppearance.AppCompat.Headline"/>
+            android:text="@string/event_list_head"
+            android:layout_marginTop="10dp"
+            style="@style/TextAppearance.AppCompat.Headline"/>
+    </LinearLayout>
 
     <!-- TODO: Put the event list frame here -->
 </LinearLayout>

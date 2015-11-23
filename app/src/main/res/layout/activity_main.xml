@@ -1,12 +1,17 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
+    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
 
     <fragment
         android:id="@+id/course_list_fragment"
         android:name="com.prog3210.classmate.courses.CourseListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_course_list" />
-</RelativeLayout>
+        tools:layout="@layout/fragment_course_list"
+        android:layout_marginTop="?attr/actionBarSize"/>
+</android.support.design.widget.CoordinatorLayout>
