@@ -2,4 +2,5 @@
     <color name="bluetrain">#3A5894</color>
     <color name="primary_color">#3A5894</color>
     <color name="primary_color_dark">#132F67</color>
+    <color name="accent_color">#C46924</color>
 </resources>
