@@ -16,10 +16,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+
+import com.parse.SaveCallback;
+
 import com.prog3210.classmate.R;
 
 /**
@@ -30,9 +34,9 @@ import com.prog3210.classmate.R;
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View view = inflater.inflate(R.layout.fragment_course_list, container, false);
+            final View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
-            final CourseAdapter courseAdapter = new CourseAdapter(getActivity());
+            final CourseAdapter courseAdapter = new CourseAdapter(getActivity(), true);
 
             ListView courseList = (ListView)view.findViewById(R.id.course_list);
 
@@ -49,7 +53,7 @@ import com.prog3210.classmate.R;
 
             courseList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
-                public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                public boolean onItemLongClick(AdapterView<?> adapterView, View v, int position, long id) {
                     final Course course = courseAdapter.getItem(position);
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -58,7 +62,27 @@ import com.prog3210.classmate.R;
                     builder.setPositiveButton(R.string.leave, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialogInterface, int i) {
-                            course.leave(null);
+                            course.leave(new SaveCallback() {
+                                @Override
+                                public void done(ParseException e) {
+                                    if (e == null) {
+                                        courseAdapter.loadObjects();
+                                        Snackbar.make(view, "Left course", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                                            @Override
+                                            public void onClick(View view) {
+                                                course.addMember(new SaveCallback() {
+                                                    @Override
+                                                    public void done(ParseException e) {
+                                                        courseAdapter.loadObjects();
+                                                    }
+                                                });
+                                            }
+                                        }).show();
+                                    } else {
+                                        Toast.makeText(getActivity(), "Error leaving course", Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            });
                         }
                     });
                     builder.setNegativeButton(R.string.cancel, null);
