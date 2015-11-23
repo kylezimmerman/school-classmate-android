@@ -121,29 +121,29 @@ import com.prog3210.classmate.R;
                     @Override
                     public void done(final Course course, ParseException e) {
                         if (e == null) {
-
                             Snackbar.make(getView(), "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
-
                                     .setAction("UNDO", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
                                             course.leave(new SaveCallback() {
                                                 @Override
                                                 public void done(ParseException e) {
-                                                    Toast.makeText(getActivity(), "User removed from course", Toast.LENGTH_SHORT).show();
-                                                    courseAdapter.loadObjects();
+                                                    if (e == null) {
+                                                        courseAdapter.loadObjects();
+                                                    } else {
+                                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                                                    }
                                                 }
                                             });
                                         }
                                     }).show();
                             courseAdapter.loadObjects();
                         } else {
-
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
                         }
                     }
                 });
             }
         }
-
     }
 }
