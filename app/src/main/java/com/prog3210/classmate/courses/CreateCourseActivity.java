@@ -2,7 +2,6 @@ package com.prog3210.classmate.courses;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -10,12 +9,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
-import com.prog3210.classmate.core.BaseActivity;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.core.SemesterAdapter;
 
@@ -81,12 +81,14 @@ public class CreateCourseActivity extends BaseAuthenticatedActivity {
         course.setSemester((Semester) semester.getSelectedItem());
         course.setCreator(ParseUser.getCurrentUser());
 
+        ParseRelation<ClassmateUser> members = course.getRelation("members");
+        members.add(ClassmateUser.getCurrentUser());
+
         course.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
                     Intent openMainIntent = new Intent(CreateCourseActivity.this, MainActivity.class);
-                    Toast.makeText(CreateCourseActivity.this, "Successfully created " + course.getName() + "!", Toast.LENGTH_LONG).show();
                     startActivity(openMainIntent);
                     finish();
                 } else {

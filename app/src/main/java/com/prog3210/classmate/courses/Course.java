@@ -67,7 +67,7 @@ public class Course extends ParseObject {
         return new ParseQuery<Course>(Course.class);
     }
 
-    public void addMember(SaveCallback saveCallback){
+    public void join(SaveCallback saveCallback){
 
         ParseRelation<ClassmateUser> members = getRelation("members");
         members.add(ClassmateUser.getCurrentUser());

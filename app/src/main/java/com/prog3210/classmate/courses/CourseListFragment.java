@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import com.parse.SaveCallback;
@@ -72,7 +71,7 @@ import com.prog3210.classmate.R;
                                         Snackbar.make(view, "Left course", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
                                             @Override
                                             public void onClick(View view) {
-                                                course.addMember(new SaveCallback() {
+                                                course.join(new SaveCallback() {
                                                     @Override
                                                     public void done(ParseException e) {
                                                         courseAdapter.loadObjects();
