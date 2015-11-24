@@ -12,6 +12,16 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/course_list_item" />
 
+    <TextView
+        android:id="@+id/empty_list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:padding="@dimen/abc_control_padding_material"
+        style="@style/TextAppearance.AppCompat.Headline"
+        android:visibility="gone"
+        android:text="@string/empty_course_list_message"/>
+
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/join_course_button"
         android:layout_width="wrap_content"
@@ -21,4 +31,13 @@
         app:layout_anchorGravity="bottom|right|end"
         android:layout_margin="@dimen/fab_margin"
         />
+
+    <ProgressBar
+        android:id="@+id/loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:progressBarStyleLarge"
+        android:layout_gravity="center"
+        android:visibility="gone">
+    </ProgressBar>
 </android.support.design.widget.CoordinatorLayout>

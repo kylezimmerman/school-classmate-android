@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 
@@ -21,9 +22,12 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 
+import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 
 import com.prog3210.classmate.R;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,9 +41,23 @@ import com.prog3210.classmate.R;
                                  Bundle savedInstanceState) {
             final View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
+            final ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.loading);
+
             courseAdapter = new CourseAdapter(getActivity(), CourseAdapter.FilterMode.Joined);
+            courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
+                @Override
+                public void onLoading() {
+                    progressBar.setVisibility(View.VISIBLE);
+                }
+
+                @Override
+                public void onLoaded(List<Course> objects, Exception e) {
+                    progressBar.setVisibility(View.GONE);
+                }
+            });
 
             ListView courseList = (ListView)view.findViewById(R.id.course_list);
+            courseList.setEmptyView(view.findViewById(R.id.empty_list_view));
 
             courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
