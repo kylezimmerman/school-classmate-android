@@ -28,12 +28,10 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_join);
-
-        courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
-
-        ListView courseList = (ListView) findViewById(R.id.joinCourseList);
         EditText search = (EditText) findViewById(R.id.searchListView);
 
+        courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
+        ListView courseList = (ListView) findViewById(R.id.joinCourseList);
         courseList.setAdapter(courseAdapter);
         courseList.setOnItemClickListener(selectedCourse);
 
