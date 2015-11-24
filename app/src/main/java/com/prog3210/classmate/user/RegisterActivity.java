@@ -77,6 +77,10 @@ public class RegisterActivity extends BaseActivity {
             public void done(ParseException e) {
                if (e == null) {
                    Intent openMainIntent = new Intent(RegisterActivity.this, MainActivity.class);
+
+                   //This starts the main activity and clears the back stack
+                   openMainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
                    startActivity(openMainIntent);
                    finish();
                } else {
