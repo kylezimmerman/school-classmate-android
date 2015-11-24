@@ -4,13 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.prog3210.classmate.courses.CourseListFragment">
+    tools:context="com.prog3210.classmate.events.EventListFragment">
 
     <ListView
-        android:id="@+id/course_list"
+        android:id="@+id/event_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/course_list_item" />
+        tools:listitem="@layout/event_list_item" />
 
     <TextView
         android:id="@+id/empty_list_view"
@@ -20,14 +20,14 @@
         android:padding="@dimen/abc_control_padding_material"
         style="@style/TextAppearance.AppCompat.Headline"
         android:visibility="gone"
-        android:text="@string/empty_course_list_message"/>
+        android:text="@string/empty_event_list_message"/>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/join_course_button"
+        android:id="@+id/add_event_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_white_24dp"
-        app:layout_anchor="@id/course_list"
+        app:layout_anchor="@id/event_list"
         app:layout_anchorGravity="bottom|right|end"
         android:layout_margin="@dimen/fab_margin"
         />

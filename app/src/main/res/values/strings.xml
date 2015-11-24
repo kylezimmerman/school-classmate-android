@@ -44,4 +44,7 @@
     <string name="confirm_leave_course" formatted="false">Do you want to leave \'%s - %s\'?</string>
     <string name="leave">Leave</string>
     <string name="cancel">Cancel</string>
+    <string name="empty_course_list_message">Welcome!\n\nGet started by adding some courses.</string>
+
+    <string name="empty_event_list_message">You have no events.</string>
 </resources>

@@ -48,6 +48,9 @@ public class UserLoginActivity extends BaseActivity {
                     public void done(ParseUser user, com.parse.ParseException e) {
                         if (user != null) {
                             Intent mainActivity = new Intent(UserLoginActivity.this, MainActivity.class);
+
+                            //This starts the main activity and clears the back stack
+                            mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             startActivity(mainActivity);
                             finish();
                         } else {
