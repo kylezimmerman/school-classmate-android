@@ -16,18 +16,16 @@
     <string name="missingPassword">Please enter in your password</string>
     <string name="failedLogin">Username or Password incorrect please try again</string>
 
-    <string name="course_info_head">Course Info</string>
     <string name="course_code">Course Code</string>
     <string name="course_section">Section</string>
     <string name="course_name">Name</string>
     <string name="year">Year</string>
     <string name="semester">Semester</string>
-    <string name="course_details_head">Course Details</string>
     <string name="course_desc">Description</string>
     <string name="teacher_name">Teacher Name</string>
-    <string name="course_instructor_head">Instructor:</string>
-    <string name="course_date_head">Date:</string>
-    <string name="course_section_head">Section:</string>
+    <string name="course_instructor_label">Instructor:</string>
+    <string name="course_date_label">Date:</string>
+    <string name="course_section_label">Section:</string>
 
     <string name="event_list_head">Events</string>
 
