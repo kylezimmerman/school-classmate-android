@@ -3,6 +3,8 @@ package com.prog3210.classmate.courses;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -12,7 +14,28 @@ import com.prog3210.classmate.R;
 /**
  * Created by kzimmerman on 11/18/2015.
  */
-public class CourseAdapter extends ParseQueryAdapter<Course> {
+public class CourseAdapter extends ParseQueryAdapter<Course> implements Filterable {
+
+    private static ParseQuery<Course> query;
+
+    @Override
+    public Filter getFilter() {
+        final ParseQuery<Course> querySearch = query;
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                querySearch.whereContains("courseCode", charSequence.toString());
+
+                //FilterResults results = FilterResults
+                return null;
+            }
+
+            @Override
+            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
+            }
+        };
+    }
 
     public enum FilterMode {
         All,
@@ -41,7 +64,7 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         QueryFactory<Course> factory = new QueryFactory<Course>() {
             @Override
             public ParseQuery<Course> create() {
-                ParseQuery<Course> query = Course.getQuery();
+                query = Course.getQuery();
                 query.include("semester");
 
                 if (filterMode == FilterMode.Joined) {

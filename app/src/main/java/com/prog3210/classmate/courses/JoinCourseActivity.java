@@ -2,12 +2,16 @@ package com.prog3210.classmate.courses;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,9 +32,27 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
 
         ListView courseList = (ListView) findViewById(R.id.joinCourseList);
-        courseList.setAdapter(courseAdapter);
+        EditText search = (EditText) findViewById(R.id.searchListView);
 
-        courseList.setOnItemClickListener(Selected);
+        courseList.setAdapter(courseAdapter);
+        courseList.setOnItemClickListener(selectedCourse);
+
+        search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.create_course_button);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -43,7 +65,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         });
     }
 
-    private AdapterView.OnItemClickListener Selected = new AdapterView.OnItemClickListener() {
+    private AdapterView.OnItemClickListener selectedCourse = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             final Course course = courseAdapter.getItem(position);
@@ -64,25 +86,4 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
            });
         }
     };
-
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_join_course, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 }
