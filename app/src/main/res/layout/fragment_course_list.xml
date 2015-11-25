@@ -6,11 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.prog3210.classmate.courses.CourseListFragment">
 
-    <ListView
-        android:id="@+id/course_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/course_list_item" />
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/course_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/course_list_item" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/empty_list_view"
@@ -38,6 +43,6 @@
         android:layout_height="wrap_content"
         style="?android:progressBarStyleLarge"
         android:layout_gravity="center"
-        android:visibility="gone">
+        android:visibility="visible">
     </ProgressBar>
 </android.support.design.widget.CoordinatorLayout>

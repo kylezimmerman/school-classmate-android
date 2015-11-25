@@ -1,12 +1,18 @@
 package com.prog3210.classmate;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.ClassmateUser;
+import com.prog3210.classmate.courses.CourseListFragment;
+import com.prog3210.classmate.events.EventListFragment;
 
 public class MainActivity extends BaseAuthenticatedActivity {
 
@@ -14,6 +20,13 @@ public class MainActivity extends BaseAuthenticatedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ViewPager viewPager = (ViewPager)findViewById(R.id.view_pager);
+        viewPager.setAdapter(new ClassmatePager(getSupportFragmentManager()));
+
+        TabLayout tabLayout = (TabLayout)findViewById(R.id.tab_layout);
+
+        tabLayout.setupWithViewPager(viewPager);
     }
 
     @Override
@@ -40,5 +53,45 @@ public class MainActivity extends BaseAuthenticatedActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public class ClassmatePager extends FragmentPagerAdapter {
+
+        private EventListFragment eventListFragment;
+        private CourseListFragment courseListFragment;
+
+        public ClassmatePager(FragmentManager fm) {
+            super(fm);
+
+            eventListFragment = new EventListFragment();
+            courseListFragment = new CourseListFragment();
+        }
+
+        @Override
+        public Fragment getItem(int i) {
+            if (i == 0) {
+                return eventListFragment;
+            } else if (i == 1) {
+                return courseListFragment;
+            }
+
+            return null;
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            if (position == 0) {
+                return "Events";
+            } else if (position == 1) {
+                return "Courses";
+            }
+
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return 2;
+        }
     }
 }

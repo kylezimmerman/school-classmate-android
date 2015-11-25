@@ -6,11 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.prog3210.classmate.events.EventListFragment">
 
-    <ListView
-        android:id="@+id/event_list"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/pull_to_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/event_list_item" />
+        android:layout_height="match_parent">
+        <ListView
+            android:id="@+id/event_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:listitem="@layout/event_list_item" />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
     <TextView
         android:id="@+id/empty_list_view"

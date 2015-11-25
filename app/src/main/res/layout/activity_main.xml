@@ -1,17 +1,45 @@
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <include layout="@layout/toolbar" android:id="@+id/toolbar" />
-
-    <fragment
-        android:id="@+id/course_list_fragment"
-        android:name="com.prog3210.classmate.courses.CourseListFragment"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout="@layout/fragment_course_list"
-        android:layout_marginTop="?attr/actionBarSize"/>
+        android:orientation="vertical">
+
+        <include layout="@layout/toolbar" android:id="@+id/toolbar" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabTextColor="@android:color/white"
+            app:tabSelectedTextColor="@android:color/white"
+            android:background="@color/primary_color"/>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+
+    <!--<fragment-->
+        <!--android:id="@+id/course_list_fragment"-->
+        <!--android:name="com.prog3210.classmate.courses.CourseListFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--tools:layout="@layout/fragment_course_list"-->
+        <!--android:layout_marginTop="?attr/actionBarSize"/>-->
+
+    <!--<fragment-->
+        <!--android:id="@+id/event_list_fragment"-->
+        <!--android:name="com.prog3210.classmate.events.EventListFragment"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--tools:layout="@layout/fragment_event_list"-->
+        <!--android:layout_marginTop="?attr/actionBarSize"/>-->
 </android.support.design.widget.CoordinatorLayout>

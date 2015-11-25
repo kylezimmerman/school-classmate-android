@@ -15,18 +15,18 @@
         android:layout_weight="1"
         android:orientation="vertical">
         <TextView
+            android:id="@+id/course_code"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Course Code"/>
+            android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/event_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/TextAppearance.AppCompat.Headline"
-            android:text="Event Name"/>
+            style="@style/TextAppearance.AppCompat.Headline" />
         <TextView
+            android:id="@+id/due_date"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Due Date"/>
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         android:layout_width="48dp"
@@ -34,12 +34,14 @@
         android:orientation="vertical"
         android:layout_gravity="center_vertical">
         <TextView
+            android:id="@+id/upvote_count"
             style="@style/vote_bar"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:background="@color/upvote_color"/>
         <TextView
+            android:id="@+id/downvote_count"
             style="@style/vote_bar"
-            android:layout_weight="1"
+            android:layout_weight="0"
             android:background="@color/downvote_color"/>
     </LinearLayout>
 

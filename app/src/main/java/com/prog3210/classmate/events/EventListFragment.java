@@ -3,16 +3,23 @@ package com.prog3210.classmate.events;
 
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
+import com.parse.ParseQueryAdapter;
+import com.parse.ParseUser;
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.BaseFragment;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends Fragment {
+public class EventListFragment extends BaseFragment {
 
 
     public EventListFragment() {
@@ -24,7 +31,36 @@ public class EventListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_event_list, container, false);
+
+        final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)view.findViewById(R.id.pull_to_refresh);
+        ListView eventList = (ListView)view.findViewById(R.id.event_list);
+
+
+        final EventAdapter eventAdapter = new EventAdapter(getActivity(), ParseUser.getCurrentUser());
+        eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
+            @Override
+            public void onLoading() {
+
+            }
+
+            @Override
+            public void onLoaded(List<Event> list, Exception e) {
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+        eventList.setAdapter(eventAdapter);
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                eventAdapter.loadObjects();
+            }
+        });
+
+        eventAdapter.loadObjects();
+        return view;
     }
 
 

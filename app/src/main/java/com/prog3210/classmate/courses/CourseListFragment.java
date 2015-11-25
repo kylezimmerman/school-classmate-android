@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.app.Fragment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,13 +27,14 @@ import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.BaseFragment;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
     */
-    public class CourseListFragment extends Fragment {
+    public class CourseListFragment extends BaseFragment {
 
         private CourseAdapter courseAdapter;
 
@@ -42,21 +44,30 @@ import java.util.List;
             final View view = inflater.inflate(R.layout.fragment_course_list, container, false);
 
             final ProgressBar progressBar = (ProgressBar)view.findViewById(R.id.loading);
+            ListView courseList = (ListView)view.findViewById(R.id.course_list);
+            FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.join_course_button);
+            final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)view.findViewById(R.id.pull_to_refresh);
 
             courseAdapter = new CourseAdapter(getActivity(), CourseAdapter.FilterMode.Joined);
             courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
                 @Override
                 public void onLoading() {
-                    progressBar.setVisibility(View.VISIBLE);
                 }
 
                 @Override
                 public void onLoaded(List<Course> objects, Exception e) {
                     progressBar.setVisibility(View.GONE);
+                    pullToRefresh.setRefreshing(false);
                 }
             });
 
-            ListView courseList = (ListView)view.findViewById(R.id.course_list);
+            pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+                @Override
+                public void onRefresh() {
+                    courseAdapter.loadObjects();
+                }
+            });
+
             courseList.setEmptyView(view.findViewById(R.id.empty_list_view));
 
             courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -111,7 +122,6 @@ import java.util.List;
                 }
             });
 
-            FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.join_course_button);
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
