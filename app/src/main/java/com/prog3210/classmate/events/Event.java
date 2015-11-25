@@ -8,6 +8,8 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.prog3210.classmate.core.EventType;
+import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.courses.Course;
 
 import java.text.DateFormat;
@@ -146,4 +148,8 @@ public class Event extends ParseObject {
     public static ParseQuery<Event> getQuery() {
         return new ParseQuery<Event>(Event.class);
     }
+    public EventType getEventType() {
+        return (EventType)getParseObject("eventtype");
+    }
+    public void setEventType(EventType eventType) { put("eventtype", eventType); }
 }
