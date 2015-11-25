@@ -54,7 +54,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
         courseInstructor.setText(course.getTeacherName());
 
         TextView courseDate = (TextView)findViewById(R.id.course_date);
-        courseDate.setText(course.getSemester().getSemesterName() + ' ' + course.getYear());
+        courseDate.setText(String.format("%s %s", course.getSemester().getSemesterName(), course.getYear()));
 
         View courseView = findViewById(R.id.course_view_layout);
         courseView.setVisibility(View.VISIBLE);
