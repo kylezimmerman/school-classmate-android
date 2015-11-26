@@ -53,4 +53,10 @@
     <string name="empty_event_list_message">You have no events.</string>
     <string name="title_activity_create_event">CreateEventActivity</string>
     <string name="title_activity_event_view">Event Details</string>
+
+    <string name="eventName">Event Name</string>
+    <string name="due">Due Date:</string>
+    <string name="description">Description</string>
+    <string name="gradeWorth">Percent Of Final Grade</string>
+    <string name="createEvent">Create Event</string>
 </resources>

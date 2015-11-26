@@ -42,8 +42,8 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
             @Override
             public ParseQuery<Event> create() {
                 ParseQuery<Event> query = Event.getQuery();
-                query.whereEqualTo("members", user);
                 query.include("course");
+                //query.whereMatchesKeyInQuery("course", "objectId", Course.getQuery().whereEqualTo("members", user));
                 return query;
             }
         };

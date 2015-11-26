@@ -44,22 +44,25 @@ public class EventItemView extends LinearLayout {
     }
 
     public void update(Event event) {
+        getViews();
+
         LinearLayout.LayoutParams upvoteLayout = (LinearLayout.LayoutParams)upvoteCount.getLayoutParams();
         LinearLayout.LayoutParams downvoteLayout = (LinearLayout.LayoutParams)upvoteCount.getLayoutParams();
 
-        courseCode.setText(event.getCourse().getName());
+        //courseCode.setText(event.getCourse().getName());
         eventName.setText(event.getName());
         dueDate.setText(event.getDateString());
 
         //TODO: Change to use event.getUpvotes() and getDownvotes() when Justin adds that
-        int upvotes = 0;
-        int downvotes = 0;
+        int upvotes = event.getUpvotes();
+        int downvotes = event.getDownvotes();
+        float totalVotes = upvotes + downvotes;
 
-        upvoteCount.setText(upvotes);
+        upvoteCount.setText(String.valueOf(upvotes));
         upvoteLayout.weight = upvotes;
         upvoteCount.setLayoutParams(upvoteLayout);
 
-        downvoteCount.setText(downvotes);
+        downvoteCount.setText(String.valueOf(downvotes));
         downvoteLayout.weight = downvotes;
         downvoteCount.setLayoutParams(downvoteLayout);
     }
