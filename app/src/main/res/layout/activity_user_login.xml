@@ -18,28 +18,33 @@
         android:layout_centerInParent="true"
         >
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:id="@+id/userName_editview"
-            android:hint="@string/username"
-            android:inputType="text"
-            />
+            android:layout_height="wrap_content">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/userName_editview"
+                android:hint="@string/username"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
 
-        <EditText
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:id="@+id/password_editview"
-            android:hint="@string/password"
-            android:password="true"
-            android:inputType="textPassword"
-           />
+            android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/password_editview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:password="true"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:id="@+id/login_button"
             android:text="@string/login"
             style="@style/ParseLoginUI.Button"
