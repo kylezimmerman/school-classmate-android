@@ -61,16 +61,16 @@ public class EventViewActivity extends AppCompatActivity {
         TextView eventDescription = (TextView)findViewById(R.id.event_description);
         eventDescription.setText(event.getDescription());
 
-        Button upvote = (Button)findViewById(R.id.event_upvote_button);
-        upvote.setOnClickListener(new View.OnClickListener() {
+        Button upvoteButton = (Button)findViewById(R.id.event_upvote_button);
+        upvoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 upvote(v);
             }
         });
 
-        Button downvote = (Button)findViewById(R.id.event_downvote_button);
-        downvote.setOnClickListener(new View.OnClickListener() {
+        Button downvoteButton = (Button)findViewById(R.id.event_downvote_button);
+        downvoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 downvote(v);
