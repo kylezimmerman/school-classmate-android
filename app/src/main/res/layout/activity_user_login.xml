@@ -57,6 +57,7 @@
             android:layout_marginTop="20dp"
             android:id="@+id/login_button"
             android:text="@string/login"
+            android:textColor="@android:color/white"
             android:background="@color/login_button"
             />
 
@@ -66,6 +67,7 @@
             android:layout_marginTop="20dp"
             android:id="@+id/register_button"
             android:text="@string/register"
+            android:textColor="@android:color/white"
             android:background="@color/login_button"
             />
 
