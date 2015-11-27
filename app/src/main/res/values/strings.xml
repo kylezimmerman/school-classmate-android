@@ -23,6 +23,7 @@
     <string name="semester">Semester</string>
     <string name="course_desc">Description</string>
     <string name="teacher_name">Teacher Name</string>
+    <string name="create">Create</string>
     <string name="course_instructor_label">Instructor:</string>
     <string name="course_date_label">Date:</string>
     <string name="course_section_label">Section:</string>
