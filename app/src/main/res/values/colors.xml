@@ -4,6 +4,8 @@
     <color name="primary_color_dark">#132F67</color>
     <color name="accent_color">#C46924</color>
 
+    <color name="login_button">#5C719C</color>
+
     <color name="upvote_color">#339E62</color>
     <color name="downvote_color">#DE6748</color>
 </resources>

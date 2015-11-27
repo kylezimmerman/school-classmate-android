@@ -11,11 +11,20 @@
     android:paddingLeft="25dp"
     >
 
+    <ImageView
+        android:id="@+id/classmate_logo"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@mipmap/ic_launcher"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="5dp"
+        android:layout_below="@id/classmate_logo"
         android:orientation="vertical"
-        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:background="@android:color/white"
         >
 
         <android.support.design.widget.TextInputLayout
@@ -47,22 +56,16 @@
             android:layout_marginTop="20dp"
             android:id="@+id/login_button"
             android:text="@string/login"
-            style="@style/ParseLoginUI.Button"
+            android:background="@color/login_button"
             />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true">
 
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:id="@+id/register_button"
             android:text="@string/register"
-            style="@style/ParseLoginUI.Button"
+            android:background="@color/login_button"
             />
 
     </LinearLayout>
