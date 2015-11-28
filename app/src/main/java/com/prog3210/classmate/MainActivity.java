@@ -20,6 +20,7 @@ public class MainActivity extends BaseAuthenticatedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setToolbarBackEnabled(false);
 
         ViewPager viewPager = (ViewPager)findViewById(R.id.view_pager);
         viewPager.setAdapter(new ClassmatePager(getSupportFragmentManager()));

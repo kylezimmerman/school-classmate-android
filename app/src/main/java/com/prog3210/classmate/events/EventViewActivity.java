@@ -14,8 +14,9 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 
-public class EventViewActivity extends AppCompatActivity {
+public class EventViewActivity extends BaseAuthenticatedActivity {
     Event event = null;
 
     @Override
