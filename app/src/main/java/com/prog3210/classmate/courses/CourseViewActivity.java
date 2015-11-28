@@ -3,6 +3,8 @@ package com.prog3210.classmate.courses;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,6 +14,8 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.events.EventAdapter;
+import com.prog3210.classmate.events.EventViewActivity;
 
 public class CourseViewActivity extends BaseAuthenticatedActivity {
     @Override
@@ -58,5 +62,17 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
 
         View courseView = findViewById(R.id.course_view_layout);
         courseView.setVisibility(View.VISIBLE);
+
+        ListView eventList = (ListView)findViewById(R.id.event_list);
+        final EventAdapter eventAdapter = new EventAdapter(this, course);
+        eventList.setAdapter(eventAdapter);
+        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent viewEventIntent = new Intent(CourseViewActivity.this, EventViewActivity.class);
+                viewEventIntent.putExtra("event_id", eventAdapter.getItem(position).getObjectId());
+                startActivity(viewEventIntent);
+            }
+        });
     }
 }
