@@ -72,6 +72,11 @@ private List<Course> courseList;
     }
 
     @Override
+    public int getViewTypeCount() {
+        return 1;
+    }
+
+    @Override
     public View getItemView(Course course, View view, ViewGroup parent) {
         if (view == null) {
             view = View.inflate(getContext(), R.layout.course_list_item, null);
