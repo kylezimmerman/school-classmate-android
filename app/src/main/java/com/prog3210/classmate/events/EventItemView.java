@@ -6,18 +6,19 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.prog3210.classmate.R;
+import com.prog3210.classmate.courses.Course;
 
 /**
  * Created by kzimmerman on 11/25/2015.
  */
 public class EventItemView extends LinearLayout {
 
-    TextView courseCode;
-    TextView eventName;
-    TextView dueDate;
+    TextView courseTextView;
+    TextView eventNameTextView;
+    TextView dueDateTextView;
 
-    TextView upvoteCount;
-    TextView downvoteCount;
+    TextView upvoteCountTextView;
+    TextView downvoteCountTextView;
 
     public EventItemView(Context context) {
         super(context);
@@ -35,35 +36,38 @@ public class EventItemView extends LinearLayout {
     }
 
     private void getViews() {
-        courseCode = (TextView)findViewById(R.id.course_code);
-        eventName = (TextView)findViewById(R.id.event_name);
-        dueDate = (TextView)findViewById(R.id.due_date);
+        courseTextView = (TextView)findViewById(R.id.course);
+        eventNameTextView = (TextView)findViewById(R.id.event_name);
+        dueDateTextView = (TextView)findViewById(R.id.due_date);
 
-        upvoteCount = (TextView)findViewById(R.id.upvote_count);
-        downvoteCount = (TextView)findViewById(R.id.downvote_count);
+        upvoteCountTextView = (TextView)findViewById(R.id.upvote_count);
+        downvoteCountTextView = (TextView)findViewById(R.id.downvote_count);
     }
 
     public void update(Event event) {
         getViews();
 
-        LinearLayout.LayoutParams upvoteLayout = (LinearLayout.LayoutParams)upvoteCount.getLayoutParams();
-        LinearLayout.LayoutParams downvoteLayout = (LinearLayout.LayoutParams)upvoteCount.getLayoutParams();
+        LinearLayout.LayoutParams upvoteLayout = (LinearLayout.LayoutParams)upvoteCountTextView.getLayoutParams();
+        LinearLayout.LayoutParams downvoteLayout = (LinearLayout.LayoutParams)upvoteCountTextView.getLayoutParams();
 
-        //courseCode.setText(event.getCourse().getName());
-        eventName.setText(event.getName());
-        dueDate.setText(event.getDateString());
+        Course course = event.getCourse();
+        if (course != null) {
+            courseTextView.setText(String.format("%s - %s", course.getCourseCode(), course.getName()));
+        } else {
+            courseTextView.setText("");
+        }
+        eventNameTextView.setText(event.getName());
+        dueDateTextView.setText(event.getDateString());
 
-        //TODO: Change to use event.getUpvotes() and getDownvotes() when Justin adds that
         int upvotes = event.getUpvotes();
         int downvotes = event.getDownvotes();
-        float totalVotes = upvotes + downvotes;
 
-        upvoteCount.setText(String.valueOf(upvotes));
+        upvoteCountTextView.setText(String.valueOf(upvotes));
         upvoteLayout.weight = upvotes;
-        upvoteCount.setLayoutParams(upvoteLayout);
+        upvoteCountTextView.setLayoutParams(upvoteLayout);
 
-        downvoteCount.setText(String.valueOf(downvotes));
+        downvoteCountTextView.setText(String.valueOf(downvotes));
         downvoteLayout.weight = downvotes;
-        downvoteCount.setLayoutParams(downvoteLayout);
+        downvoteCountTextView.setLayoutParams(downvoteLayout);
     }
 }

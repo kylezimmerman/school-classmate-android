@@ -18,10 +18,12 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
 
     public EventAdapter(Context context, ParseUser user) {
         super(context, createQueryFactoryForUser(user));
+        setPaginationEnabled(false);
     }
 
     public EventAdapter(Context context, Course course) {
         super(context, createQueryFactoryForCourse(course));
+        setPaginationEnabled(false);
     }
 
     @Override
