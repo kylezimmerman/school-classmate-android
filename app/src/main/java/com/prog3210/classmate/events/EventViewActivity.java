@@ -2,7 +2,6 @@ package com.prog3210.classmate.events;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -44,6 +43,20 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
                 }
             }
         });
+
+        //TODO: adjust this to fit comments
+//        final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
+//        eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
+//            @Override
+//            public void onLoading() {
+//
+//            }
+//
+//            @Override
+//            public void onLoaded(List<Event> list, Exception e) {
+//                pullToRefresh.setRefreshing(false);
+//            }
+//        });
     }
 
     private void displayEventInfo(Event event) {

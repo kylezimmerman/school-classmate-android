@@ -1,9 +1,10 @@
 <android.support.design.widget.CoordinatorLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context="com.prog3210.classmate.courses.CourseViewActivity">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.prog3210.classmate.courses.EventViewActivity">
 
     <include layout="@layout/toolbar" android:id="@+id/toolbar" />
 
@@ -15,12 +16,13 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
         android:layout_gravity="center"/>
 
     <RelativeLayout
+        android:id="@+id/event_details_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginTop="?actionBarSize">
 
         <LinearLayout
-            android:id="@+id/even_details_layout"
+            android:id="@+id/event_details_section"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -30,7 +32,6 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
                 android:id="@+id/event_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text=""
                 style="@style/TextAppearance.AppCompat.Headline"/>
 
             <LinearLayout
@@ -47,13 +48,13 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
                         android:id="@+id/event_course_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="@string/event_course_label"/>
 
                     <TextView
                         android:id="@+id/event_course"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
                         android:layout_alignBaseline="@id/event_course_label"
                         android:layout_toRightOf="@id/event_course_label"/>
 
@@ -61,6 +62,7 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
                         android:id="@+id/event_due_date_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="@string/event_due_date_label"
                         android:layout_below="@id/event_course_label"/>
 
@@ -68,7 +70,6 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
                         android:id="@+id/event_due_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
                         android:layout_alignBaseline="@id/event_due_date_label"
                         android:layout_toRightOf="@id/event_due_date_label"/>
 
@@ -76,6 +77,7 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
                         android:id="@+id/event_final_grade_weight_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
                         android:text="@string/event_final_grade_weight_label"
                         android:layout_below="@id/event_due_date_label"/>
 
@@ -83,7 +85,6 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
                         android:id="@+id/event_final_grade_weight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingRight="5dp"
                         android:layout_alignBaseline="@id/event_final_grade_weight_label"
                         android:layout_toRightOf="@id/event_final_grade_weight_label"/>
 
@@ -126,7 +127,7 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
 
             <TextView
                 android:id="@+id/event_description"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
         </LinearLayout>
@@ -137,31 +138,39 @@ tools:context="com.prog3210.classmate.courses.CourseViewActivity">
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp"
-            android:layout_below="@id/even_details_layout">
+            android:layout_below="@id/event_details_section">
 
             <TextView
+                android:id="@+id/comment_head"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COMMENTS!!!!!!1!"
+                android:text="@string/event_discussion_head"
                 style="@style/TextAppearance.AppCompat.Headline"/>
 
-            <TextView
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/pull_to_refresh"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Justin says: eat shit"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Kyle says: eat shit"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Sean says: give me a fork"/>
+                android:layout_height="match_parent">
+                <ListView
+                    android:id="@+id/comment_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:listitem="@layout/course_list_item"/>
+                <!-- TODO: make the listItem be for comments -->
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </LinearLayout>
 
     </RelativeLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/add_comment_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_anchor="@id/event_details_layout"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_margin="@dimen/fab_margin"
+        />
 
 </android.support.design.widget.CoordinatorLayout>

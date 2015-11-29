@@ -33,6 +33,7 @@
     <string name="event_due_date_label">Due Date:</string>
     <string name="event_final_grade_weight_label">Final Grade Weight:</string>
     <string name="event_description_label">Description:</string>
+    <string name="event_discussion_head">Discussion</string>
 
     <string name="logout">Logout</string>
     <string name="account_info">Account Info</string>
