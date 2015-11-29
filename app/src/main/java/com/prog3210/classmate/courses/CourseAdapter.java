@@ -19,7 +19,13 @@ import java.util.List;
  */
 public class CourseAdapter extends ParseQueryAdapter<Course> implements Filterable {
 
-private List<Course> courseList;
+    boolean showDetails = true;
+
+    private List<Course> courseList;
+
+    public void setShowDetails(boolean showDetails) {
+        this.showDetails = showDetails;
+    }
 
     @Override
     public Filter getFilter() {
@@ -84,7 +90,8 @@ private List<Course> courseList;
 
         super.getItemView(course, view, parent);
 
-        ((CourseItemView)view).updateValues(course);
+        CourseItemView courseItemView = (CourseItemView)view;
+        courseItemView.updateValues(course, showDetails);
 
         return view;
     }

@@ -25,7 +25,6 @@ import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.EventTypeAdapter;
 import com.prog3210.classmate.courses.Course;
 import com.prog3210.classmate.courses.CourseAdapter;
-import com.prog3210.classmate.courses.CourseSpinnerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -70,7 +69,8 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             eventTypeAdapter.setTextKey("typeName");
             eventTypeSpinner.setAdapter(eventTypeAdapter);
 
-            CourseSpinnerAdapter courseAdapter = new CourseSpinnerAdapter(this);
+            CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
+            courseAdapter.setShowDetails(false);
             courseAdapter.setTextKey("courseCode");
             courseSpinner.setAdapter(courseAdapter);
         }
@@ -135,11 +135,11 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             @Override
             public void done(ParseException e) {
 
-                if (e == null){
+                if (e == null) {
                     Intent mainActivity = new Intent(CreateEventActivity.this, MainActivity.class);
                     startActivity(mainActivity);
-                }else{
-                    Toast.makeText(CreateEventActivity.this,e.getMessage(), Toast.LENGTH_SHORT);
+                } else {
+                    Toast.makeText(CreateEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                 }
             }
         });
