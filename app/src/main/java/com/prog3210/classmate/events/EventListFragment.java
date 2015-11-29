@@ -81,8 +81,7 @@ public class EventListFragment extends BaseFragment {
         });
 
         eventAdapter.loadObjects();
-
-        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.add_event_button);
+        
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
