@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.prog3210.classmate.courses.CourseItemView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/abc_list_item_padding_horizontal_material"
+    android:paddingTop="@dimen/abc_dialog_list_padding_vertical_material"
+    android:paddingBottom="@dimen/abc_dialog_list_padding_vertical_material">
+
+    <RelativeLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/course_code"
+            android:text="Course Code"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.AppCompat.Large"/>
+        <TextView
+            android:id="@+id/course_name"
+            android:text="Mobile Application Programming II"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/course_code"
+            style="@style/TextAppearance.AppCompat.Small"/>
+
+    </RelativeLayout>
+</com.prog3210.classmate.courses.CourseItemView>

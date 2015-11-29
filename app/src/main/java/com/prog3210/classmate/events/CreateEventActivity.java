@@ -25,6 +25,7 @@ import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.EventTypeAdapter;
 import com.prog3210.classmate.courses.Course;
 import com.prog3210.classmate.courses.CourseAdapter;
+import com.prog3210.classmate.courses.CourseSpinnerAdapter;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -37,6 +38,23 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
+        Date date = new Date();
+        int tempYear = 0;
+        int tempMonth = 0;
+        int tempDay = 0;
+
+        try {
+            tempYear = Integer.parseInt(new SimpleDateFormat("yyyy").format(date));
+            tempMonth = Integer.parseInt(new SimpleDateFormat("M").format(date)) - 1;
+            tempDay = Integer.parseInt(new SimpleDateFormat("d").format(date));
+        } catch (NumberFormatException e) {
+           //TODO: handle exception
+        }
+
+        final int year = tempYear;
+        final int month = tempMonth;
+        final int day = tempDay;
+
         final Spinner courseSpinner = (Spinner) findViewById(R.id.course_code_spinner);
         final Spinner eventTypeSpinner = (Spinner) findViewById(R.id.eventType_spinner);
         Button dueDate = (Button) findViewById(R.id.due_date_button);
@@ -44,7 +62,6 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
 
         try {
             event = new Event();
-            Date date = new Date();
             event.setDate(date);
 
             dueDate.setHint(event.getDateString());
@@ -53,7 +70,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             eventTypeAdapter.setTextKey("typeName");
             eventTypeSpinner.setAdapter(eventTypeAdapter);
 
-            CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
+            CourseSpinnerAdapter courseAdapter = new CourseSpinnerAdapter(this);
             courseAdapter.setTextKey("courseCode");
             courseSpinner.setAdapter(courseAdapter);
         }
@@ -61,11 +78,6 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             Log.e("create spinners", e.getMessage());
         }
 
-
-
-        final int month = 0;
-        final int day  = 0;
-        final int year = 0;
         dueDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
