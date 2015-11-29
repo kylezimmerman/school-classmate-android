@@ -3,6 +3,7 @@ package com.prog3210.classmate.courses;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -13,11 +14,15 @@ import android.widget.Toast;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+import com.parse.ParseQueryAdapter;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.events.CreateEventActivity;
+import com.prog3210.classmate.events.Event;
 import com.prog3210.classmate.events.EventAdapter;
 import com.prog3210.classmate.events.EventViewActivity;
+
+import java.util.List;
 
 public class CourseViewActivity extends BaseAuthenticatedActivity {
     @Override
@@ -44,7 +49,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
                 }
             }
         });
-        
+
         FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_event_button);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,6 +89,25 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
                 Intent viewEventIntent = new Intent(CourseViewActivity.this, EventViewActivity.class);
                 viewEventIntent.putExtra("event_id", eventAdapter.getItem(position).getObjectId());
                 startActivity(viewEventIntent);
+            }
+        });
+
+        final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
+        eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
+            @Override
+            public void onLoading() {
+
+            }
+            @Override
+            public void onLoaded(List<Event> list, Exception e) {
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                eventAdapter.loadObjects();
             }
         });
     }
