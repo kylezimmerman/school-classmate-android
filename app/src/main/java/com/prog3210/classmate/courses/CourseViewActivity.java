@@ -2,6 +2,7 @@ package com.prog3210.classmate.courses;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -14,6 +15,7 @@ import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.events.CreateEventActivity;
 import com.prog3210.classmate.events.EventAdapter;
 import com.prog3210.classmate.events.EventViewActivity;
 
@@ -25,7 +27,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
 
         Intent k = getIntent();
 
-        String courseId = k.getStringExtra("course_id");
+        final String courseId = k.getStringExtra("course_id");
 
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
@@ -40,6 +42,16 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
                 } else {
                     Toast.makeText(CourseViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+        
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_event_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addEventIntent = new Intent(view.getContext(), CreateEventActivity.class);
+                addEventIntent.putExtra("sending_course_id", courseId);
+                startActivity(addEventIntent);
             }
         });
     }
