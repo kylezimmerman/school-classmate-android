@@ -56,7 +56,7 @@ public class EventListFragment extends BaseFragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent eventActivityIntent = new Intent(getContext(), CreateEventActivity.class);
+                Intent eventActivityIntent = new Intent(getActivity(), CreateEventActivity.class);
 
                 startActivity(eventActivityIntent);
             }
