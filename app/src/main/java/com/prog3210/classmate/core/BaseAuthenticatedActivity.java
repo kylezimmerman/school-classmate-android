@@ -11,7 +11,7 @@ import com.prog3210.classmate.user.UserLoginActivity;
 /**
  * Created by kzimmerman on 11/18/2015.
  */
-public class BaseAuthenticatedActivity extends BaseActivity {
+public abstract class BaseAuthenticatedActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

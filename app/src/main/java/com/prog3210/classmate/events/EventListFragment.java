@@ -9,6 +9,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.parse.ParseQueryAdapter;
@@ -27,7 +28,6 @@ public class EventListFragment extends BaseFragment {
     public EventListFragment() {
         // Required empty public constructor
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,6 +64,15 @@ public class EventListFragment extends BaseFragment {
 
         eventList.setAdapter(eventAdapter);
 
+        eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent viewEventDetailsIntent = new Intent(getActivity(), EventViewActivity.class);
+                viewEventDetailsIntent.putExtra("event_id", eventAdapter.getItem(position).getObjectId());
+                startActivity(viewEventDetailsIntent);
+            }
+        });
+
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -72,6 +81,16 @@ public class EventListFragment extends BaseFragment {
         });
 
         eventAdapter.loadObjects();
+
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.add_event_button);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent addEventIntent = new Intent(getActivity(), CreateEventActivity.class);
+                startActivity(addEventIntent);
+            }
+        });
+
         return view;
     }
 

@@ -13,7 +13,6 @@ import com.prog3210.classmate.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by kzimmerman on 11/18/2015.
@@ -70,6 +69,11 @@ private List<Course> courseList;
                 courseList = list;
             }
         });
+    }
+
+    @Override
+    public int getViewTypeCount() {
+        return 1;
     }
 
     @Override

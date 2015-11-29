@@ -20,6 +20,7 @@ import com.parse.SaveCallback;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.ClassmateUser;
+import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.EventTypeAdapter;
 import com.prog3210.classmate.courses.Course;
@@ -29,7 +30,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
-public class CreateEventActivity extends AppCompatActivity {
+public class CreateEventActivity extends BaseAuthenticatedActivity {
     Event event;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

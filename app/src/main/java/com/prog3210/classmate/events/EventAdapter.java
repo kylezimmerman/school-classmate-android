@@ -18,10 +18,12 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
 
     public EventAdapter(Context context, ParseUser user) {
         super(context, createQueryFactoryForUser(user));
+        setPaginationEnabled(false);
     }
 
     public EventAdapter(Context context, Course course) {
         super(context, createQueryFactoryForCourse(course));
+        setPaginationEnabled(false);
     }
 
     @Override
@@ -43,7 +45,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
             public ParseQuery<Event> create() {
                 ParseQuery<Event> query = Event.getQuery();
                 query.include("course");
-                //query.whereMatchesKeyInQuery("course", "objectId", Course.getQuery().whereEqualTo("members", user));
+                query.whereMatchesKeyInQuery("course", "objectId", Course.getQuery().whereEqualTo("members", user));
                 return query;
             }
         };
@@ -56,7 +58,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
             @Override
             public ParseQuery<Event> create() {
                 ParseQuery<Event> query = Event.getQuery();
-                query.whereEqualTo("course", course.getObjectId());
+                query.whereEqualTo("course", course);
                 query.include("course");
                 return query;
             }

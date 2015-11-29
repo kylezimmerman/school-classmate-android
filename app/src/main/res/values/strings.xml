@@ -23,11 +23,16 @@
     <string name="semester">Semester</string>
     <string name="course_desc">Description</string>
     <string name="teacher_name">Teacher Name</string>
+    <string name="create">Create</string>
     <string name="course_instructor_label">Instructor:</string>
     <string name="course_date_label">Date:</string>
     <string name="course_section_label">Section:</string>
 
     <string name="event_list_head">Events</string>
+    <string name="event_course_label">Course:</string>
+    <string name="event_due_date_label">Due Date:</string>
+    <string name="event_final_grade_weight_label">Final Grade Weight:</string>
+    <string name="event_description_label">Description:</string>
 
     <string name="logout">Logout</string>
     <string name="account_info">Account Info</string>
@@ -36,7 +41,7 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
 
-<!-- TODO: Remove or change this placeholder text -->
+    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hello_world">Hello world!</string>
 
@@ -48,11 +53,11 @@
 
     <string name="empty_event_list_message">You have no events.</string>
     <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="title_activity_event_view">Event Details</string>
 
     <string name="eventName">Event Name</string>
     <string name="due">Due Date:</string>
     <string name="description">Description</string>
     <string name="gradeWorth">Percent Of Final Grade</string>
     <string name="createEvent">Create Event</string>
-
 </resources>
