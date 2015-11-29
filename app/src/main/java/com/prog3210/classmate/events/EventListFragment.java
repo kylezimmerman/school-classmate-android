@@ -37,6 +37,7 @@ public class EventListFragment extends BaseFragment {
 
         final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)view.findViewById(R.id.pull_to_refresh);
         ListView eventList = (ListView)view.findViewById(R.id.event_list);
+        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.add_event_button);
 
 
         final EventAdapter eventAdapter = new EventAdapter(getActivity(), ParseUser.getCurrentUser());
@@ -49,6 +50,15 @@ public class EventListFragment extends BaseFragment {
             @Override
             public void onLoaded(List<Event> list, Exception e) {
                 pullToRefresh.setRefreshing(false);
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent eventActivityIntent = new Intent(getActivity(), CreateEventActivity.class);
+
+                startActivity(eventActivityIntent);
             }
         });
 
@@ -71,8 +81,7 @@ public class EventListFragment extends BaseFragment {
         });
 
         eventAdapter.loadObjects();
-
-        FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.add_event_button);
+        
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

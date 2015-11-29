@@ -48,6 +48,7 @@ import java.util.List;
             FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.join_course_button);
             final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)view.findViewById(R.id.pull_to_refresh);
 
+
             courseAdapter = new CourseAdapter(getActivity(), CourseAdapter.FilterMode.Joined);
             courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
                 @Override
