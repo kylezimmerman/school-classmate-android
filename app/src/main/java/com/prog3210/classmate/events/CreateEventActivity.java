@@ -69,10 +69,10 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             eventTypeAdapter.setTextKey("typeName");
             eventTypeSpinner.setAdapter(eventTypeAdapter);
 
-            CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
+            CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
             courseAdapter.setShowDetails(false);
-            courseAdapter.setTextKey("courseCode");
             courseSpinner.setAdapter(courseAdapter);
+            courseSpinner.requestFocus();
         }
         catch(Exception e){
             Log.e("create spinners", e.getMessage());

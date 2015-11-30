@@ -61,4 +61,6 @@
     <string name="description">Description</string>
     <string name="gradeWorth">Percent Of Final Grade</string>
     <string name="createEvent">Create Event</string>
+    <string name ="course">Course:</string>
+    <string name="type">Type:</string>
 </resources>
