@@ -63,4 +63,5 @@
     <string name="createEvent">Create Event</string>
     <string name ="course">Course:</string>
     <string name="type">Type:</string>
+    <string name="course_has_no_events">This course has no events.\nAdd one!</string>
 </resources>
