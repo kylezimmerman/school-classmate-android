@@ -56,7 +56,8 @@
                     android:inputType="text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/eventName" />
+                    android:hint="@string/eventName"
+                    android:focusableInTouchMode="false"/>
             </android.support.design.widget.TextInputLayout>
 
             <TextView
