@@ -55,9 +55,8 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                courseAdapter.getFilter().filter(charSequence);
-                courseAdapter.loadObjects();
-
+                courseAdapter.setSearchTerm(charSequence.toString());
+                courseAdapter.notifyDataSetChanged();
             }
 
             @Override

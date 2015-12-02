@@ -17,43 +17,15 @@ import java.util.List;
 /**
  * Created by kzimmerman on 11/18/2015.
  */
-public class CourseAdapter extends ParseQueryAdapter<Course> implements Filterable {
+public class CourseAdapter extends ParseQueryAdapter<Course> {
 
     boolean showDetails = true;
 
-    private List<Course> courseList;
+    private String searchTerm;
 
     public void setShowDetails(boolean showDetails) {
         this.showDetails = showDetails;
     }
-
-    @Override
-    public Filter getFilter() {
-
-        return new Filter() {
-            @Override
-            protected FilterResults performFiltering(CharSequence charSequence) {
-                FilterResults results = new FilterResults();
-                List<Course> resultCourseList = new ArrayList<>();
-
-                for (Course course: courseList) {
-                    if (course.getCourseCode().contains(charSequence) || course.getName().contains(charSequence)){
-                        resultCourseList.add(course);
-                    }
-
-                }
-                results.values = resultCourseList;
-
-                return results;
-            }
-
-            @Override
-            protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
-
-            }
-        };
-    }
-
 
     public enum FilterMode {
         All,
@@ -63,39 +35,56 @@ public class CourseAdapter extends ParseQueryAdapter<Course> implements Filterab
 
     public CourseAdapter(Context context, FilterMode mode) {
         super(context, createQueryFactory(mode));
+    }
 
-        this.addOnQueryLoadListener(new OnQueryLoadListener<Course>() {
-            @Override
-            public void onLoading() {
+    public void setSearchTerm(String query) {
+        searchTerm = query;
 
-            }
-
-            @Override
-            public void onLoaded(List<Course> list, Exception e) {
-                courseList = list;
-            }
-        });
+        if (searchTerm != null) {
+            searchTerm = searchTerm.toLowerCase();
+        }
     }
 
     @Override
-    public int getViewTypeCount() {
-        return 1;
+    public int getItemViewType(int position) {
+        Course course = getItem(position);
+
+        boolean matchesFilter = (searchTerm == null || searchTerm.length() == 0)
+            || course.getName().toLowerCase().contains(searchTerm)
+            || course.getCourseCode().toLowerCase().contains(searchTerm)
+            || course.getTeacherName().toLowerCase().contains(searchTerm);
+
+        if (matchesFilter) {
+            return 0;
+        } else {
+            return 1;
+        }
     }
 
     @Override
     public View getItemView(Course course, View view, ViewGroup parent) {
+
         if (view == null) {
             view = View.inflate(getContext(), R.layout.course_list_item, null);
         }
 
         super.getItemView(course, view, parent);
 
-        CourseItemView courseItemView = (CourseItemView)view;
+        CourseItemView courseItemView = (CourseItemView) view;
         courseItemView.updateValues(course, showDetails);
 
         return view;
     }
 
+    @Override
+    public View getNextPageView(View v, ViewGroup parent) {
+        if (v == null) {
+            v = View.inflate(getContext(), R.layout.empty_view, null);
+        }
+
+        return v;
+    }
+    
     private static QueryFactory<Course> createQueryFactory(final FilterMode filterMode) {
         QueryFactory<Course> factory = new QueryFactory<Course>() {
             @Override
