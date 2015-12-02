@@ -167,7 +167,7 @@
         android:id="@+id/add_comment_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white_24dp"
+        android:src="@drawable/ic_question_answer_white_24dp"
         app:layout_anchor="@id/event_details_layout"
         app:layout_anchorGravity="bottom|right|end"
         android:layout_margin="@dimen/fab_margin"
