@@ -84,7 +84,7 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
 
         return v;
     }
-    
+
     private static QueryFactory<Course> createQueryFactory(final FilterMode filterMode) {
         QueryFactory<Course> factory = new QueryFactory<Course>() {
             @Override

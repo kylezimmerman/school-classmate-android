@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
         android:name=".ClassMateApplication"
@@ -23,27 +25,38 @@
         </activity>
         <activity
             android:name=".courses.CreateCourseActivity"
-            android:label="@string/title_activity_create_course"></activity>
+            android:label="@string/title_activity_create_course" />
         <activity
             android:name=".user.UserLoginActivity"
-            android:label="@string/title_activity_user_login"></activity>
+            android:label="@string/title_activity_user_login" />
         <activity
             android:name=".user.RegisterActivity"
             android:label="@string/title_activity_register"
-            android:windowSoftInputMode="stateVisible|adjustResize"></activity>
+            android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity
             android:name=".courses.CourseViewActivity"
-            android:label="@string/title_activity_course_view"></activity>
+            android:label="@string/title_activity_course_view" />
         <activity
             android:name=".courses.JoinCourseActivity"
-            android:label="@string/title_activity_join_course"></activity>
+            android:label="@string/title_activity_join_course" />
         <activity
             android:name=".events.CreateEventActivity"
-            android:label="@string/title_activity_create_event"></activity>
+            android:label="@string/title_activity_create_event" />
         <activity
             android:name=".events.EventViewActivity"
             android:label="@string/title_activity_event_view"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+
+        <service android:name="com.parse.PushService" />
+        <receiver android:name="com.parse.ParsePushBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.parse.push.intent.RECEIVE" />
+                <action android:name="com.parse.push.intent.DELETE" />
+                <action android:name="com.parse.push.intent.OPEN" />
+            </intent-filter>
+        </receiver>
+
     </application>
 
 </manifest>
