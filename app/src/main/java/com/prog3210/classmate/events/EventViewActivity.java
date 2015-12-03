@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -17,6 +18,7 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.core.CommentDialog;
 
 public class EventViewActivity extends BaseAuthenticatedActivity {
     Event event = null;
@@ -40,6 +42,10 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             @Override
             public void onClick(View v) {
                 //TODO pop up a sweet dialogue
+                FragmentManager manager = getSupportFragmentManager();
+                CommentDialog commentDialog = new CommentDialog();
+
+                commentDialog.show(manager, "dialog");
             }
         });
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
