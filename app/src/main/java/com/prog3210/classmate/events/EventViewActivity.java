@@ -2,12 +2,14 @@ package com.prog3210.classmate.events;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.parse.CountCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -17,6 +19,8 @@ import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 
 public class EventViewActivity extends BaseAuthenticatedActivity {
     Event event = null;
+    Button upvoteButton;
+    Button downvoteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,12 +63,15 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
 //        });
     }
 
-    private void displayEventInfo(Event event) {
+    private void displayEventInfo(final Event event) {
         TextView eventName = (TextView)findViewById(R.id.event_name);
         eventName.setText(event.getName());
 
-        TextView eventCourse = (TextView)findViewById(R.id.event_course);
-        eventCourse.setText(event.getCourse().getName());
+        TextView eventCourseCode = (TextView)findViewById(R.id.event_course_code);
+        eventCourseCode.setText(event.getCourse().getCourseCode());
+
+        TextView eventCourseName = (TextView)findViewById(R.id.event_course_name);
+        eventCourseName.setText(event.getCourse().getName());
 
         TextView eventDueDate = (TextView)findViewById(R.id.event_due_date);
         eventDueDate.setText(event.getDateString());
@@ -75,7 +82,40 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
         TextView eventDescription = (TextView)findViewById(R.id.event_description);
         eventDescription.setText(event.getDescription());
 
-        Button upvoteButton = (Button)findViewById(R.id.event_upvote_button);
+        upvoteButton = (Button)findViewById(R.id.event_upvote_button);
+        DrawableCompat.setTint(DrawableCompat.wrap(upvoteButton.getBackground()).mutate(), getResources().getColor(android.R.color.darker_gray));
+        upvoteButton.setText(String.valueOf(event.getUpvotes()));
+
+        downvoteButton = (Button)findViewById(R.id.event_downvote_button);
+        DrawableCompat.setTint(DrawableCompat.wrap(downvoteButton.getBackground()).mutate(), getResources().getColor(android.R.color.darker_gray));
+        downvoteButton.setText(String.valueOf(event.getDownvotes()));
+
+        event.hasUpvoted(new CountCallback() {
+            @Override
+            public void done(int count, ParseException e) {
+                if (e == null) {
+                    if (count == 1) {
+                        DrawableCompat.setTint(DrawableCompat.wrap(upvoteButton.getBackground()).mutate(), getResources().getColor(R.color.upvote_color));
+                    }
+                } else {
+                    Toast.makeText(EventViewActivity.this, "Could not place vote. Try again later.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
+        event.hasDownvoted(new CountCallback() {
+            @Override
+            public void done(int count, ParseException e) {
+                if (e == null) {
+                    if (count == 1) {
+                        DrawableCompat.setTint(DrawableCompat.wrap(downvoteButton.getBackground()).mutate(), getResources().getColor(R.color.downvote_color));
+                    }
+                } else {
+                    Toast.makeText(EventViewActivity.this, "Could not place vote. Try again later.", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+
         upvoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,7 +123,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             }
         });
 
-        Button downvoteButton = (Button)findViewById(R.id.event_downvote_button);
         downvoteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -97,9 +136,8 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    findViewById(R.id.event_upvote_button)
-                            .setBackgroundColor(getResources()
-                                    .getColor(R.color.upvote_color));
+                    upvoteButton.setText(String.valueOf(event.getUpvotes()));
+                    downvoteButton.setText(String.valueOf(event.getDownvotes()));
                 }
             }
         });
@@ -110,9 +148,8 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
-                    findViewById(R.id.event_downvote_button)
-                            .setBackgroundColor(getResources()
-                                    .getColor(R.color.downvote_color));
+                    upvoteButton.setText(String.valueOf(event.getUpvotes()));
+                    downvoteButton.setText(String.valueOf(event.getDownvotes()));
                 }
             }
         });

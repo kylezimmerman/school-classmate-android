@@ -9,7 +9,6 @@ import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.core.EventType;
-import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.courses.Course;
 
 import java.text.DateFormat;
@@ -52,7 +51,7 @@ public class Event extends ParseObject {
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         ParseQuery<ParseUser> upvoteQuery = upvoters.getQuery();
-        upvoteQuery.whereEqualTo("upvoters", currentUser);
+        upvoteQuery.whereEqualTo("objectId", currentUser.getObjectId());
         upvoteQuery.countInBackground(callback);
     }
     public void upvote(final SaveCallback callback) {
@@ -92,7 +91,7 @@ public class Event extends ParseObject {
         ParseUser currentUser = ParseUser.getCurrentUser();
 
         ParseQuery<ParseUser> downvoteQuery = downvoters.getQuery();
-        downvoteQuery.whereEqualTo("downvoters", currentUser);
+        downvoteQuery.whereEqualTo("objectId", currentUser.getObjectId());
         downvoteQuery.countInBackground(callback);
     }
     public void downvote(final SaveCallback callback) {

@@ -45,18 +45,33 @@
                     android:layout_below="@id/event_name">
 
                     <TextView
-                        android:id="@+id/event_course_label"
+                        android:id="@+id/event_course_code_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="5dp"
-                        android:text="@string/event_course_label"/>
+                        android:text="@string/event_course_code_label"/>
 
                     <TextView
-                        android:id="@+id/event_course"
+                        android:id="@+id/event_course_code"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@id/event_course_label"
-                        android:layout_toRightOf="@id/event_course_label"/>
+                        android:layout_alignBaseline="@id/event_course_code_label"
+                        android:layout_toRightOf="@id/event_course_code_label"/>
+
+                    <TextView
+                        android:id="@+id/event_course_name_label"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="5dp"
+                        android:text="@string/event_course_name_label"
+                        android:layout_below="@id/event_course_code"/>
+
+                    <TextView
+                        android:id="@+id/event_course_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@id/event_course_name_label"
+                        android:layout_toRightOf="@id/event_course_name_label"/>
 
                     <TextView
                         android:id="@+id/event_due_date_label"
@@ -64,7 +79,7 @@
                         android:layout_height="wrap_content"
                         android:paddingRight="5dp"
                         android:text="@string/event_due_date_label"
-                        android:layout_below="@id/event_course_label"/>
+                        android:layout_below="@id/event_course_name"/>
 
                     <TextView
                         android:id="@+id/event_due_date"
@@ -100,20 +115,20 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:text="10 uppies"
                         android:gravity="center"
-                        android:textColor="@android:color/white"
-                        android:background="@color/upvote_color"/>
+                        android:singleLine="true"
+                        android:background="@drawable/ic_keyboard_arrow_up_white_48dp"
+                        android:textColor="@android:color/black"/>
 
                     <Button
                         android:id="@+id/event_downvote_button"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="64dp"
                         android:layout_weight="1"
-                        android:text="2 downies"
                         android:gravity="center"
-                        android:textColor="@android:color/white"
-                        android:background="@color/downvote_color"/>
+                        android:singleLine="true"
+                        android:background="@drawable/ic_keyboard_arrow_down_white_48dp"
+                        android:textColor="@android:color/black"/>
 
                 </LinearLayout>
 

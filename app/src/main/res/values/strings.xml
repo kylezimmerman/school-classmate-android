@@ -29,7 +29,8 @@
     <string name="course_section_label">Section:</string>
 
     <string name="event_list_head">Events</string>
-    <string name="event_course_label">Course:</string>
+    <string name="event_course_code_label">Course Code:</string>
+    <string name="event_course_name_label">Course Name:</string>
     <string name="event_due_date_label">Due Date:</string>
     <string name="event_final_grade_weight_label">Final Grade Weight:</string>
     <string name="event_description_label">Description:</string>
