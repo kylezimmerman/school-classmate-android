@@ -92,6 +92,8 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
             }
         });
 
+        eventList.setEmptyView(findViewById(R.id.empty_list_view));
+
         final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
         eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
             @Override

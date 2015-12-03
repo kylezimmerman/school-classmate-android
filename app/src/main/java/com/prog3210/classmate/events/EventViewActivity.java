@@ -3,6 +3,7 @@ package com.prog3210.classmate.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.support.design.widget.FloatingActionButton;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
@@ -32,8 +33,15 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
         final String eventId = k.getStringExtra("event_id");
 
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
         progressBar.setVisibility(View.VISIBLE);
 
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO pop up a sweet dialogue
+            }
+        });
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.getInBackground(eventId, new GetCallback<Event>() {
             @Override

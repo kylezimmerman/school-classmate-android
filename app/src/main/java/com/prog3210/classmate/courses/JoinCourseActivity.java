@@ -13,12 +13,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+
+import java.util.List;
 
 public class JoinCourseActivity extends BaseAuthenticatedActivity {
 
@@ -30,17 +34,29 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         setContentView(R.layout.activity_course_join);
         EditText search = (EditText) findViewById(R.id.searchListView);
 
+        final ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading);
         courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
         ListView courseList = (ListView) findViewById(R.id.joinCourseList);
         courseList.setAdapter(courseAdapter);
         courseList.setOnItemClickListener(selectedCourse);
 
+        courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
+            @Override
+            public void onLoading() {
+                progressBar.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onLoaded(List<Course> list, Exception e) {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                courseAdapter.getFilter().filter(charSequence);
-                courseAdapter.loadObjects();
-
+                courseAdapter.setSearchTerm(charSequence.toString());
+                courseAdapter.notifyDataSetChanged();
             }
 
             @Override

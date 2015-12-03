@@ -27,11 +27,14 @@ import com.prog3210.classmate.courses.Course;
 import com.prog3210.classmate.courses.CourseAdapter;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 public class CreateEventActivity extends BaseAuthenticatedActivity {
     Event event;
+    Button dueDate;
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,36 +42,38 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
 
         final Spinner courseSpinner = (Spinner) findViewById(R.id.course_code_spinner);
         final Spinner eventTypeSpinner = (Spinner) findViewById(R.id.eventType_spinner);
-        Button dueDate = (Button) findViewById(R.id.due_date_button);
+        dueDate = (Button) findViewById(R.id.due_date_button);
         Button createEvent = (Button) findViewById(R.id.create_event_button);
 
+        Date date = new Date();
+        event = new Event();
+        event.setDate(date);
+        dueDate.setHint(event.getDateString());
+
         try {
-            event = new Event();
-            Date date = new Date();
-            event.setDate(date);
-
-            dueDate.setHint(event.getDateString());
-
             EventTypeAdapter eventTypeAdapter = new EventTypeAdapter(this);
             eventTypeAdapter.setTextKey("typeName");
             eventTypeSpinner.setAdapter(eventTypeAdapter);
 
             CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
-            courseAdapter.setTextKey("courseCode");
+            courseAdapter.setShowDetails(false);
             courseSpinner.setAdapter(courseAdapter);
+            courseSpinner.requestFocus();
         }
         catch(Exception e){
             Log.e("create spinners", e.getMessage());
         }
 
-
-
-        final int month = 0;
-        final int day  = 0;
-        final int year = 0;
         dueDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Calendar calendar = new GregorianCalendar();
+                calendar.setTime(event.getDate());
+
+                int year = calendar.get(Calendar.YEAR);
+                int month = calendar.get(Calendar.MONTH);
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+
                 DatePickerDialog picker = new
                         DatePickerDialog(CreateEventActivity.this, datePickerListener, year, month, day);
 
@@ -89,6 +94,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             GregorianCalendar setDate = new GregorianCalendar(year,month,day);
             event.setDate(setDate.getTime());
+            dueDate.setHint(event.getDateString());
         }
     };
 
@@ -96,7 +102,6 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         EditText description = (EditText) findViewById(R.id.eventDescription);
         EditText gradeWorth = (EditText) findViewById(R.id.gradeWorth);
         EditText eventName = (EditText) findViewById(R.id.eventName);
-
         EditText error = null;
 
         if (gradeWorth.getText().length() == 0){
@@ -123,11 +128,11 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             @Override
             public void done(ParseException e) {
 
-                if (e == null){
+                if (e == null) {
                     Intent mainActivity = new Intent(CreateEventActivity.this, MainActivity.class);
                     startActivity(mainActivity);
-                }else{
-                    Toast.makeText(CreateEventActivity.this,e.getMessage(), Toast.LENGTH_SHORT);
+                } else {
+                    Toast.makeText(CreateEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
                 }
             }
         });
