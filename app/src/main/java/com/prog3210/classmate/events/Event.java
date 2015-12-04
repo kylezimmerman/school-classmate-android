@@ -45,6 +45,33 @@ public class Event extends ParseObject {
         put("name", name);
     }
 
+    private SaveCallback createUpvoteCallback(final VoteCallback callback) {
+        return new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                callback.done(VoteCallback.UPVOTE, e);
+            }
+        };
+    }
+
+    private SaveCallback createNeutralCallback(final VoteCallback callback) {
+        return new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                callback.done(VoteCallback.NEUTRAL, e);
+            }
+        };
+    }
+
+    private SaveCallback createDownvoteCallback(final VoteCallback callback) {
+        return new SaveCallback() {
+            @Override
+            public void done(ParseException e) {
+                callback.done(VoteCallback.DOWNVOTE, e);
+            }
+        };
+    }
+
     public int getUpvotes() { return getInt("upvotes"); }
     public void hasUpvoted(CountCallback callback) {
         ParseRelation<ParseUser> upvoters = getRelation("upvoters");
@@ -54,7 +81,7 @@ public class Event extends ParseObject {
         upvoteQuery.whereEqualTo("objectId", currentUser.getObjectId());
         upvoteQuery.countInBackground(callback);
     }
-    public void upvote(final SaveCallback callback) {
+    public void upvote(final VoteCallback callback) {
         final ParseRelation<ParseUser> upvoters = getRelation("upvoters");
         final ParseRelation<ParseUser> downvoters = getRelation("downvoters");
 
@@ -65,7 +92,7 @@ public class Event extends ParseObject {
                     increment("upvotes", -1);
                     upvoters.remove(ParseUser.getCurrentUser());
 
-                    saveInBackground(callback);
+                    saveInBackground(createNeutralCallback(callback));
                 } else {
                     hasDownvoted(new CountCallback() {
                         @Override
@@ -77,7 +104,7 @@ public class Event extends ParseObject {
                             increment("upvotes", 1);
                             upvoters.add(ParseUser.getCurrentUser());
 
-                            saveInBackground(callback);
+                            saveInBackground(createUpvoteCallback(callback));
                         }
                     });
                 }
@@ -94,7 +121,7 @@ public class Event extends ParseObject {
         downvoteQuery.whereEqualTo("objectId", currentUser.getObjectId());
         downvoteQuery.countInBackground(callback);
     }
-    public void downvote(final SaveCallback callback) {
+    public void downvote(final VoteCallback callback) {
         final ParseRelation<ParseUser> upvoters = getRelation("upvoters");
         final ParseRelation<ParseUser> downvoters = getRelation("downvoters");
 
@@ -105,7 +132,7 @@ public class Event extends ParseObject {
                     increment("downvotes", -1);
                     downvoters.remove(ParseUser.getCurrentUser());
 
-                    saveInBackground(callback);
+                    saveInBackground(createNeutralCallback(callback));
                 } else {
                     hasUpvoted(new CountCallback() {
                         @Override
@@ -117,7 +144,7 @@ public class Event extends ParseObject {
                             increment("downvotes", 1);
                             downvoters.add(ParseUser.getCurrentUser());
 
-                            saveInBackground(callback);
+                            saveInBackground(createDownvoteCallback(callback));
                         }
                     });
                 }

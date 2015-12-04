@@ -2,6 +2,7 @@ package com.prog3210.classmate.events;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,19 +21,24 @@ public class EventItemView extends LinearLayout {
     TextView upvoteCountTextView;
     TextView downvoteCountTextView;
 
+    LinearLayout voteBar;
+
     public EventItemView(Context context) {
         super(context);
-        getViews();
     }
 
     public EventItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
         getViews();
     }
 
     public EventItemView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        getViews();
     }
 
     private void getViews() {
@@ -42,14 +48,11 @@ public class EventItemView extends LinearLayout {
 
         upvoteCountTextView = (TextView)findViewById(R.id.upvote_count);
         downvoteCountTextView = (TextView)findViewById(R.id.downvote_count);
+
+        voteBar = (LinearLayout)findViewById(R.id.vote_bar);
     }
 
     public void update(Event event) {
-        getViews();
-
-        LinearLayout.LayoutParams upvoteLayout = (LinearLayout.LayoutParams)upvoteCountTextView.getLayoutParams();
-        LinearLayout.LayoutParams downvoteLayout = (LinearLayout.LayoutParams)upvoteCountTextView.getLayoutParams();
-
         Course course = event.getCourse();
         if (course != null) {
             courseTextView.setText(String.format("%s - %s", course.getCourseCode(), course.getName()));
@@ -62,12 +65,12 @@ public class EventItemView extends LinearLayout {
         int upvotes = event.getUpvotes();
         int downvotes = event.getDownvotes();
 
-        upvoteCountTextView.setText(String.valueOf(upvotes));
-        upvoteLayout.weight = upvotes;
-        upvoteCountTextView.setLayoutParams(upvoteLayout);
-
-        downvoteCountTextView.setText(String.valueOf(downvotes));
-        downvoteLayout.weight = downvotes;
-        downvoteCountTextView.setLayoutParams(downvoteLayout);
+        if (upvotes == 0 && downvotes == 0) {
+            voteBar.setVisibility(View.GONE);
+        } else {
+            voteBar.setVisibility(View.VISIBLE);
+            upvoteCountTextView.setText(String.valueOf(upvotes));
+            downvoteCountTextView.setText(String.valueOf(downvotes));
+        }
     }
 }

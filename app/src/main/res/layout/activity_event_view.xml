@@ -113,9 +113,9 @@
                     <Button
                         android:id="@+id/event_upvote_button"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="64dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="bottom|center"
                         android:singleLine="true"
                         android:background="@drawable/ic_keyboard_arrow_up_white_48dp"
                         android:textColor="@android:color/black"/>
@@ -125,7 +125,7 @@
                         android:layout_width="0dp"
                         android:layout_height="64dp"
                         android:layout_weight="1"
-                        android:gravity="center"
+                        android:gravity="bottom|center"
                         android:singleLine="true"
                         android:background="@drawable/ic_keyboard_arrow_down_white_48dp"
                         android:textColor="@android:color/black"/>
