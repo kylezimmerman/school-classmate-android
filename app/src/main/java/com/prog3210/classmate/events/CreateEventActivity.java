@@ -1,9 +1,7 @@
 package com.prog3210.classmate.events;
 
 import android.app.DatePickerDialog;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -14,11 +12,11 @@ import android.widget.Toast;
 import com.parse.ParseException;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
+import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
-import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
-import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.EventTypeAdapter;
 import com.prog3210.classmate.courses.Course;
@@ -30,6 +28,7 @@ import org.json.JSONObject;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class CreateEventActivity extends BaseAuthenticatedActivity {
     Event event;
@@ -52,14 +51,30 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
 
         EventTypeAdapter eventTypeAdapter = new EventTypeAdapter(this);
         eventTypeAdapter.setTextKey("typeName");
-        eventTypeAdapter.setPaginationEnabled(false);
         eventTypeSpinner.setAdapter(eventTypeAdapter);
+
+
+        final String sendingCourseId = getIntent().getStringExtra("sending_course_id");
 
         CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
         courseAdapter.setShowDetails(false);
-        courseAdapter.setPaginationEnabled(false);
-        courseSpinner.setAdapter(courseAdapter);
+        courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
+            @Override
+            public void onLoading() {
 
+            }
+
+            @Override
+            public void onLoaded(List<Course> objects, Exception e) {
+                for (int i = 0; i < objects.size(); i++) {
+                    Course course = objects.get(i);
+                    if (course.getObjectId().equals(sendingCourseId)) {
+                        courseSpinner.setSelection(i);
+                    }
+                }
+            }
+        });
+        courseSpinner.setAdapter(courseAdapter);
 
         dueDate.setOnClickListener(new View.OnClickListener() {
             @Override

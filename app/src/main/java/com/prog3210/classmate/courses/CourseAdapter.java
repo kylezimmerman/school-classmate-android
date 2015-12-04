@@ -3,16 +3,11 @@ package com.prog3210.classmate.courses;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 import com.prog3210.classmate.R;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by kzimmerman on 11/18/2015.
