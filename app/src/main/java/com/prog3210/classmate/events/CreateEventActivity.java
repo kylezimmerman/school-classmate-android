@@ -2,12 +2,8 @@ package com.prog3210.classmate.events;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -16,6 +12,8 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.parse.ParseException;
+import com.parse.ParseInstallation;
+import com.parse.ParsePush;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
@@ -26,7 +24,9 @@ import com.prog3210.classmate.core.EventTypeAdapter;
 import com.prog3210.classmate.courses.Course;
 import com.prog3210.classmate.courses.CourseAdapter;
 
-import java.text.SimpleDateFormat;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -50,19 +50,16 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         event.setDate(date);
         dueDate.setHint(event.getDateString());
 
-        try {
-            EventTypeAdapter eventTypeAdapter = new EventTypeAdapter(this);
-            eventTypeAdapter.setTextKey("typeName");
-            eventTypeSpinner.setAdapter(eventTypeAdapter);
+        EventTypeAdapter eventTypeAdapter = new EventTypeAdapter(this);
+        eventTypeAdapter.setTextKey("typeName");
+        eventTypeAdapter.setPaginationEnabled(false);
+        eventTypeSpinner.setAdapter(eventTypeAdapter);
 
-            CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
-            courseAdapter.setShowDetails(false);
-            courseSpinner.setAdapter(courseAdapter);
-            courseSpinner.requestFocus();
-        }
-        catch(Exception e){
-            Log.e("create spinners", e.getMessage());
-        }
+        CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
+        courseAdapter.setShowDetails(false);
+        courseAdapter.setPaginationEnabled(false);
+        courseSpinner.setAdapter(courseAdapter);
+
 
         dueDate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,7 +81,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         createEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                CreateEvent(eventTypeSpinner, courseSpinner);
+                createEvent(eventTypeSpinner, courseSpinner);
             }
         });
     }
@@ -98,7 +95,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         }
     };
 
-    public void CreateEvent(Spinner eventType, Spinner course){
+    public void createEvent(Spinner eventType, Spinner course){
         EditText description = (EditText) findViewById(R.id.eventDescription);
         EditText gradeWorth = (EditText) findViewById(R.id.gradeWorth);
         EditText eventName = (EditText) findViewById(R.id.eventName);
@@ -127,14 +124,30 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         event.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
-
                 if (e == null) {
-                    Intent mainActivity = new Intent(CreateEventActivity.this, MainActivity.class);
-                    startActivity(mainActivity);
+                    sendPushNotification();
+                    finish();
                 } else {
-                    Toast.makeText(CreateEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT);
+                    Toast.makeText(CreateEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
+    }
+
+    private void sendPushNotification() {
+        ParsePush push = new ParsePush();
+        push.setChannel("course_" + event.getCourse().getObjectId());
+        push.setMessage(String.format("Event '%s' was added to '%s - %s'",
+                event.getName(),
+                event.getCourse().getCourseCode(),
+                event.getCourse().getName()));
+
+        try {
+            push.setData(new JSONObject().put("event_id", event.getObjectId()));
+        } catch (JSONException e1) {
+            e1.printStackTrace();
+        }
+
+        push.sendInBackground();
     }
 }
