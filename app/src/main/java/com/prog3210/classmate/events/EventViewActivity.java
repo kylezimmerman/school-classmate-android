@@ -2,6 +2,7 @@ package com.prog3210.classmate.events;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
@@ -18,12 +19,16 @@ import com.parse.ParseQuery;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+import com.prog3210.classmate.core.ClassmateUser;
+import com.prog3210.classmate.core.Comment;
 import com.prog3210.classmate.core.CommentDialog;
 
-public class EventViewActivity extends BaseAuthenticatedActivity {
+public class EventViewActivity extends BaseAuthenticatedActivity implements CommentDialog.CommentDialogListener{
     Event event = null;
     Button upvoteButton;
     Button downvoteButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,16 +43,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
         progressBar.setVisibility(View.VISIBLE);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO pop up a sweet dialogue
-                FragmentManager manager = getSupportFragmentManager();
-                CommentDialog commentDialog = new CommentDialog();
-
-                commentDialog.show(manager, "dialog");
-            }
-        });
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.getInBackground(eventId, new GetCallback<Event>() {
             @Override
@@ -59,6 +54,17 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
                 } else {
                     Toast.makeText(EventViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
+            }
+        });
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO pop up a sweet dialogue
+                FragmentManager manager = getSupportFragmentManager();
+                CommentDialog commentDialog = new CommentDialog();
+
+                commentDialog.show(manager, "dialog");
             }
         });
 
@@ -168,4 +174,35 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             }
         });
     }
+
+    @Override
+    public void onDialogSubmitClick(String commentBody) {
+//
+//        if(commentBody.length() > 0){
+//            //save
+//        }
+//        else{
+//            //redisplay thing
+//
+//            Toast.makeText(this, "You must enter in a comment to submit", Toast.LENGTH_SHORT);
+//        }
+//
+//        Comment comment = new Comment();
+//        comment.setCommentBody(commentBody);
+//        comment.setCommentEvent(event);
+//        comment.setCreator(ClassmateUser.getCurrentUser());
+//
+//        comment.save(event, new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                if (e == null){
+//                    //TODO: refresh comment list view
+//                }
+//                else{
+//                    //handle exception
+//                }
+//            }
+//        });
+    }
+
 }
