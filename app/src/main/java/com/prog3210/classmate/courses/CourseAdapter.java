@@ -46,6 +46,12 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
     }
 
     @Override
+    public int getViewTypeCount() {
+        boolean hasSearchTerms = searchTerm != null && searchTerm.length() > 0;
+        return hasSearchTerms ? 2: 1;
+    }
+
+    @Override
     public int getItemViewType(int position) {
         Course course = getItem(position);
 
