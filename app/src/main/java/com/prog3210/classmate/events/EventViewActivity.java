@@ -2,10 +2,12 @@ package com.prog3210.classmate.events;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
+
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,14 +19,18 @@ import com.parse.CountCallback;
 import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
+
 import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
+
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.comments.CommentAdapter;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
+
 import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.comments.Comment;
 import com.prog3210.classmate.comments.CommentDialog;
+
 
 import java.util.List;
 
@@ -99,6 +105,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
         commentList.setEmptyView(findViewById(R.id.empty_list_view));
 
         commentList.setAdapter(commentAdapter);
+
     }
 
     private void displayEventInfo(final Event event) {
@@ -169,11 +176,26 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
         });
     }
 
+    private void setVoteButtons(int voteResult) {
+        if (voteResult == VoteCallback.UPVOTE) {
+            DrawableCompat.setTint(DrawableCompat.wrap(upvoteButton.getBackground()).mutate(), getResources().getColor(R.color.upvote_color));
+            DrawableCompat.setTint(DrawableCompat.wrap(downvoteButton.getBackground()).mutate(), getResources().getColor(android.R.color.darker_gray));
+        } else if (voteResult == VoteCallback.NEUTRAL) {
+            DrawableCompat.setTint(DrawableCompat.wrap(upvoteButton.getBackground()).mutate(), getResources().getColor(android.R.color.darker_gray));
+            DrawableCompat.setTint(DrawableCompat.wrap(downvoteButton.getBackground()).mutate(), getResources().getColor(android.R.color.darker_gray));
+        } else if (voteResult == VoteCallback.DOWNVOTE) {
+            DrawableCompat.setTint(DrawableCompat.wrap(upvoteButton.getBackground()).mutate(), getResources().getColor(android.R.color.darker_gray));
+            DrawableCompat.setTint(DrawableCompat.wrap(downvoteButton.getBackground()).mutate(), getResources().getColor(R.color.downvote_color));
+        }
+    }
+
     public void upvote(View v) {
-        event.upvote(new SaveCallback() {
+        event.upvote(new VoteCallback() {
             @Override
-            public void done(ParseException e) {
+            public void done(int voteResult, ParseException e) {
                 if (e == null) {
+                    setVoteButtons(voteResult);
+
                     upvoteButton.setText(String.valueOf(event.getUpvotes()));
                     downvoteButton.setText(String.valueOf(event.getDownvotes()));
                 }
@@ -182,10 +204,12 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
     }
 
     public void downvote(View v) {
-        event.downvote(new SaveCallback() {
+        event.downvote(new VoteCallback() {
             @Override
-            public void done(ParseException e) {
+            public void done(int voteResult, ParseException e) {
                 if (e == null) {
+                    setVoteButtons(voteResult);
+
                     upvoteButton.setText(String.valueOf(event.getUpvotes()));
                     downvoteButton.setText(String.valueOf(event.getDownvotes()));
                 }

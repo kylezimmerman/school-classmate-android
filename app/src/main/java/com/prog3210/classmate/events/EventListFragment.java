@@ -23,7 +23,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class EventListFragment extends BaseFragment {
-
+    EventAdapter eventAdapter;
 
     public EventListFragment() {
         // Required empty public constructor
@@ -40,7 +40,7 @@ public class EventListFragment extends BaseFragment {
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.add_event_button);
 
 
-        final EventAdapter eventAdapter = new EventAdapter(getActivity(), ParseUser.getCurrentUser());
+        eventAdapter = new EventAdapter(getActivity(), ParseUser.getCurrentUser());
         eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
             @Override
             public void onLoading() {
@@ -50,15 +50,6 @@ public class EventListFragment extends BaseFragment {
             @Override
             public void onLoaded(List<Event> list, Exception e) {
                 pullToRefresh.setRefreshing(false);
-            }
-        });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent eventActivityIntent = new Intent(getActivity(), CreateEventActivity.class);
-
-                startActivity(eventActivityIntent);
             }
         });
 
@@ -93,5 +84,9 @@ public class EventListFragment extends BaseFragment {
         return view;
     }
 
-
+    @Override
+    public void onResume() {
+        super.onResume();
+        eventAdapter.loadObjects();
+    }
 }

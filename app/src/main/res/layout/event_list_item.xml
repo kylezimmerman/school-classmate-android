@@ -30,20 +30,42 @@
             android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
+        android:id="@+id/vote_bar"
         android:layout_width="48dp"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_gravity="center_vertical">
+        android:gravity="center_vertical">
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:src="@drawable/ic_keyboard_arrow_up_white_48dp"
+            android:scaleType="center"
+            android:tint="@color/upvote_color"/>
         <TextView
             android:id="@+id/upvote_count"
-            style="@style/vote_bar"
-            android:layout_weight="0"
-            android:background="@color/upvote_color"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/black"/>
+        <View
+            android:layout_width="8dp"
+            android:layout_height="1dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="1dp"
+            android:layout_marginBottom="1dp"
+            android:background="@android:color/darker_gray"/>
         <TextView
             android:id="@+id/downvote_count"
-            style="@style/vote_bar"
-            android:layout_weight="0"
-            android:background="@color/downvote_color"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="@android:color/black"/>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="16dp"
+            android:scaleType="center"
+            android:src="@drawable/ic_keyboard_arrow_down_white_48dp"
+            android:tint="@color/downvote_color"/>
     </LinearLayout>
 
 </com.prog3210.classmate.events.EventItemView>
