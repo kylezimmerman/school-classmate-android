@@ -1,4 +1,4 @@
-package com.prog3210.classmate.core;
+package com.prog3210.classmate.comments;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -75,8 +75,8 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
         AlertDialog ad = (AlertDialog) getDialog();
 
         if (ad != null){
-            Button postiveButton = ad.getButton(Dialog.BUTTON_POSITIVE);
-            postiveButton.setOnClickListener(new View.OnClickListener() {
+            Button positiveButton = ad.getButton(Dialog.BUTTON_POSITIVE);
+            positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 

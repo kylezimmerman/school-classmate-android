@@ -1,11 +1,9 @@
-package com.prog3210.classmate.core;
+package com.prog3210.classmate.comments;
 
 import com.parse.ParseClassName;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
-import com.parse.ParseRelation;
 import com.parse.ParseUser;
-import com.parse.SaveCallback;
 import com.prog3210.classmate.events.Event;
 
 /**
@@ -22,10 +20,10 @@ public class Comment extends ParseObject {
     }
 
     public Event getCommentEvent(){
-        return (Event) getParseObject("eventCommment");
+        return (Event) getParseObject("commentEvent");
     }
     public void setCommentEvent(Event event){
-        put("eventComment", event);
+        put("commentEvent", event);
     }
 
     public ParseUser getCreator(){
@@ -33,16 +31,6 @@ public class Comment extends ParseObject {
     }
     public void setCreator(ParseUser creator){
         put("creator", creator);
-    }
-
-    public void save(Event event,SaveCallback callback){
-        ParseRelation<ClassmateUser> userRelation = getRelation("creator");
-        userRelation.add(ClassmateUser.getCurrentUser());
-
-        ParseRelation<Event> eventRelation = getRelation("eventComment");
-        eventRelation.add(event);
-
-        saveInBackground(callback);
     }
 
     public static ParseQuery<Comment> getQuery(){

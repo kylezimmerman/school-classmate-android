@@ -5,6 +5,7 @@ import android.app.Application;
 import com.parse.Parse;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
+import com.prog3210.classmate.comments.Comment;
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.courses.Course;
@@ -26,6 +27,7 @@ public class ClassMateApplication extends Application {
         ParseObject.registerSubclass(EventType.class);
         ParseObject.registerSubclass(Course.class);
         ParseObject.registerSubclass(Event.class);
+        ParseObject.registerSubclass(Comment.class);
 
         Parse.initialize(this,
                 getResources().getString(R.string.parse_application_id),
