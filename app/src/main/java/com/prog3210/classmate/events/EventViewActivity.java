@@ -78,9 +78,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 commentDialog.show(manager, "dialog");
             }
         });
-
-
-
     }
 
     private void displayEventInfo(final Event event) {
