@@ -57,7 +57,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
 
         CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
         courseAdapter.setShowDetails(false);
-        courseAdapter.setPaginationEnabled(false);
+        courseAdapter.enableSpinnerSupport();
         courseSpinner.setAdapter(courseAdapter);
 
 

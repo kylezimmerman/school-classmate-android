@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.RelativeLayout;
 
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
@@ -33,6 +34,8 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         Unjoined
     }
 
+    boolean spinnerSupportEnabled = false;
+
     public CourseAdapter(Context context, FilterMode mode) {
         super(context, createQueryFactory(mode));
     }
@@ -45,10 +48,14 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         }
     }
 
+
+    public void enableSpinnerSupport() {
+        spinnerSupportEnabled = true;
+    }
+
     @Override
     public int getViewTypeCount() {
-        boolean hasSearchTerms = searchTerm != null && searchTerm.length() > 0;
-        return hasSearchTerms ? 2: 1;
+        return spinnerSupportEnabled ? 1 : 2;
     }
 
     @Override
@@ -103,6 +110,8 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
                 } else if (filterMode == FilterMode.Unjoined) {
                     query.whereNotEqualTo("members", ParseUser.getCurrentUser());
                 }
+
+                query.orderByAscending("courseCode");
 
                 return query;
             }

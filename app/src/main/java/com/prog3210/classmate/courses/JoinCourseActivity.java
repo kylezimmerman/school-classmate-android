@@ -37,7 +37,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading);
         courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
         ListView courseList = (ListView) findViewById(R.id.joinCourseList);
-        courseList.setAdapter(courseAdapter);
+
         courseList.setOnItemClickListener(selectedCourse);
 
         courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
@@ -52,6 +52,8 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
             }
         });
 
+        courseList.setAdapter(courseAdapter);
+
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -63,6 +65,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
