@@ -49,8 +49,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
         Intent k = getIntent();
 
         final String eventId = k.getStringExtra("event_id");
-
-        final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
         progressBar.setVisibility(View.VISIBLE);
@@ -63,6 +61,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 if (e == null) {
                     event = object;
                     displayEventInfo(object);
+                    loadComments();
                 } else {
                     Toast.makeText(EventViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -80,31 +79,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
             }
         });
 
-        commentAdapter = new CommentAdapter(this, event);
-        ListView commentList = (ListView) findViewById(R.id.comment_list);
 
-        commentAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Comment>() {
-            @Override
-            public void onLoading() {
-
-            }
-
-            @Override
-            public void onLoaded(List<Comment> list, Exception e) {
-                pullToRefresh.setRefreshing(false);
-            }
-        });
-
-        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                commentAdapter.loadObjects();
-            }
-        });
-
-        commentList.setEmptyView(findViewById(R.id.empty_list_view));
-
-        commentList.setAdapter(commentAdapter);
 
     }
 
@@ -176,6 +151,35 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
         });
     }
 
+    private void loadComments(){
+        final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
+        commentAdapter = new CommentAdapter(this, event);
+        ListView commentList = (ListView) findViewById(R.id.comment_list);
+
+        commentAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Comment>() {
+            @Override
+            public void onLoading() {
+
+            }
+
+            @Override
+            public void onLoaded(List<Comment> list, Exception e) {
+                pullToRefresh.setRefreshing(false);
+            }
+        });
+
+        pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                commentAdapter.loadObjects();
+            }
+        });
+
+        commentList.setEmptyView(findViewById(R.id.empty_list_view));
+
+        commentList.setAdapter(commentAdapter);
+    }
+
     private void setVoteButtons(int voteResult) {
         if (voteResult == VoteCallback.UPVOTE) {
             DrawableCompat.setTint(DrawableCompat.wrap(upvoteButton.getBackground()).mutate(), getResources().getColor(R.color.upvote_color));
@@ -230,6 +234,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 if (e == null){
                     //TODO refresh the darn list ?? show a toast with a success message
                     commentAdapter.loadObjects();
+                    Toast.makeText(EventViewActivity.this,"Comment added succesfully", Toast.LENGTH_SHORT).show();
                 }
                 else{
                     //Show a show a toasst as to why the message was saved
