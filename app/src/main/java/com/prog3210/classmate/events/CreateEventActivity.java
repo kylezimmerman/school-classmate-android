@@ -135,19 +135,34 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
     }
 
     private void sendPushNotification() {
-        ParsePush push = new ParsePush();
-        push.setChannel("course_" + event.getCourse().getObjectId());
-        push.setMessage(String.format("Event '%s' was added to '%s - %s'",
-                event.getName(),
-                event.getCourse().getCourseCode(),
-                event.getCourse().getName()));
-
         try {
-            push.setData(new JSONObject().put("event_id", event.getObjectId()));
+            //Build the message to send
+            String message = String.format("Event '%s' was added to '%s - %s'",
+                    event.getName(),
+                    event.getCourse().getCourseCode(),
+                    event.getCourse().getName());
+
+            //Create a parse push notification
+            ParsePush push = new ParsePush();
+
+            //Send it to everyone in the course's channel
+            push.setChannel("course_" + event.getCourse().getObjectId());
+
+            //Set the alert text and event_id (so that the client can take you to the correct Activity)
+            push.setData(new JSONObject()
+                    .put("alert", message)
+                    .put("event_id", event.getObjectId())
+            );
+
+            //Don't send it to yourself.
+            push.setQuery(ParseInstallation.getQuery().
+                    whereNotEqualTo("installationId",
+                            ParseInstallation.getCurrentInstallation().getObjectId()));
+
+            //Asynchronously send the push.
+            push.sendInBackground();
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-
-        push.sendInBackground();
     }
 }
