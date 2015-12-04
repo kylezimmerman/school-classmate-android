@@ -23,6 +23,8 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
             public ParseQuery<Semester> create() {
                 ParseQuery<Semester> query = Semester.getQuery();
 
+                query.orderByAscending("semesterName");
+
                 return query;
             }
         };
