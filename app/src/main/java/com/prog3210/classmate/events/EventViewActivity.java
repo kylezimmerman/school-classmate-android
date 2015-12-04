@@ -50,7 +50,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
 
         final String eventId = k.getStringExtra("event_id");
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
         progressBar.setVisibility(View.VISIBLE);
 
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
@@ -65,17 +64,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 } else {
                     Toast.makeText(EventViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            }
-        });
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO pop up a sweet dialogue
-                FragmentManager manager = getSupportFragmentManager();
-                CommentDialog commentDialog = new CommentDialog();
-
-                commentDialog.show(manager, "dialog");
             }
         });
     }
@@ -150,8 +138,24 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
 
     private void loadComments(){
         final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
-        commentAdapter = new CommentAdapter(this, event);
         ListView commentList = (ListView) findViewById(R.id.comment_list);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
+        commentAdapter = new CommentAdapter(this, event);
+
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO pop up a sweet dialogue
+                FragmentManager manager = getSupportFragmentManager();
+                CommentDialog commentDialog = new CommentDialog();
+                Bundle bundle = new Bundle();
+                bundle.putString("eventName", event.getName());
+                commentDialog.setArguments(bundle);
+                commentDialog.show(manager, "dialog");
+            }
+        });
+
 
         commentAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Comment>() {
             @Override
