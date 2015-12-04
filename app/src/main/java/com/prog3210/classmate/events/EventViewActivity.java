@@ -41,6 +41,8 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
     private Button upvoteButton;
     private Button downvoteButton;
 
+    private ListView commentList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +140,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
 
     private void loadComments(){
         final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
-        ListView commentList = (ListView) findViewById(R.id.comment_list);
+        commentList = (ListView) findViewById(R.id.comment_list);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
         commentAdapter = new CommentAdapter(this, event);
 
@@ -235,6 +237,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 if (e == null){
                     //TODO refresh the darn list ?? show a toast with a success message
                     commentAdapter.loadObjects();
+                    commentList.smoothScrollByOffset(Integer.MAX_VALUE);
                     Toast.makeText(EventViewActivity.this,"Comment added succesfully", Toast.LENGTH_SHORT).show();
                 }
                 else{
