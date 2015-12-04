@@ -6,6 +6,7 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.widget.EditText;
 
 import com.prog3210.classmate.R;
 
@@ -25,7 +26,12 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //submit the comment
+                        EditText comment =(EditText) getActivity().findViewById(R.id.comment_body);
+
+                        if (comment.getText().length() > 0){
+                            //write selected event, current user and comment to db
+                        }
+
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
