@@ -18,10 +18,10 @@ public class Comment extends ParseObject {
     }
 
     public Event getCommentEvent(){
+        Event something = new Event();
+        return something;
     }
-
-
-
+    
     public static ParseQuery<Comment> getQuery(){
         return new ParseQuery(Comment.class);
     }
