@@ -157,7 +157,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             //Don't send it to yourself.
             push.setQuery(ParseInstallation.getQuery().
                     whereNotEqualTo("installationId",
-                            ParseInstallation.getCurrentInstallation().getObjectId()));
+                            ParseInstallation.getCurrentInstallation().getInstallationId()));
 
             //Asynchronously send the push.
             push.sendInBackground();
