@@ -23,6 +23,8 @@ public class EventTypeAdapter extends ParseQueryAdapter<EventType> {
             public ParseQuery<EventType> create() {
                 ParseQuery<EventType> query = EventType.getQuery();
 
+                query.orderByAscending("typeName");
+
                 return query;
             }
         };
