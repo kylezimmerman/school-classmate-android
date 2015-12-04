@@ -25,7 +25,7 @@ public class CommentAdapter extends ParseQueryAdapter<Comment> {
                 ParseQuery<Comment> query = Comment.getQuery();
 
                 query.include("creator");
-                query.whereEqualTo("commentEvent", event.getObjectId());
+                query.whereEqualTo("commentEvent", event);
 
                 return query;
             }

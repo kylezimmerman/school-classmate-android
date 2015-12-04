@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">ClassMate</string>
     <string name="action_settings">Settings</string>
+
     <string name="title_activity_create_course">Create Course</string>
     <string name="title_activity_user_login">UserLogin</string>
     <string name="title_activity_register">Register</string>
     <string name="title_activity_course_view">Course Details</string>
     <string name="title_activity_join_course">Join Course</string>
+    <string name="title_activity_create_event">Create Event</string>
+    <string name="title_activity_event_view">Event Details</string>
 
     <string name="login">Login</string>
     <string name="username">Username</string>
@@ -43,10 +46,6 @@
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="hello_world">Hello world!</string>
-
     <string name="confirm_leave_course_title">Leave Course</string>
     <string name="confirm_leave_course" formatted="false">Do you want to leave \'%s - %s\'?</string>
     <string name="leave">Leave</string>
@@ -54,8 +53,6 @@
     <string name="empty_course_list_message">Welcome!\n\nGet started by adding some courses.</string>
 
     <string name="empty_event_list_message">You have no events.</string>
-    <string name="title_activity_create_event">CreateEventActivity</string>
-    <string name="title_activity_event_view">Event Details</string>
 
     <string name="eventName">Event Name</string>
     <string name="due">Due Date:</string>

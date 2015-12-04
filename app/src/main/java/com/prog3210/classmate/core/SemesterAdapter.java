@@ -33,12 +33,12 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
     @Override
     public View getItemView(Semester semester, View view, ViewGroup parent) {
         if (view == null) {
-            view = View.inflate(getContext(), R.layout.semester_list_item, null);
+            view = View.inflate(getContext(), R.layout.spinner_list_item, null);
         }
 
         super.getItemView(semester, view, parent);
 
-        TextView listItem = (TextView)view.findViewById(R.id.semester_name);
+        TextView listItem = (TextView)view.findViewById(R.id.item_name);
         listItem.setText(semester.getSemesterName());
 
         return view;

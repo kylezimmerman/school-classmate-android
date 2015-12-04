@@ -47,7 +47,7 @@ public class CommentItemView extends LinearLayout{
 
         dateTime.setText(String.format("%s @ %s",
                 new SimpleDateFormat("EEE MMM F").format(createdDate),
-                new SimpleDateFormat("h:m a").format(createdDate)));
+                new SimpleDateFormat("h:mm a").format(createdDate)));
         userName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
         body.setText(comment.getCommentBody());
 
