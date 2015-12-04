@@ -38,6 +38,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         ParseQuery<Course> query = ParseQuery.getQuery(Course.class);
+        query.include("semester");
         query.getInBackground(courseId, new GetCallback<Course>() {
             @Override
             public void done(Course object, ParseException e) {

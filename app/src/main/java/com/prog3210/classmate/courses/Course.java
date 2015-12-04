@@ -1,6 +1,10 @@
 package com.prog3210.classmate.courses;
 
+import android.util.Log;
+import android.widget.Toast;
+
 import com.parse.ParseClassName;
+import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
@@ -61,7 +65,7 @@ public class Course extends ParseObject {
         ParseRelation<ClassmateUser> members = getRelation("members");
         members.remove(ClassmateUser.getCurrentUser());
 
-        ParsePush.unsubscribeInBackground(getObjectId());
+        ParsePush.unsubscribeInBackground("course_" + getObjectId());
 
         saveInBackground(saveCallback);
     }
@@ -75,7 +79,7 @@ public class Course extends ParseObject {
         ParseRelation<ClassmateUser> members = getRelation("members");
         members.add(ClassmateUser.getCurrentUser());
 
-        ParsePush.subscribeInBackground(getObjectId());
+        ParsePush.subscribeInBackground("course_" + getObjectId());
         saveInBackground(saveCallback);
     }
 }

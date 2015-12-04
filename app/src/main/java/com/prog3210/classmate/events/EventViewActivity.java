@@ -19,10 +19,12 @@ import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.CommentDialog;
 
-public class EventViewActivity extends BaseAuthenticatedActivity {
+public class EventViewActivity extends BaseAuthenticatedActivity implements CommentDialog.CommentDialogListener{
     Event event = null;
     Button upvoteButton;
     Button downvoteButton;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,16 +39,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.add_comment_button);
         progressBar.setVisibility(View.VISIBLE);
 
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //TODO pop up a sweet dialogue
-                FragmentManager manager = getSupportFragmentManager();
-                CommentDialog commentDialog = new CommentDialog();
-
-                commentDialog.show(manager, "dialog");
-            }
-        });
         ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
         query.getInBackground(eventId, new GetCallback<Event>() {
             @Override
@@ -61,19 +53,16 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             }
         });
 
-        //TODO: adjust this to fit comments
-//        final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
-//        eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
-//            @Override
-//            public void onLoading() {
-//
-//            }
-//
-//            @Override
-//            public void onLoaded(List<Event> list, Exception e) {
-//                pullToRefresh.setRefreshing(false);
-//            }
-//        });
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TODO pop up a sweet dialogue
+                FragmentManager manager = getSupportFragmentManager();
+                CommentDialog commentDialog = new CommentDialog();
+
+                commentDialog.show(manager, "dialog");
+            }
+        });
     }
 
     private void displayEventInfo(final Event event) {
@@ -184,4 +173,35 @@ public class EventViewActivity extends BaseAuthenticatedActivity {
             }
         });
     }
+
+    @Override
+    public void onDialogSubmitClick(String commentBody) {
+//
+//        if(commentBody.length() > 0){
+//            //save
+//        }
+//        else{
+//            //redisplay thing
+//
+//            Toast.makeText(this, "You must enter in a comment to submit", Toast.LENGTH_SHORT);
+//        }
+//
+//        Comment comment = new Comment();
+//        comment.setCommentBody(commentBody);
+//        comment.setCommentEvent(event);
+//        comment.setCreator(ClassmateUser.getCurrentUser());
+//
+//        comment.save(event, new SaveCallback() {
+//            @Override
+//            public void done(ParseException e) {
+//                if (e == null){
+//                    //TODO: refresh comment list view
+//                }
+//                else{
+//                    //handle exception
+//                }
+//            }
+//        });
+    }
+
 }

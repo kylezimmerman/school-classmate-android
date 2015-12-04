@@ -73,6 +73,8 @@
                 <category android:name="com.prog3210.classmate" />
             </intent-filter>
         </receiver>
+
+        <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/ic_notification" />
     </application>
 
 </manifest>
