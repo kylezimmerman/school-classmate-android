@@ -57,7 +57,7 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        dismiss();
+                        //this method has been overriden in onStart() put logic in there
                     }
                 }).setTitle("Discuss " + eventName);
 
@@ -72,16 +72,48 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
 
         if (ad != null){
             Button positiveButton = ad.getButton(Dialog.BUTTON_POSITIVE);
+            Button negativeButton = ad.getButton(Dialog.BUTTON_NEGATIVE);
             positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
-                    if (commentBodyText.getText().length() > 1){
+                    if (commentBodyText.getText().length() > 0){
                         listener.onDialogSubmitClick(commentBodyText.getText().toString());
                         dismiss();
                     }
                     else{
-                        Toast.makeText(getActivity(), "Enter a comment first dummy", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "Enter a comment first before trying to submit", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            negativeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (commentBodyText.getText().length() > 0){
+                        //ask user if they want to discard their changes
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+
+                        builder.setMessage("Discard your comment?")
+                            .setPositiveButton("Discard", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    dismiss();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //Do Nothing here it will close the alertdialog on its own
+                                }
+                            });
+
+                        AlertDialog alertDialog = builder.create();
+
+                        alertDialog.show();
+                    }
+                    else{
+                        dismiss();
                     }
                 }
             });
