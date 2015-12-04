@@ -152,7 +152,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp"
             android:layout_below="@id/event_details_section">
 
             <TextView
@@ -160,6 +159,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/event_discussion_head"
+                android:padding="10dp"
                 style="@style/TextAppearance.AppCompat.Headline"/>
 
             <android.support.v4.widget.SwipeRefreshLayout
@@ -170,7 +170,8 @@
                     android:id="@+id/comment_list"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:listitem="@layout/course_list_item"/>
+                    tools:listitem="@layout/comment_list_item"
+                    android:clickable="false"/>
                 <!-- TODO: make the listItem be for comments -->
             </android.support.v4.widget.SwipeRefreshLayout>
 

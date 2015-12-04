@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.prog3210.classmate.comments.CommentItemView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Sean Coombes"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:id="@+id/comment_user"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Fri Dec 4 @ 1:57pm"
+            android:gravity="right"
+            android:id="@+id/comment_datetime"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:textSize="16sp"
+        android:padding = "@dimen/abc_control_padding_material"
+        android:text="This here is a comment I have a lot to say about things and I feel people should read them. what does every one think and Star Wars its pretty neat I think"
+        android:id="@+id/comment_body"/>
+
+</com.prog3210.classmate.comments.CommentItemView>
