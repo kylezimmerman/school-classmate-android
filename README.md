@@ -26,12 +26,15 @@ Add a file called **parse.xml** to the values folder (/app/src/main/res/values/)
 ```
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="parse_application_id">[ADD APPLICATION ID HERE]</string>
-    <string name="parse_client_key">[ADD CLIENT ID HERE]</string>
+    <string name="parse_application_id"></string>
+    <string name="parse_client_key"></string>
+    <string name="facebook_app_id"></string>
 </resources>
 ```
 
-***DO NOT COMMIT THIS FILE***
+You must insert the values for each of these. If you need them ask another group member.
+
+***DO NOT COMMIT parse.xml***. It is in our .gitignore file so it shouldn't be an issue.
 
 ## Building
 To be determined
