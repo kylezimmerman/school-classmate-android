@@ -7,9 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.Profile;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
@@ -17,6 +19,7 @@ import com.parse.ParseUser;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseActivity;
+import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.courses.Course;
 
 import java.util.ArrayList;
@@ -34,6 +37,9 @@ public class UserLoginActivity extends BaseActivity {
 
         login.setOnClickListener(attemptLogin);
         register.setOnClickListener(registerUser);
+
+        Button facebookLoginButton = (Button)findViewById(R.id.facebook_login);
+        facebookLoginButton.setOnClickListener(facebookLogin);
     }
 
     private View.OnClickListener attemptLogin = new View.OnClickListener() {
@@ -57,13 +63,7 @@ public class UserLoginActivity extends BaseActivity {
                     public void done(ParseUser user, com.parse.ParseException e) {
                         if (user != null) {
                             joinCourseChannels();
-
-                            Intent mainActivity = new Intent(UserLoginActivity.this, MainActivity.class);
-
-                            //This starts the main activity and clears the back stack
-                            mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            startActivity(mainActivity);
-                            finish();
+                            goToMainActivity();
                         } else {
                             Toast.makeText(getApplicationContext(), getString(R.string.failedLogin), Toast.LENGTH_SHORT).show();
                         }
@@ -73,6 +73,37 @@ public class UserLoginActivity extends BaseActivity {
         }
     };
 
+    private View.OnClickListener facebookLogin = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ParseFacebookUtils.logInWithReadPermissionsInBackground(UserLoginActivity.this, null, new LogInCallback() {
+                @Override
+                public void done(ParseUser user, ParseException e) {
+                    if (e == null) {
+                        if (user != null) {
+
+                            ClassmateUser classmateUser = (ClassmateUser)user;
+                            classmateUser.setFirstName(Profile.getCurrentProfile().getFirstName());
+                            classmateUser.setLastName(Profile.getCurrentProfile().getLastName());
+                            classmateUser.saveInBackground();
+
+                            joinCourseChannels();
+                            goToMainActivity();
+                        }
+                    } else {
+                        Toast.makeText(UserLoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+        }
+    };
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+    }
+
     private View.OnClickListener registerUser = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -80,6 +111,16 @@ public class UserLoginActivity extends BaseActivity {
             startActivity(registerIntent);
         }
     };
+
+
+    private void goToMainActivity() {
+        Intent mainActivity = new Intent(UserLoginActivity.this, MainActivity.class);
+
+        //This starts the main activity and clears the back stack
+        mainActivity.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainActivity);
+        finish();
+    }
 
     private void joinCourseChannels() {
         ParseQuery<Course> courseQuery = Course.getQuery();

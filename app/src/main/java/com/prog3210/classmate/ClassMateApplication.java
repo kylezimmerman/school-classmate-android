@@ -2,7 +2,9 @@ package com.prog3210.classmate;
 
 import android.app.Application;
 
+import com.facebook.FacebookSdk;
 import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.prog3210.classmate.comments.Comment;
@@ -32,6 +34,10 @@ public class ClassMateApplication extends Application {
         Parse.initialize(this,
                 getResources().getString(R.string.parse_application_id),
                 getResources().getString(R.string.parse_client_key));
+
+        FacebookSdk.sdkInitialize(this);
+
+        ParseFacebookUtils.initialize(this);
 
         ParseInstallation.getCurrentInstallation().saveInBackground();
     }
