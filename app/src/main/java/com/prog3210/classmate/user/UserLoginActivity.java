@@ -7,7 +7,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.facebook.AccessToken;
 import com.facebook.Profile;
+import com.facebook.login.LoginManager;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
@@ -15,7 +17,9 @@ import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
 import com.parse.ParsePush;
 import com.parse.ParseQuery;
+import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
+import com.parse.twitter.Twitter;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseActivity;
@@ -40,6 +44,9 @@ public class UserLoginActivity extends BaseActivity {
 
         Button facebookLoginButton = (Button)findViewById(R.id.facebook_login);
         facebookLoginButton.setOnClickListener(facebookLogin);
+
+        Button twitterLoginButton = (Button)findViewById(R.id.twitter_login);
+        twitterLoginButton.setOnClickListener(twitterLogin);
     }
 
     private View.OnClickListener attemptLogin = new View.OnClickListener() {
@@ -76,22 +83,60 @@ public class UserLoginActivity extends BaseActivity {
     private View.OnClickListener facebookLogin = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            ParseFacebookUtils.logInWithReadPermissionsInBackground(UserLoginActivity.this, null, new LogInCallback() {
+
+            AccessToken token = AccessToken.getCurrentAccessToken();
+
+            if (token != null) {
+                ParseFacebookUtils.logInInBackground(token);
+            } else {
+                ParseFacebookUtils.logInWithReadPermissionsInBackground(UserLoginActivity.this, null, new LogInCallback() {
+                    @Override
+                    public void done(ParseUser user, ParseException e) {
+                        if (e == null) {
+                            if (user != null) {
+                                if (user.isNew()) {
+                                    ClassmateUser classmateUser = (ClassmateUser) user;
+                                    classmateUser.setFirstName(Profile.getCurrentProfile().getFirstName());
+                                    classmateUser.setLastName(Profile.getCurrentProfile().getLastName());
+                                    classmateUser.saveInBackground();
+                                }
+
+                                joinCourseChannels();
+                                goToMainActivity();
+                            }
+                        } else {
+                            Toast.makeText(UserLoginActivity.this,
+                                    "An error occurred logging in to Facebook. Please try again.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }
+    };
+
+    View.OnClickListener twitterLogin = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            ParseTwitterUtils.logIn(UserLoginActivity.this, new LogInCallback() {
                 @Override
                 public void done(ParseUser user, ParseException e) {
                     if (e == null) {
                         if (user != null) {
-
-                            ClassmateUser classmateUser = (ClassmateUser)user;
-                            classmateUser.setFirstName(Profile.getCurrentProfile().getFirstName());
-                            classmateUser.setLastName(Profile.getCurrentProfile().getLastName());
-                            classmateUser.saveInBackground();
-
+                            if (user.isNew()) {
+                                ClassmateUser classmateUser = (ClassmateUser) user;
+                                classmateUser.setFirstName(ParseTwitterUtils.getTwitter().getScreenName());
+                                classmateUser.setLastName("");
+                                classmateUser.saveInBackground();
+                            }
+                            
                             joinCourseChannels();
                             goToMainActivity();
                         }
                     } else {
-                        Toast.makeText(UserLoginActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(UserLoginActivity.this,
+                                "An error occurred logging in to Twitter. Please try again.",
+                                Toast.LENGTH_SHORT).show();
                     }
                 }
             });
