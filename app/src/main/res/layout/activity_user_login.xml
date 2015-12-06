@@ -21,7 +21,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:orientation="vertical"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:descendantFocusability="beforeDescendants"
+            android:focusableInTouchMode="true">
             <ImageView
                 android:id="@+id/classmate_logo"
                 android:layout_width="match_parent"
@@ -37,6 +39,22 @@
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/white"
                 >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="20dp">
+
+                    <Button
+                        android:id="@+id/facebook_login"
+                        style="@style/facebook_login_button"/>
+
+                    <Button
+                        android:id="@+id/twitter_login"
+                        style="@style/twitter_login_button" />
+                </LinearLayout>
 
                 <android.support.design.widget.TextInputLayout
                     android:layout_width="match_parent"
@@ -69,14 +87,6 @@
                     android:text="@string/login"
                     android:textColor="@android:color/white"
                     android:background="@color/login_button"
-                    />
-
-                <com.facebook.login.widget.LoginButton
-                    android:id="@+id/facebook_login"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="20dp"
                     />
 
                 <Button
