@@ -1,15 +1,7 @@
 package com.prog3210.classmate.events;
 
-import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -23,7 +15,6 @@ import com.parse.ParsePush;
 import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 import com.prog3210.classmate.R;
-import com.prog3210.classmate.core.AlarmReceiver;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.EventType;
@@ -153,10 +144,6 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     sendPushNotification();
-                    generateLocalNotification();
-                    scheduleNotification(String.format("%s is coming up!", event.getName()),
-                            String.format("Don't forget about '%s', it's almost due!", event.getName()),
-                            event.getDate());
                     finish();
                 } else {
                     Toast.makeText(CreateEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
@@ -195,59 +182,5 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         } catch (JSONException e1) {
             e1.printStackTrace();
         }
-    }
-
-    private void generateLocalNotification() {
-        String notificationTitle = String.format("%s is coming up!",
-                event.getName());
-
-        String notificationText = String.format("The deadline for '%s' for %s is coming up! Don't forget!",
-                event.getName(),
-                event.getCourse().getCourseCode());
-
-        NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
-                .setSmallIcon(R.drawable.notification_template_icon_bg)
-                .setContentTitle(notificationTitle)
-                .setContentText(notificationText);
-
-        Intent viewEventIntent = new Intent(this, EventViewActivity.class);
-        viewEventIntent.putExtra("event_id", event.getObjectId());
-
-        PendingIntent notificationIntent = PendingIntent.getActivity(
-                this, 0, viewEventIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        notificationBuilder.setContentIntent(notificationIntent);
-
-        int notificationId = 101001;
-
-        NotificationManager notificationManager = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-        notificationManager.notify(notificationId, notificationBuilder.build());
-    }
-
-    //TODO: decide on what the NOTIFICATION_ID and NOTIFICATION things should be
-    // got this from https://gist.github.com/BrandonSmith/6679223
-    private void scheduleNotification(String title, String message, Date date) {
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle(title);
-        builder.setContentText(message);
-        builder.setSmallIcon(R.drawable.ic_notification);
-
-        // API 16+
-        //Notification eventNotification = builder.build();
-        // API 11-15
-        Notification eventNotification = builder.getNotification();
-
-
-        //TODO: correct pending intent
-        Intent notificationIntent = new Intent(this, AlarmReceiver.class);
-        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 1);
-        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, eventNotification);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        //TODO: change back to date.getTIme() when finished (this is for testing now)
-        //long futureInMillis = date.getTime();
-        long futureInMillis = SystemClock.elapsedRealtime() + 5000;
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, futureInMillis, pendingIntent);
     }
 }
