@@ -166,7 +166,7 @@ public class Event extends ParseObject {
         return getDate("dueDate");
     }
     public String getDateString() {
-        DateFormat format = new SimpleDateFormat("EEE MMM F");
+        DateFormat format = new SimpleDateFormat("EEE MMM d");
 
         return format.format(getDate());
     }

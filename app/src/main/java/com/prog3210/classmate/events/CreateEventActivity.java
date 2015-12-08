@@ -109,7 +109,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             GregorianCalendar setDate = new GregorianCalendar(year,month,day);
             event.setDate(setDate.getTime());
-            dueDate.setHint(event.getDateString());
+            dueDate.setText(event.getDateString());
         }
     };
 

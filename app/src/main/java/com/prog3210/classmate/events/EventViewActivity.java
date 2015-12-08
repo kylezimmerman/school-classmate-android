@@ -59,7 +59,8 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
 
-        ParseQuery<Event> query = ParseQuery.getQuery(Event.class);
+        ParseQuery<Event> query = Event.getQuery();
+        query.include("course");
         query.getInBackground(eventId, new GetCallback<Event>() {
             @Override
             public void done(Event object, ParseException e) {
