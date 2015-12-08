@@ -29,6 +29,8 @@ Add a file called **parse.xml** to the values folder (/app/src/main/res/values/)
     <string name="parse_application_id"></string>
     <string name="parse_client_key"></string>
     <string name="facebook_app_id"></string>
+    <string name="twitter_consumer_key"></string>
+    <string name="twitter_consumer_secret"></string>
 </resources>
 ```
 
