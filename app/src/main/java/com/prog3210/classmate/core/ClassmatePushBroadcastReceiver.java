@@ -33,19 +33,24 @@ public class ClassmatePushBroadcastReceiver extends ParsePushBroadcastReceiver {
         super.onPushReceive(context, intent);
 
         try {
+            // Get the data out of the parse notification
             JSONObject pushData = new JSONObject(intent.getStringExtra("com.parse.Data"));
 
+            // Get the 'event_id' property if it exists
             final String eventId = pushData.optString("event_id", null);
 
+            // If we have an event, get the Event information and schedule a notification
             if (eventId != null) {
                 ParseQuery<Event> query = Event.getQuery();
                 query.include("course");
                 query.getInBackground(eventId, new GetCallback<Event>() {
                     @Override
                     public void done(Event object, ParseException e) {
+                        // On success of event query:
                         if (e == null) {
                             String message = String.format("Deadline for '%s' is coming up!", object.getName());
                             Date dueDate = object.getDate();
+                            // Schedules the notification
                             NotificationHelper.scheduleNotification(context,
                                     eventId,
                                     message,
@@ -55,7 +60,7 @@ public class ClassmatePushBroadcastReceiver extends ParsePushBroadcastReceiver {
                 });
             }
         } catch (JSONException e) {
-
+            LogHelper.logError(context, "onPushReceive", "An error occurred scheduling a notification for an event.", e.getMessage());
         }
     }
 
