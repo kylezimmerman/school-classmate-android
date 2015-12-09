@@ -1,3 +1,11 @@
+/*
+    ClassmatePushBroadcastReceiver.java
+
+    This broadcast receiver extends Parse's PushBroadCastReceiver.
+    When a push notification is sent from parse, this listener will fire.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
 package com.prog3210.classmate.core;
 
 import android.content.Context;
@@ -7,6 +15,7 @@ import com.parse.GetCallback;
 import com.parse.ParseException;
 import com.parse.ParsePushBroadcastReceiver;
 import com.parse.ParseQuery;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.events.Event;
 import com.prog3210.classmate.events.EventViewActivity;
 
@@ -22,8 +31,6 @@ public class ClassmatePushBroadcastReceiver extends ParsePushBroadcastReceiver {
     @Override
     protected void onPushReceive(final Context context, Intent intent) {
         super.onPushReceive(context, intent);
-
-
 
         try {
             JSONObject pushData = new JSONObject(intent.getStringExtra("com.parse.Data"));
@@ -54,21 +61,30 @@ public class ClassmatePushBroadcastReceiver extends ParsePushBroadcastReceiver {
 
     @Override
     protected void onPushOpen(Context context, Intent intent) {
-
         try {
+            //Get the data out of the parse notification
             JSONObject pushData = new JSONObject(intent.getStringExtra("com.parse.Data"));
 
+            //Get the 'event_id' property if it exists
             String event = pushData.optString("event_id", null);
 
+            //If we have an event, start an activity for the event's details directly
             if (event != null) {
                 Intent viewEventIntent = new Intent(context, EventViewActivity.class);
-                viewEventIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 viewEventIntent.putExtra("event_id", event);
+
+                //Force this to be a new task - this makes the activity come up even if the app is not currently running.
+                viewEventIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
                 context.startActivity(viewEventIntent);
             } else {
+                //We don't have an event, so just do parse's default behavior
                 super.onPushOpen(context, intent);
             }
         } catch (JSONException e) {
+            LogHelper.logError(context, "ClassmatePushBroadcastReceiver", "Error opening to a specific activity", e.getMessage());
+
+            //Something went wrong, so use Parse's default implementation instead
             super.onPushOpen(context, intent);
         }
     }

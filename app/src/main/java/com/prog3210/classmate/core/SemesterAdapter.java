@@ -1,3 +1,10 @@
+/*
+    SemesterAdapter.java
+
+    An adapter that gets all of the Semester from parse and can be used as an adapter on a ListView
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
 package com.prog3210.classmate.core;
 
 import android.content.Context;
@@ -9,14 +16,16 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.prog3210.classmate.R;
 
-/**
- * Created by Justin on 2015-11-22.
- */
 public class SemesterAdapter extends ParseQueryAdapter<Semester> {
+
+    /***
+     * Creates an EventTypeAdapter that queries for ALL Semesters
+     */
     public SemesterAdapter(Context context) {
         super(context, createQueryFactory());
     }
 
+    //Helper function to create a Semester Query Factory that can be re-used to refresh the list
     private static QueryFactory<Semester> createQueryFactory() {
         QueryFactory<Semester> factory = new QueryFactory<Semester>() {
             @Override
@@ -34,12 +43,15 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
 
     @Override
     public View getItemView(Semester semester, View view, ViewGroup parent) {
+
+        //If the view doesn't already exist, create a new one
         if (view == null) {
             view = View.inflate(getContext(), R.layout.spinner_list_item, null);
         }
 
         super.getItemView(semester, view, parent);
 
+        //Set the item's text to the semester's name
         TextView listItem = (TextView)view.findViewById(R.id.item_name);
         listItem.setText(semester.getSemesterName());
 

@@ -1,3 +1,11 @@
+/*
+    AlarmReceiver.java
+
+    This is a Broadcast receiver that listens to alarms set for upcoming event due dates.
+    When the alarm goes off, show a notification to the user.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
 package com.prog3210.classmate.core;
 
 import android.app.Notification;

@@ -1,3 +1,11 @@
+/*
+    Comment.java
+
+    Helper class that simplifies getting and setting properties of the comment parseObject
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
+
 package com.prog3210.classmate.comments;
 
 import com.parse.ParseClassName;
@@ -6,9 +14,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 import com.prog3210.classmate.events.Event;
 
-/**
- * Created by seanc on 12/3/2015.
- */
 @ParseClassName("Comment")
 public class Comment extends ParseObject {
 

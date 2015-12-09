@@ -1,3 +1,10 @@
+/*
+    CommentDialog.java
+
+    custom dialog that allows a user to enter a comment
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate.comments;
 
 import android.app.Activity;
@@ -10,14 +17,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 
-
-/**
- * Created by scoombes-cc on 12/2/2015.
- */
 public class CommentDialog extends android.support.v4.app.DialogFragment {
 
+    /***
+     * listener interface that will be called on the activity that impletements the interface
+     */
     EditText commentBodyText;
     public interface CommentDialogListener{
         public void onDialogSubmitClick(String commentBody);
@@ -29,11 +37,12 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
 
+        //attaches the listener to the activity that called the dialog
         try {
             listener = (CommentDialogListener) activity;
         }
         catch (ClassCastException e){
-            //oh dear, oh me
+            LogHelper.logError(getContext(), "CommentDialog", "Error loading dialog, comments won't be saved", e.getMessage());
         }
     }
 
@@ -41,26 +50,27 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
+        //sets up dialog using view created for commetns
         LayoutInflater inflater = getActivity().getLayoutInflater();
         String eventName = getArguments().getString("eventName");
 
         final View view = inflater.inflate(R.layout.comment_view, null);
         commentBodyText = (EditText) view.findViewById(R.id.comment_body);
 
+        //sets controls that will be displayed on the dialog
         builder.setView(view)
                 .setPositiveButton(R.string.submit, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //this method has been overriden in onStart() put logic in there
+                        //this method has been overridden in onStart() put logic in there
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //this method has been overriden in onStart() put logic in there
+                        //this method has been overridden in onStart() put logic in there
                     }
                 }).setTitle("Discuss " + eventName);
-
         return builder.create();
     }
 
@@ -73,11 +83,13 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
         if (ad != null){
             Button positiveButton = ad.getButton(Dialog.BUTTON_POSITIVE);
             Button negativeButton = ad.getButton(Dialog.BUTTON_NEGATIVE);
+            //over rides the normal buttons behavior from oncreate dialog method
             positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
 
                     if (commentBodyText.getText().length() > 0){
+                        //sends comment back to host activity
                         listener.onDialogSubmitClick(commentBodyText.getText().toString());
                         dismiss();
                     }
@@ -104,12 +116,10 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
                             .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //Do Nothing here it will close the alertdialog on its own
+                                    //Do nothing here it will close the inner Alertdialog on its own
                                 }
                             });
-
                         AlertDialog alertDialog = builder.create();
-
                         alertDialog.show();
                     }
                     else{
