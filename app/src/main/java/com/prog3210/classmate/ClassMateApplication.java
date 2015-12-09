@@ -1,3 +1,10 @@
+/*
+    ClassMateApplication.java
+
+    contains initializations needed to start app
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate;
 
 import android.app.Application;

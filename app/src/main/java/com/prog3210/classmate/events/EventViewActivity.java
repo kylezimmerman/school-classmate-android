@@ -155,7 +155,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO pop up a sweet dialogue
+
                 FragmentManager manager = getSupportFragmentManager();
                 CommentDialog commentDialog = new CommentDialog();
                 Bundle bundle = new Bundle();

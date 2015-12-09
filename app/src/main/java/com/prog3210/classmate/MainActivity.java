@@ -1,3 +1,11 @@
+/*
+    MainActivity.java
+
+    First activity called when app is launched redirects to login activity if user is not
+        authenticated
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate;
 
 import android.os.Bundle;
