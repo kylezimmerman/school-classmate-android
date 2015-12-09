@@ -24,11 +24,11 @@ import com.prog3210.classmate.R;
 public class CommentDialog extends android.support.v4.app.DialogFragment {
 
     /***
-     * listener interface that will be called on the activity that impletements the interface
+     * Listener interface that will be called on the activity that impletements the interface
      */
     EditText commentBodyText;
     public interface CommentDialogListener{
-        public void onDialogSubmitClick(String commentBody);
+        void onDialogSubmitClick(String commentBody);
     }
 
     CommentDialogListener listener;
@@ -83,6 +83,7 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
         if (ad != null){
             Button positiveButton = ad.getButton(Dialog.BUTTON_POSITIVE);
             Button negativeButton = ad.getButton(Dialog.BUTTON_NEGATIVE);
+
             //over rides the normal buttons behavior from oncreate dialog method
             positiveButton.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -19,13 +19,15 @@ import com.prog3210.classmate.core.ClassmateUser;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class CommentItemView extends LinearLayout{
 
+    //Keep a reference to views within this ItemView.
     TextView userName;
     TextView dateTime;
     TextView body;
-
+    
     public CommentItemView(Context context) {
         super(context);
         getViews();
@@ -41,30 +43,36 @@ public class CommentItemView extends LinearLayout{
         getViews();
     }
 
+    @Override
+    protected void onFinishInflate() {
+        super.onFinishInflate();
+        getViews();
+    }
+
     /***
-     * assigns values to the views text properties
+     * Assigns values to the views text properties
      * @param comment
      *  the comment object to be used to populate the view items
      */
     public void update(Comment comment){
-        getViews();
-
         Date createdDate = comment.getCreatedAt();
         ClassmateUser user = (ClassmateUser)comment.getCreator();
 
         try {
             dateTime.setText(String.format("%s @ %s",
-                    new SimpleDateFormat("EEE MMM F").format(createdDate),
-                    new SimpleDateFormat("h:mm a").format(createdDate)));
+                    new SimpleDateFormat("EEE MMM F", Locale.CANADA).format(createdDate),
+                    new SimpleDateFormat("h:mm a", Locale.CANADA).format(createdDate)));
             userName.setText(String.format("%s %s", user.getFirstName(), user.getLastName()));
             body.setText(comment.getCommentBody());
         } catch (Exception e) {
-            LogHelper.logError(getContext(),"CommentItemView","There was an error preparing comments", e.getMessage());
+            LogHelper.logError(getContext(),
+                    "CommentItemView","There was an error preparing comments",
+                    e.getMessage());
         }
     }
 
     /***
-     * retrieves view objects from the comment_view
+     * Retrieves view objects from the comment_view
      */
     private void getViews(){
         userName = (TextView) findViewById(R.id.comment_user);
