@@ -9,15 +9,13 @@ import com.parse.ParseInstallation;
 import com.parse.ParseObject;
 import com.parse.ParseTwitterUtils;
 import com.prog3210.classmate.comments.Comment;
+import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.Semester;
 import com.prog3210.classmate.courses.Course;
-import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.events.Event;
 
 public class ClassMateApplication extends Application {
-
-    @Override
     public void onCreate() {
         super.onCreate();
 

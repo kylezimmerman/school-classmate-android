@@ -1,9 +1,5 @@
 package com.prog3210.classmate.events;
 
-import android.app.AlarmManager;
-import android.app.Notification;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -27,11 +23,9 @@ import com.prog3210.classmate.R;
 import com.prog3210.classmate.comments.Comment;
 import com.prog3210.classmate.comments.CommentAdapter;
 import com.prog3210.classmate.comments.CommentDialog;
-import com.prog3210.classmate.core.AlarmReceiver;
 import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.ClassmateUser;
 
-import java.util.Date;
 import java.util.List;
 
 public class EventViewActivity extends BaseAuthenticatedActivity implements CommentDialog.CommentDialogListener{
@@ -42,11 +36,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
     private Button downvoteButton;
 
     private ListView commentList;
-
-    private static final int MILLIS_IN_SECOND = 1000;
-    private static final int SECONDS_IN_MINUTE = 60;
-    private static final int MINUTES_IN_HOUR = 60;
-    private static final int HOURS_BEFORE_EVENT = 36;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +57,6 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 if (e == null) {
                     event = object;
                     displayEventInfo(object);
-                    scheduleNotification("A Title!", "Hurp derp, I'm a notification...", event.getDate());
                     loadComments();
                 } else {
                     Toast.makeText(EventViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -251,47 +239,5 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
                 }
             }
         });
-    }
-
-
-
-
-
-
-
-
-
-    //TODO: decide on what the NOTIFICATION_ID and NOTIFICATION things should be
-    // got this from https://gist.github.com/BrandonSmith/6679223
-    private void scheduleNotification(String title, String message, Date date) {
-
-        /*
-        scheduleNotification(String.format("%s is coming up!", event.getName()),
-                            String.format("Don't forget about '%s', it's almost due!", event.getName()),
-                            event.getDate());
-         */
-
-
-        Notification.Builder builder = new Notification.Builder(this);
-        builder.setContentTitle(title);
-        builder.setContentText(message);
-        builder.setSmallIcon(R.drawable.ic_notification);
-
-        // Using deprecated method because 'builder.build()' is only supported in API 16+ and we support API 15+
-        Notification eventNotification = builder.getNotification();
-
-        //TODO: correct pending intent
-        Intent notificationIntent = new Intent(this, EventViewActivity.class);
-        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION_ID, 3);
-        notificationIntent.putExtra(AlarmReceiver.NOTIFICATION, eventNotification);
-        notificationIntent.putExtra("event_id", event.getObjectId());
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        long eventDateMillis = event.getDate().getTime();
-        long millisBeforeEvent = MILLIS_IN_SECOND * SECONDS_IN_MINUTE * MINUTES_IN_HOUR * HOURS_BEFORE_EVENT;
-        long futureInMillis = eventDateMillis - millisBeforeEvent;
-
-        AlarmManager alarmManager = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, futureInMillis, pendingIntent);
     }
 }

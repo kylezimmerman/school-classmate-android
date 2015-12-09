@@ -19,6 +19,7 @@ import com.prog3210.classmate.core.BaseAuthenticatedActivity;
 import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.core.EventTypeAdapter;
+import com.prog3210.classmate.core.NotificationHelper;
 import com.prog3210.classmate.courses.Course;
 import com.prog3210.classmate.courses.CourseAdapter;
 
@@ -144,6 +145,10 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             public void done(ParseException e) {
                 if (e == null) {
                     sendPushNotification();
+                    NotificationHelper.scheduleNotification(CreateEventActivity.this,
+                            event.getObjectId(),
+                            String.format("Deadline for '%s' is coming up!", event.getName()),
+                            event.getDate());
                     finish();
                 } else {
                     Toast.makeText(CreateEventActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
