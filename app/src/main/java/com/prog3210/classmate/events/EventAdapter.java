@@ -1,3 +1,12 @@
+/*
+    EventAdapter.java
+
+    This class generates the ParseQueryAdapters for the Event object for querying an Event in
+    different ways.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
+
 package com.prog3210.classmate.events;
 
 import android.content.Context;
@@ -8,7 +17,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 import com.prog3210.classmate.R;
-import com.prog3210.classmate.core.ClassmateUser;
 import com.prog3210.classmate.courses.Course;
 
 /**
@@ -16,16 +24,33 @@ import com.prog3210.classmate.courses.Course;
  */
 public class EventAdapter extends ParseQueryAdapter<Event> {
 
+    /***
+     * Constructs EventAdapter with a query factory for ParseUser's Event feed.
+     * @param context Current activity context.
+     * @param user Current ParseUser.
+     */
     public EventAdapter(Context context, ParseUser user) {
         super(context, createQueryFactoryForUser(user));
         setPaginationEnabled(false);
     }
 
+    /***
+     * Constructs EventAdapter with a query factory for Course's Event feed.
+     * @param context Current activity context.
+     * @param course Current viewed Course.
+     */
     public EventAdapter(Context context, Course course) {
         super(context, createQueryFactoryForCourse(course));
         setPaginationEnabled(false);
     }
 
+    /***
+     * Override getItemView(...) for custom displaying an item.
+     * @param event Event to generate display view for.
+     * @param view View to display Event information in.
+     * @param parent View to contain the display view.
+     * @return Returns generated display View.
+     */
     @Override
     public View getItemView(Event event, View view, ViewGroup parent) {
         if (view == null) {
@@ -39,6 +64,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
         return view;
     }
 
+    // Creates QueryFactory<Event> for a user to view in their feed.
     private static QueryFactory<Event> createQueryFactoryForUser(final ParseUser user) {
         QueryFactory<Event> factory = new QueryFactory<Event>() {
             @Override
@@ -54,6 +80,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
         return factory;
     }
 
+    // Creates QueryFactory<Event> for a Course to display in the Event feed for that Course.
     private static QueryFactory<Event> createQueryFactoryForCourse(final Course course) {
         QueryFactory<Event> factory = new QueryFactory<Event>() {
             @Override

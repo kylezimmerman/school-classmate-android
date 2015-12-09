@@ -1,3 +1,11 @@
+/*
+    NotificationHelper.java
+
+    This class is a helper class to schedule notifications for Event due dates.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
+
 package com.prog3210.classmate.core;
 
 import android.app.AlarmManager;
@@ -17,6 +25,13 @@ public class NotificationHelper {
     private static final int MINUTES_IN_HOUR = 60;
     private static final int HOURS_BEFORE_EVENT = 36;
 
+    /***
+     * Static method to schedule a notification for Event due dates.
+     * @param context Current activity's context.
+     * @param eventId The Parse ObjectId of the Event that was created.
+     * @param message The message to display in the notification.
+     * @param dueDate The due date of the Event.
+     */
     public static void scheduleNotification(Context context, String eventId, String message, Date dueDate) {
         // Getting the Notification ID form the SharedPreferences
         SharedPreferences sharedPreferences = context.getSharedPreferences("prefs", Context.MODE_PRIVATE);

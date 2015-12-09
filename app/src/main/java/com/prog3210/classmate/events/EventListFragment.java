@@ -1,3 +1,11 @@
+/*
+    EventListFragment.java
+
+    This class handles the actions and display of the Event feed on the MainActivity view.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
+
 package com.prog3210.classmate.events;
 
 
@@ -35,11 +43,12 @@ public class EventListFragment extends BaseFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event_list, container, false);
 
+        // Gets view objects for current layout
         final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)view.findViewById(R.id.pull_to_refresh);
         ListView eventList = (ListView)view.findViewById(R.id.event_list);
         FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.add_event_button);
 
-
+        // Sets the OnQueryLoadListener to properly display the refresh animation
         eventAdapter = new EventAdapter(getActivity(), ParseUser.getCurrentUser());
         eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
             @Override
@@ -53,8 +62,10 @@ public class EventListFragment extends BaseFragment {
             }
         });
 
+        // Sets the EventAdapter
         eventList.setAdapter(eventAdapter);
 
+        // Sets OnItemClickListener for the Event feed items
         eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -64,6 +75,7 @@ public class EventListFragment extends BaseFragment {
             }
         });
 
+        // Enables pull-to-refresh action on the Event feed
         pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -71,8 +83,10 @@ public class EventListFragment extends BaseFragment {
             }
         });
 
+        // Loads the objects for display in the Event feed
         eventAdapter.loadObjects();
 
+        // Sets OnClickListener action for creating a new Event from the Event feed
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -87,6 +101,7 @@ public class EventListFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
+        // Loads the objects for display in the Event feed
         eventAdapter.loadObjects();
     }
 }

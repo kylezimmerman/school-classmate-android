@@ -1,3 +1,13 @@
+/*
+    Event.java
+
+    This is the class for the Event object in the Parse database.
+    It has the getters and setters for all fields of the Event object, methods to build
+    an Event query when needed, and methods for handling voting on an Event.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
+
 package com.prog3210.classmate.events;
 
 import com.parse.CountCallback;
@@ -17,34 +27,70 @@ import java.util.Date;
 
 @ParseClassName("Event")
 public class Event extends ParseObject {
+    /***
+     * Gets the Course the Event belongs to.
+     * @return Returns the Course object the Event belongs to.
+     */
     public Course getCourse() {
         return (Course) getParseObject("course");
     }
+    /***
+     * Sets the Course the Event belongs to.
+     * @param course The Course the Event belongs to.
+     */
     public void setCourse(Course course) {
         put("course", course);
     }
 
+    /***
+     * Gets the ParseUser Creator of the Event.
+     * @return Returns the ParseUser Creator of an Event.
+     */
     public ParseUser getCreator() {
         return getParseUser("creator");
     }
+
+    /***
+     * Sets the ParseUser Creator of the Event.
+     * @param creator The ParseUser that created the Event.
+     */
     public void setCreator(ParseUser creator) {
         put("creator", creator);
     }
 
+    /***
+     * Gets the description of the Event.
+     * @return Returns the String description of the Event.
+     */
     public String getDescription() {
         return getString("description");
     }
+
+    /***
+     * Sets the description of the Event.
+     * @param description The description of the Event.
+     */
     public void setDescription(String description) {
         put("description", description);
     }
 
+    /***
+     * Gets the name of the Event.
+     * @return Returns the String name of the Event.
+     */
     public String getName() {
         return getString("name");
     }
+
+    /***
+     * Sets the name of the Event.
+     * @param name The name of the event.
+     */
     public void setName(String name) {
         put("name", name);
     }
 
+    // Method to create the SaveCallback when upvoting
     private SaveCallback createUpvoteCallback(final VoteCallback callback) {
         return new SaveCallback() {
             @Override
@@ -54,6 +100,7 @@ public class Event extends ParseObject {
         };
     }
 
+    // Method to create the SaveCallback when undoing a vote
     private SaveCallback createNeutralCallback(final VoteCallback callback) {
         return new SaveCallback() {
             @Override
@@ -63,6 +110,7 @@ public class Event extends ParseObject {
         };
     }
 
+    //Method to creeate the SaveCallback when downvoting
     private SaveCallback createDownvoteCallback(final VoteCallback callback) {
         return new SaveCallback() {
             @Override
@@ -72,7 +120,16 @@ public class Event extends ParseObject {
         };
     }
 
+    /***
+     * Gets the number of Upvotes for an Event.
+     * @return Returns the integer Upvotes for an event.
+     */
     public int getUpvotes() { return getInt("upvotes"); }
+
+    /***
+     * Passes through the upvoteQuery results for if the user has upvoted the Event.
+     * @param callback The CountCallback used when a user has upvoted the Event.
+     */
     public void hasUpvoted(CountCallback callback) {
         ParseRelation<ParseUser> upvoters = getRelation("upvoters");
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -81,6 +138,11 @@ public class Event extends ParseObject {
         upvoteQuery.whereEqualTo("objectId", currentUser.getObjectId());
         upvoteQuery.countInBackground(callback);
     }
+
+    /***
+     * When the user upvotes an Event.
+     * @param callback The VoteCallback used when a user has upvoted.
+     */
     public void upvote(final VoteCallback callback) {
         final ParseRelation<ParseUser> upvoters = getRelation("upvoters");
         final ParseRelation<ParseUser> downvoters = getRelation("downvoters");
@@ -112,7 +174,16 @@ public class Event extends ParseObject {
         });
     }
 
+    /***
+     * Gets the number of Downvotes for an Event.
+     * @return Returns the integer Downvotes for an Event.
+     */
     public int getDownvotes() { return getInt("downvotes"); }
+
+    /***
+     * Passes through the downvoteQuery results for if the user has downvoted the Event.
+     * @param callback The CountCallback used when a user has downvoted the Event.
+     */
     public void hasDownvoted(CountCallback callback) {
         ParseRelation<ParseUser> downvoters = getRelation("downvoters");
         ParseUser currentUser = ParseUser.getCurrentUser();
@@ -121,6 +192,11 @@ public class Event extends ParseObject {
         downvoteQuery.whereEqualTo("objectId", currentUser.getObjectId());
         downvoteQuery.countInBackground(callback);
     }
+
+    /***
+     * When a user downvotes an Event.
+     * @param callback he VoteCallback used when a user has downvoted.
+     */
     public void downvote(final VoteCallback callback) {
         final ParseRelation<ParseUser> upvoters = getRelation("upvoters");
         final ParseRelation<ParseUser> downvoters = getRelation("downvoters");
@@ -152,30 +228,65 @@ public class Event extends ParseObject {
         });
     }
 
+    /***
+     * Gets the FinalGradeWeight of the Event.
+     * @return Returns the FinalGradeWeight of the Event as a double.
+     */
     public double getFinalGradeWeight() {
         return getDouble("finalGradeWeight");
     }
+    /***
+     * Sets the FinalGradeWeight of the Event.
+     * @param gradeWeight The double grade weighting of the Event.
+     */
     public void setFinalGradeWeight(double gradeWeight) {
         put("finalGradeWeight", gradeWeight);
     }
 
-    public void setDate(Date date) {
-        put("dueDate", date);
-    }
+    /***
+     * Gets the DueDate of the Event.
+     * @return Returns the Date due date of the Event.
+     */
     public Date getDate() {
         return getDate("dueDate");
     }
+    /***
+     * Sets the due date of the Event.
+     * @param date The due date of the Event.
+     */
+    public void setDate(Date date) {
+        put("dueDate", date);
+    }
+
+    /***
+     * Gets String formatted due date for the Event.
+     * @return
+     */
     public String getDateString() {
         DateFormat format = new SimpleDateFormat("EEE MMM d");
 
         return format.format(getDate());
     }
 
+    /***
+     * Gets the Event query to get Events from Parse.
+     * @return Returns a ParseQuery for getting Events.
+     */
     public static ParseQuery<Event> getQuery() {
         return new ParseQuery<Event>(Event.class);
     }
+
+    /***
+     * Gets the EventType of the Event.
+     * @return Returns the EventType of the Event.
+     */
     public EventType getEventType() {
         return (EventType)getParseObject("eventtype");
     }
+
+    /***
+     * Sets the EventType of the Event.
+     * @param eventType The EventType of the Event.
+     */
     public void setEventType(EventType eventType) { put("eventtype", eventType); }
 }

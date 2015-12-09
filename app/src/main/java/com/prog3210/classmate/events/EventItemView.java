@@ -1,3 +1,11 @@
+/*
+    EventItemView.java
+
+    This class handles display of each item in the Event feed ViewList.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
+
 package com.prog3210.classmate.events;
 
 import android.content.Context;
@@ -41,6 +49,7 @@ public class EventItemView extends LinearLayout {
         super(context, attrs, defStyleAttr);
     }
 
+    // Gets the objects displayed in the layout for use.
     private void getViews() {
         courseTextView = (TextView)findViewById(R.id.course);
         eventNameTextView = (TextView)findViewById(R.id.event_name);
@@ -52,6 +61,10 @@ public class EventItemView extends LinearLayout {
         voteBar = (LinearLayout)findViewById(R.id.vote_bar);
     }
 
+    /***
+     * Updates the Event layout to display updated information for the current Event.
+     * @param event Current Event being viewed.
+     */
     public void update(Event event) {
         Course course = event.getCourse();
         if (course != null) {
@@ -62,9 +75,11 @@ public class EventItemView extends LinearLayout {
         eventNameTextView.setText(event.getName());
         dueDateTextView.setText(event.getDateString());
 
+        // Gets the vote values for an Event.
         int upvotes = event.getUpvotes();
         int downvotes = event.getDownvotes();
 
+        // Sets the visibility and display of the votes for an Event.
         if (upvotes == 0 && downvotes == 0) {
             voteBar.setVisibility(View.GONE);
         } else {

@@ -1,3 +1,10 @@
+/*
+    CreateEventActivity.java
+
+    Class handling the actions and display of the 'Create Event' view.
+
+    Kyle Zimmerman, Justin Coschi, Sean Coombes
+ */
 package com.prog3210.classmate.events;
 
 import android.app.DatePickerDialog;
@@ -40,28 +47,33 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event_create);
 
+        // Getting the object references for the items in the activity_event_create.xml layout
         final Spinner courseSpinner = (Spinner) findViewById(R.id.course_code_spinner);
         final Spinner eventTypeSpinner = (Spinner) findViewById(R.id.eventType_spinner);
         dueDate = (Button) findViewById(R.id.due_date_button);
         Button createEvent = (Button) findViewById(R.id.create_event_button);
 
+        // Getting the due date for the new Event
         Date date = new Date();
         event = new Event();
         event.setDate(date);
         dueDate.setHint(event.getDateString());
 
+        // Creating an EventTypeAdapter to populate the EventType Spinner
         EventTypeAdapter eventTypeAdapter = new EventTypeAdapter(this);
         eventTypeAdapter.setTextKey("typeName");
         eventTypeSpinner.setAdapter(eventTypeAdapter);
 
-
+        // Checking for the ID of the course in which the user chose to create an event
         final String sendingCourseId = getIntent().getStringExtra("sending_course_id");
 
+        //Creating a CourseAdapter to populate the Course Spinner
         CourseAdapter courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Joined);
         courseAdapter.setShowDetails(false);
         courseAdapter.enableSpinnerSupport();
         courseSpinner.setAdapter(courseAdapter);
-        
+
+        // adding listener to set the pre-selected Course, if the user created an event from the Course view
         courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
             @Override
             public void onLoading() {
@@ -70,6 +82,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
 
             @Override
             public void onLoaded(List<Course> objects, Exception e) {
+                // Looping over courses in list to set the pre-selected Course
                 for (int i = 0; i < objects.size(); i++) {
                     Course course = objects.get(i);
                     if (course.getObjectId().equals(sendingCourseId)) {
@@ -80,6 +93,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         });
         courseSpinner.setAdapter(courseAdapter);
 
+        // Setting click listener for the DatePicker
         dueDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -105,7 +119,8 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         });
     }
 
-    public DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+    // Creating the OnDateSetListener action as an anonymous function
+    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             GregorianCalendar setDate = new GregorianCalendar(year,month,day);
@@ -114,12 +129,19 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         }
     };
 
+    /***
+     * Method to create an event from the user's input.
+     * @param eventType The EventType of the Event, selected by the user.
+     * @param course The Course that the Event belongs to, selected by the user.
+     */
     public void createEvent(Spinner eventType, Spinner course){
+        // Getting the object information from the activity_event_create.xml layout
         EditText description = (EditText) findViewById(R.id.eventDescription);
         EditText gradeWorth = (EditText) findViewById(R.id.gradeWorth);
         final EditText eventName = (EditText) findViewById(R.id.eventName);
         EditText error = null;
 
+        // Checking user-input to ensure proper creation
         if (gradeWorth.getText().length() == 0){
             gradeWorth.setError("Please enter a grade worth");
             error = gradeWorth;
@@ -128,11 +150,13 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
             error = eventName;
         }
 
+        // Checking if errors have been detected
         if (error != null){
             error.requestFocus();
             return;
         }
 
+        // Setting the information entered by the user into an Event object
         event.setCourse((Course) course.getSelectedItem());
         event.setDescription(description.getText().toString());
         event.setName(eventName.getText().toString());
@@ -140,11 +164,14 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         event.setEventType((EventType) eventType.getSelectedItem());
         event.setCreator(ClassmateUser.getCurrentUser());
 
+        // Saving the Event object to Parse
         event.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {
                 if (e == null) {
+                    // Sends push notification
                     sendPushNotification();
+                    // Schedules local notification
                     NotificationHelper.scheduleNotification(CreateEventActivity.this,
                             event.getObjectId(),
                             String.format("Deadline for '%s' is coming up!", event.getName()),
@@ -157,6 +184,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
         });
     }
 
+    // Method to send a push notification through Parse to others in the course the Event has been created for
     private void sendPushNotification() {
         try {
             //Build the message to send
