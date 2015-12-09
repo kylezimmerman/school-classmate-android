@@ -19,6 +19,8 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
+
+        <!-- Classmate Specific Activities Activities/Receivers-->
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -52,6 +54,11 @@
             android:name=".events.EventViewActivity"
             android:label="@string/title_activity_event_view"
             android:theme="@style/AppTheme" />
+        <receiver android:name=".core.AlarmReceiver">
+            <intent-filter>
+                <action android:name="com.prog3210.classmate.EVENT_ALARM" />
+            </intent-filter>
+        </receiver>
 
         <!-- Parse Push Notifications -->
         <meta-data android:name="com.parse.push.notification_icon" android:resource="@drawable/ic_notification" />
@@ -81,12 +88,6 @@
                 "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
             android:theme="@android:style/Theme.Translucent.NoTitleBar"
             android:label="@string/app_name" />
-
-        <receiver android:name=".core.AlarmReceiver">
-            <intent-filter>
-                <action android:name="com.prog3210.classmate.EVENT_ALARM" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

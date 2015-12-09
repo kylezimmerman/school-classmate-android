@@ -15,7 +15,8 @@ public class LogHelper {
     private static boolean showToast = true;
 
     /***
-     * gets the setting of showToast bool
+     * Gets whether a toast should be shown for errors.
+     * This is likely useful during development but not for production
      * @return
      *  assignment of showToast
      */
@@ -24,16 +25,16 @@ public class LogHelper {
     }
 
     /***
-     * sets if toast should be shown or not
+     * Sets if toast should be shown or not for errors
      * @param showToast
-     *  bool that dictates if a toast should be shown
+     *  True if a toast should be shown
      */
     public static void setShowToast(boolean showToast) {
         LogHelper.showToast = showToast;
     }
 
     /***
-     * logs the error and displays a toast if wanted
+     * Logs the error and displays a toast if wanted
      * @param context
      *  context of host activity
      * @param tag
