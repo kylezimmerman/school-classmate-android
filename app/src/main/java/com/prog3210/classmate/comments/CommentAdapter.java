@@ -19,8 +19,7 @@ import com.prog3210.classmate.events.Event;
 
 public class CommentAdapter extends ParseQueryAdapter<Comment> {
     /***
-     *
-     * @param context
+     * Creates a CommentAdapter that retrieves comments for the supplied event.
      * @param event
      *  the event that the comment is a part of
      */
@@ -29,7 +28,7 @@ public class CommentAdapter extends ParseQueryAdapter<Comment> {
     }
 
     /***
-     *  executes query that returns all the comments that belong to event that was passed in
+     *  Executes query that returns all the comments that belong to event that was passed in
      * @param event
      *  event that is used in the query to narrow down the returned comments
      * @return
