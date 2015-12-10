@@ -1,3 +1,10 @@
+/*
+    CourseAdapter.java
+
+    handle populating any lists that need to show courses
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate.courses;
 
 import android.content.Context;
@@ -8,31 +15,41 @@ import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
 import com.prog3210.classmate.R;
 
-/**
- * Created by kzimmerman on 11/18/2015.
- */
 public class CourseAdapter extends ParseQueryAdapter<Course> {
 
     boolean showDetails = true;
-
+    boolean spinnerSupportEnabled = false;
     private String searchTerm;
 
+    /***
+     * allows user to decide to show details or not
+     * @param showDetails
+     */
     public void setShowDetails(boolean showDetails) {
         this.showDetails = showDetails;
     }
 
+    /***
+     * used to filter queries
+     */
     public enum FilterMode {
-        All,
         Joined,
         Unjoined
     }
 
-    boolean spinnerSupportEnabled = false;
-
+    /***
+     * Constructs CourseAdapter with a query factory
+     * @param context Current activity context.
+     * @param mode filterMode for query
+     */
     public CourseAdapter(Context context, FilterMode mode) {
         super(context, createQueryFactory(mode));
     }
 
+    /***
+     * prepares search string to be used in query
+     * @param query string that contains search query
+     */
     public void setSearchTerm(String query) {
         searchTerm = query;
 
@@ -41,7 +58,9 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         }
     }
 
-
+    /**
+     * set spinnerSupport to true
+     */
     public void enableSpinnerSupport() {
         spinnerSupportEnabled = true;
     }
@@ -91,6 +110,12 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
         return v;
     }
 
+    /***
+     * queries the Course Parse object and filters it to only return courses that match the
+     *  filter mode
+     * @param filterMode enum that contains joined or unjoined
+     * @return QueryFactory<Course> for any lists containing courses
+     */
     private static QueryFactory<Course> createQueryFactory(final FilterMode filterMode) {
         QueryFactory<Course> factory = new QueryFactory<Course>() {
             @Override

@@ -1,3 +1,10 @@
+/*
+    CourseViewActivity.java
+
+    displays details of a selected course
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate.courses;
 
 import android.content.Intent;

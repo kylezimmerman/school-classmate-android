@@ -1,3 +1,10 @@
+/*
+    CourseItemView.java
+
+    handles the display of each item for any lists that show courses
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate.courses;
 
 import android.content.Context;
@@ -9,9 +16,6 @@ import android.widget.TextView;
 
 import com.prog3210.classmate.R;
 
-/**
- * Created by kzimmerman on 11/18/2015.
- */
 public class CourseItemView extends RelativeLayout {
 
     TextView courseCodeSection;
@@ -37,6 +41,9 @@ public class CourseItemView extends RelativeLayout {
         getViews();
     }
 
+    /***
+     * Gets the objects displayed in the layout for use.
+     */
     private void getViews() {
         detailsView = findViewById(R.id.course_details);
 
@@ -47,10 +54,11 @@ public class CourseItemView extends RelativeLayout {
         year = (TextView)findViewById(R.id.year);
     }
 
-    public void updateValues(Course course) {
-        updateValues(course, true);
-    }
-
+    /***
+     * Updates the Event layout to display updated information for the current Event.
+     * @param course current course being used
+     * @param showDetails bool
+     */
     public void updateValues(Course course, boolean showDetails) {
         getViews();
 
@@ -64,6 +72,5 @@ public class CourseItemView extends RelativeLayout {
         if (course.getSemester() != null) {
             semesterName.setText(course.getSemester().getSemesterName());
         }
-
     }
 }
