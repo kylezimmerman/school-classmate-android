@@ -30,9 +30,9 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
 
-        Intent k = getIntent();
+        Intent sendingIntent = getIntent();
 
-        final String courseId = k.getStringExtra("course_id");
+        final String courseId = sendingIntent.getStringExtra("course_id");
 
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
@@ -58,6 +58,32 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
                 Intent addEventIntent = new Intent(view.getContext(), CreateEventActivity.class);
                 addEventIntent.putExtra("sending_course_id", courseId);
                 startActivity(addEventIntent);
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        Intent sendingIntent = getIntent();
+
+        final String courseId = sendingIntent.getStringExtra("course_id");
+
+        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
+        progressBar.setVisibility(View.VISIBLE);
+
+        ParseQuery<Course> query = ParseQuery.getQuery(Course.class);
+        query.include("semester");
+        query.getInBackground(courseId, new GetCallback<Course>() {
+            @Override
+            public void done(Course object, ParseException e) {
+                progressBar.setVisibility(View.GONE);
+                if (e == null) {
+                    displayCourseInfo(object);
+                } else {
+                    Toast.makeText(CourseViewActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
             }
         });
     }
