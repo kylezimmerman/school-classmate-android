@@ -54,7 +54,8 @@
             android:name=".events.EventViewActivity"
             android:label="@string/title_activity_event_view"
             android:theme="@style/AppTheme" />
-        <receiver android:name=".core.AlarmReceiver">
+        <receiver android:name=".core.AlarmReceiver"
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.prog3210.classmate.EVENT_ALARM" />
             </intent-filter>

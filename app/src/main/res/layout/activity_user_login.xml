@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,14 +9,8 @@
     android:background="@color/bluetrain"
     android:paddingRight="25dp"
     android:paddingLeft="25dp"
-    >
+    android:fillViewport="true">
 
-    <ScrollView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        xmlns:tools="http://schemas.android.com/tools">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -34,9 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:layout_below="@id/classmate_logo"
                 android:orientation="vertical"
-                android:layout_centerHorizontal="true"
                 android:background="@android:color/white"
                 >
 
@@ -75,7 +67,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="@string/password"
-                        android:password="true"
                         android:inputType="textPassword"/>
                 </android.support.design.widget.TextInputLayout>
 
@@ -102,5 +93,3 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-</RelativeLayout>

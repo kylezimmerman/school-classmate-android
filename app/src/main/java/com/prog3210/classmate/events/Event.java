@@ -25,6 +25,7 @@ import com.prog3210.classmate.courses.Course;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @ParseClassName("Event")
 public class Event extends ParseObject {
@@ -289,7 +290,7 @@ public class Event extends ParseObject {
      * @return
      */
     public String getDateString() {
-        DateFormat format = new SimpleDateFormat("EEE MMM d");
+        DateFormat format = new SimpleDateFormat("EEE MMM d", Locale.CANADA);
 
         try {
             return format.format(getDate());

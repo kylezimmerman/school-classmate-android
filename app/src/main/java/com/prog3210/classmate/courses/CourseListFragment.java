@@ -172,7 +172,7 @@ import java.util.List;
                                                     if (e == null) {
                                                         courseAdapter.loadObjects();
                                                     } else {
-                                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
@@ -180,7 +180,7 @@ import java.util.List;
                                     }).show();
                             courseAdapter.loadObjects();
                         } else {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
