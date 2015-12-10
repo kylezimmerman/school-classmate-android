@@ -1,3 +1,10 @@
+/*
+    CourseListFragment.java
+
+    displays a list of all the courses the current user is part of
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate.courses;
 
 
@@ -48,7 +55,7 @@ import java.util.List;
             FloatingActionButton fab = (FloatingActionButton)view.findViewById(R.id.join_course_button);
             final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)view.findViewById(R.id.pull_to_refresh);
 
-
+            //create a courseAdapter the retrieves only courses the user is part of
             courseAdapter = new CourseAdapter(getActivity(), CourseAdapter.FilterMode.Joined);
             courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
                 @Override
@@ -56,12 +63,14 @@ import java.util.List;
                 }
 
                 @Override
+                //sets a refresh action that allows user to pull down on screen to refresh their list of courses
                 public void onLoaded(List<Course> objects, Exception e) {
                     progressBar.setVisibility(View.GONE);
                     pullToRefresh.setRefreshing(false);
                 }
             });
 
+            //listener for refresh
             pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
@@ -71,6 +80,7 @@ import java.util.List;
 
             courseList.setEmptyView(view.findViewById(R.id.empty_list_view));
 
+            //takes user to course details page
             courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
@@ -81,7 +91,7 @@ import java.util.List;
                     startActivity(viewCourseIntent);
                 }
             });
-
+            //allows user to leave a course
             courseList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                 @Override
                 public boolean onItemLongClick(AdapterView<?> adapterView, View v, int position, long id) {
@@ -123,6 +133,7 @@ import java.util.List;
                 }
             });
 
+            //listener of fab that will take users to a new activity to join a new course
             fab.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -143,13 +154,15 @@ import java.util.List;
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
 
-                ParseQuery<Course> query = ParseQuery.getQuery("Course");
-
-                query.getInBackground(data.getStringExtra("courseJoined"), new GetCallback<Course>() {
+                //retrieves the course the user just joined before being returned to this fragment
+                Course.getQuery().getInBackground(data.getStringExtra("courseJoined"), new GetCallback<Course>() {
                     @Override
                     public void done(final Course course, ParseException e) {
                         if (e == null) {
+                            //shows a snackback displaying the course the user just joined and give them the ability
+                                //to undo their action if it was clicked by accident
                             Snackbar.make(getView(), "You have Joined " + course.getCourseCode(), Snackbar.LENGTH_LONG)
+                                    //click event for the undo button on the snackback
                                     .setAction("UNDO", new View.OnClickListener() {
                                         @Override
                                         public void onClick(View view) {
