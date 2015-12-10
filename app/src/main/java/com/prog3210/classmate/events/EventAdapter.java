@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.courses.Course;
 
@@ -30,6 +31,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
      * @param user Current ParseUser.
      */
     public EventAdapter(Context context, ParseUser user) {
+        // Nothing here throw an Exception, so no try-catch needed
         super(context, createQueryFactoryForUser(user));
         setPaginationEnabled(false);
     }
@@ -40,6 +42,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
      * @param course Current viewed Course.
      */
     public EventAdapter(Context context, Course course) {
+        // Nothing here throw an Exception, so no try-catch needed
         super(context, createQueryFactoryForCourse(course));
         setPaginationEnabled(false);
     }
@@ -53,19 +56,24 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
      */
     @Override
     public View getItemView(Event event, View view, ViewGroup parent) {
-        if (view == null) {
-            view = View.inflate(getContext(), R.layout.event_list_item, null);
+        try {
+            if (view == null) {
+                view = View.inflate(getContext(), R.layout.event_list_item, null);
+            }
+
+            super.getItemView(event, view, parent);
+
+            ((EventItemView) view).update(event);
+        } catch (Exception e) {
+            LogHelper.logError(null, "EventAdapter", "Error getting item view.", e.getMessage());
         }
-
-        super.getItemView(event, view, parent);
-
-        ((EventItemView)view).update(event);
 
         return view;
     }
 
     // Creates QueryFactory<Event> for a user to view in their feed.
     private static QueryFactory<Event> createQueryFactoryForUser(final ParseUser user) {
+        // Nothing here throw an Exception, so no try-catch needed
         QueryFactory<Event> factory = new QueryFactory<Event>() {
             @Override
             public ParseQuery<Event> create() {
@@ -82,6 +90,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
 
     // Creates QueryFactory<Event> for a Course to display in the Event feed for that Course.
     private static QueryFactory<Event> createQueryFactoryForCourse(final Course course) {
+        // Nothing here throw an Exception, so no try-catch needed
         QueryFactory<Event> factory = new QueryFactory<Event>() {
             @Override
             public ParseQuery<Event> create() {

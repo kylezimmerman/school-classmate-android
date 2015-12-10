@@ -18,6 +18,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseRelation;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.core.EventType;
 import com.prog3210.classmate.courses.Course;
 
@@ -27,6 +28,9 @@ import java.util.Date;
 
 @ParseClassName("Event")
 public class Event extends ParseObject {
+    //Note: Not all of the ParseObject.getXXXX() methods return null if the key is not found
+    //      So no need for try/catch in each method
+
     /***
      * Gets the Course the Event belongs to.
      * @return Returns the Course object the Event belongs to.
@@ -95,7 +99,11 @@ public class Event extends ParseObject {
         return new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                callback.done(VoteCallback.UPVOTE, e);
+                try {
+                    callback.done(VoteCallback.UPVOTE, e);
+                } catch (Exception ex) {
+                    LogHelper.logError(null, "Event", "Error upvoting event.", ex.getMessage());
+                }
             }
         };
     }
@@ -105,7 +113,11 @@ public class Event extends ParseObject {
         return new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                callback.done(VoteCallback.NEUTRAL, e);
+                try {
+                    callback.done(VoteCallback.NEUTRAL, e);
+                } catch (Exception ex) {
+                    LogHelper.logError(null, "Event", "Error neutralizing votes.", ex.getMessage());
+                }
             }
         };
     }
@@ -115,7 +127,11 @@ public class Event extends ParseObject {
         return new SaveCallback() {
             @Override
             public void done(ParseException e) {
-                callback.done(VoteCallback.DOWNVOTE, e);
+                try {
+                    callback.done(VoteCallback.DOWNVOTE, e);
+                } catch (Exception ex) {
+                    LogHelper.logError(null, "Event", "Error downvoting event.", ex.getMessage());
+                }
             }
         };
     }
@@ -131,6 +147,7 @@ public class Event extends ParseObject {
      * @param callback The CountCallback used when a user has upvoted the Event.
      */
     public void hasUpvoted(CountCallback callback) {
+        // Nothing here throw an Exception, so no try-catch needed
         ParseRelation<ParseUser> upvoters = getRelation("upvoters");
         ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -150,25 +167,29 @@ public class Event extends ParseObject {
         hasUpvoted(new CountCallback() {
             @Override
             public void done(int count, ParseException e) {
-                if (count == 1) {
-                    increment("upvotes", -1);
-                    upvoters.remove(ParseUser.getCurrentUser());
+                try {
+                    if (count == 1) {
+                        increment("upvotes", -1);
+                        upvoters.remove(ParseUser.getCurrentUser());
 
-                    saveInBackground(createNeutralCallback(callback));
-                } else {
-                    hasDownvoted(new CountCallback() {
-                        @Override
-                        public void done(int count, ParseException e) {
-                            if (count == 1) {
-                                increment("downvotes", -1);
-                                downvoters.remove(ParseUser.getCurrentUser());
+                        saveInBackground(createNeutralCallback(callback));
+                    } else {
+                        hasDownvoted(new CountCallback() {
+                            @Override
+                            public void done(int count, ParseException e) {
+                                if (count == 1) {
+                                    increment("downvotes", -1);
+                                    downvoters.remove(ParseUser.getCurrentUser());
+                                }
+                                increment("upvotes", 1);
+                                upvoters.add(ParseUser.getCurrentUser());
+
+                                saveInBackground(createUpvoteCallback(callback));
                             }
-                            increment("upvotes", 1);
-                            upvoters.add(ParseUser.getCurrentUser());
-
-                            saveInBackground(createUpvoteCallback(callback));
-                        }
-                    });
+                        });
+                    }
+                } catch (Exception ex) {
+                    LogHelper.logError(null, "Event", "Error upvoting event.", ex.getMessage());
                 }
             }
         });
@@ -185,6 +206,7 @@ public class Event extends ParseObject {
      * @param callback The CountCallback used when a user has downvoted the Event.
      */
     public void hasDownvoted(CountCallback callback) {
+        // Nothing here throw an Exception, so no try-catch needed
         ParseRelation<ParseUser> downvoters = getRelation("downvoters");
         ParseUser currentUser = ParseUser.getCurrentUser();
 
@@ -204,25 +226,29 @@ public class Event extends ParseObject {
         hasDownvoted(new CountCallback() {
             @Override
             public void done(int count, ParseException e) {
-                if (count == 1) {
-                    increment("downvotes", -1);
-                    downvoters.remove(ParseUser.getCurrentUser());
+                try {
+                    if (count == 1) {
+                        increment("downvotes", -1);
+                        downvoters.remove(ParseUser.getCurrentUser());
 
-                    saveInBackground(createNeutralCallback(callback));
-                } else {
-                    hasUpvoted(new CountCallback() {
-                        @Override
-                        public void done(int count, ParseException e) {
-                            if (count == 1) {
-                                increment("upvotes", -1);
-                                upvoters.remove(ParseUser.getCurrentUser());
+                        saveInBackground(createNeutralCallback(callback));
+                    } else {
+                        hasUpvoted(new CountCallback() {
+                            @Override
+                            public void done(int count, ParseException e) {
+                                if (count == 1) {
+                                    increment("upvotes", -1);
+                                    upvoters.remove(ParseUser.getCurrentUser());
+                                }
+                                increment("downvotes", 1);
+                                downvoters.add(ParseUser.getCurrentUser());
+
+                                saveInBackground(createDownvoteCallback(callback));
                             }
-                            increment("downvotes", 1);
-                            downvoters.add(ParseUser.getCurrentUser());
-
-                            saveInBackground(createDownvoteCallback(callback));
-                        }
-                    });
+                        });
+                    }
+                } catch (Exception ex) {
+                    LogHelper.logError(null, "Event", "Error downvoting event.", ex.getMessage());
                 }
             }
         });
@@ -265,7 +291,12 @@ public class Event extends ParseObject {
     public String getDateString() {
         DateFormat format = new SimpleDateFormat("EEE MMM d");
 
-        return format.format(getDate());
+        try {
+            return format.format(getDate());
+        } catch (Exception e) {
+            LogHelper.logError(null, "Event", "Error getting date.", e.getMessage());
+            return "";
+        }
     }
 
     /***
