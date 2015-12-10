@@ -24,9 +24,9 @@ import java.util.Locale;
 public class CommentItemView extends LinearLayout{
 
     //Keep a reference to views within this ItemView.
-    TextView userName;
-    TextView dateTime;
-    TextView body;
+    private TextView userName;
+    private TextView dateTime;
+    private TextView body;
     
     public CommentItemView(Context context) {
         super(context);

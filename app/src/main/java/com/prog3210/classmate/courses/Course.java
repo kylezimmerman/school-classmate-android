@@ -147,7 +147,7 @@ public class Course extends ParseObject {
      * @return a ParseQuery object for course
      */
     public static ParseQuery<Course> getQuery() {
-        return new ParseQuery<Course>(Course.class);
+        return new ParseQuery<>(Course.class);
     }
 
     /***

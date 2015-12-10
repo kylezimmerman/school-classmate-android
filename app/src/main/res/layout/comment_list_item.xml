@@ -15,7 +15,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Sean Coombes"
             android:textStyle="bold"
             android:textSize="18sp"
             android:id="@+id/comment_user"/>
@@ -23,8 +22,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Fri Dec 4 @ 1:57pm"
-            android:gravity="right"
+            android:gravity="end"
             android:id="@+id/comment_datetime"/>
     </LinearLayout>
     <TextView
@@ -33,7 +31,6 @@
         android:paddingTop="20dp"
         android:textSize="16sp"
         android:padding = "@dimen/abc_control_padding_material"
-        android:text="This here is a comment I have a lot to say about things and I feel people should read them. what does every one think and Star Wars its pretty neat I think"
         android:id="@+id/comment_body"/>
 
 </com.prog3210.classmate.comments.CommentItemView>

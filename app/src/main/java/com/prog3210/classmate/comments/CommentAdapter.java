@@ -35,7 +35,7 @@ public class CommentAdapter extends ParseQueryAdapter<Comment> {
      *  the list of comments
      */
     private static QueryFactory<Comment> createQueryFactory(final Event event) {
-        QueryFactory<Comment> factory = new QueryFactory<Comment>() {
+        return new QueryFactory<Comment>() {
             @Override
             public ParseQuery<Comment> create() {
                 ParseQuery<Comment> query = Comment.getQuery();
@@ -45,7 +45,6 @@ public class CommentAdapter extends ParseQueryAdapter<Comment> {
                 return query;
             }
         };
-        return factory;
     }
 
     @Override

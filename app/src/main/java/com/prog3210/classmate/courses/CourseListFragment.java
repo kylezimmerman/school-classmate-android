@@ -28,8 +28,6 @@ import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
-
 import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 

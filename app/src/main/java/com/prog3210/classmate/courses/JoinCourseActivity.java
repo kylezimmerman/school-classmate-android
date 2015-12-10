@@ -2,13 +2,10 @@ package com.prog3210.classmate.courses;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -83,7 +80,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         });
     }
 
-    private AdapterView.OnItemClickListener selectedCourse = new AdapterView.OnItemClickListener() {
+    private final AdapterView.OnItemClickListener selectedCourse = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             final Course course = courseAdapter.getItem(position);

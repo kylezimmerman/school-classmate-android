@@ -10,10 +10,7 @@ package com.prog3210.classmate.events;
 
 import com.parse.ParseException;
 
-/**
- * Created by Justin on 2015-12-02.
- */
-public interface VoteCallback  {
+interface VoteCallback  {
     int UPVOTE = 1;
     int DOWNVOTE = -1;
     int NEUTRAL = 0;

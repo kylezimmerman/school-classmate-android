@@ -38,6 +38,6 @@ public class Semester extends ParseObject{
      * @return A query on the Semester class.
      */
     public static ParseQuery<Semester> getQuery(){
-        return new ParseQuery(Semester.class);
+        return new ParseQuery<>(Semester.class);
     }
 }

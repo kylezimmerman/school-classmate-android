@@ -10,7 +10,6 @@ package com.prog3210.classmate.courses;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -18,13 +17,13 @@ import com.prog3210.classmate.R;
 
 public class CourseItemView extends RelativeLayout {
 
-    TextView courseCodeSection;
-    TextView courseName;
-    TextView teacherName;
-    TextView semesterName;
-    TextView year;
+    private TextView courseCodeSection;
+    private TextView courseName;
+    private TextView teacherName;
+    private TextView semesterName;
+    private TextView year;
 
-    View detailsView;
+    private View detailsView;
 
     public CourseItemView(Context context) {
         super(context);

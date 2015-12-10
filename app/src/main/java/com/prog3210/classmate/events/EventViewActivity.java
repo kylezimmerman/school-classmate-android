@@ -229,7 +229,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
      * Action for when the upvote button is pressed.
      * @param v The sending View object.
      */
-    public void upvote(View v) {
+    private void upvote(View v) {
         event.upvote(new VoteCallback() {
             @Override
             public void done(int voteResult, ParseException e) {
@@ -247,7 +247,7 @@ public class EventViewActivity extends BaseAuthenticatedActivity implements Comm
      * Action for when the downvote button is pressed.
      * @param v The sending View object.
      */
-    public void downvote(View v) {
+    private void downvote(View v) {
         event.downvote(new VoteCallback() {
             @Override
             public void done(int voteResult, ParseException e) {

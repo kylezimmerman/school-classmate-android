@@ -19,12 +19,7 @@ import com.prog3210.classmate.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
 
-    boolean toolbarBackButtonEnabled = true;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
+    private boolean toolbarBackButtonEnabled = true;
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -50,7 +45,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
-    private View.OnClickListener actionbarNavigiationOnClickedListener = new View.OnClickListener() {
+    private final View.OnClickListener actionbarNavigiationOnClickedListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             //Note: finish() can't throw an exception, so no try/catch

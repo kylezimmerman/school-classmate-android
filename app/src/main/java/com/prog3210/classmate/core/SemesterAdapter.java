@@ -30,7 +30,7 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
     private static QueryFactory<Semester> createQueryFactory() {
         //This can't throw an exception, so no try/catch. It just creates the factory, it doesn't use it
 
-        QueryFactory<Semester> factory = new QueryFactory<Semester>() {
+        return new QueryFactory<Semester>() {
             @Override
             public ParseQuery<Semester> create() {
                 ParseQuery<Semester> query = Semester.getQuery();
@@ -40,8 +40,6 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
                 return query;
             }
         };
-
-        return factory;
     }
 
     @Override

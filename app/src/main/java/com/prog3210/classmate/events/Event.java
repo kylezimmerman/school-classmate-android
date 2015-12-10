@@ -287,7 +287,7 @@ public class Event extends ParseObject {
 
     /***
      * Gets String formatted due date for the Event.
-     * @return
+     * @return Returns the date nicely formatted. E.g. Mon Dec 31
      */
     public String getDateString() {
         DateFormat format = new SimpleDateFormat("EEE MMM d", Locale.CANADA);
@@ -305,7 +305,7 @@ public class Event extends ParseObject {
      * @return Returns a ParseQuery for getting Events.
      */
     public static ParseQuery<Event> getQuery() {
-        return new ParseQuery<Event>(Event.class);
+        return new ParseQuery<>(Event.class);
     }
 
     /***

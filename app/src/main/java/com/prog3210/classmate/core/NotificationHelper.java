@@ -18,9 +18,6 @@ import com.prog3210.classmate.LogHelper;
 
 import java.util.Date;
 
-/**
- * Created by Justin on 2015-12-09.
- */
 public class NotificationHelper {
     private static final int MILLIS_IN_SECOND = 1000;
     private static final int SECONDS_IN_MINUTE = 60;

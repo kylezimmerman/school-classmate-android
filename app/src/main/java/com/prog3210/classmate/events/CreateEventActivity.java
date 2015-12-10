@@ -40,8 +40,8 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 public class CreateEventActivity extends BaseAuthenticatedActivity {
-    Event event;
-    Button dueDate;
+    private Event event;
+    private Button dueDate;
     
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,7 +125,7 @@ public class CreateEventActivity extends BaseAuthenticatedActivity {
     }
 
     // Creating the OnDateSetListener action as an anonymous function
-    private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+    private final DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
         @Override
         public void onDateSet(DatePicker datePicker, int year, int month, int day) {
             try {

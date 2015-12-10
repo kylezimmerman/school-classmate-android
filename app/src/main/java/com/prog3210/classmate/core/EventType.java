@@ -39,6 +39,6 @@ public class EventType extends ParseObject{
      * @return A query on the EventType class.
      */
     public static ParseQuery<EventType> getQuery(){
-        return new ParseQuery(EventType.class);
+        return new ParseQuery<>(EventType.class);
     }
 }

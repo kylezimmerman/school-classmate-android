@@ -43,7 +43,7 @@ public class Comment extends ParseObject {
 
     /***
      * Sets the event that this comment is for
-     * @param event
+     * @param event The event that the comment is on
      */
     public void setCommentEvent(Event event){
         put("commentEvent", event);
@@ -74,6 +74,6 @@ public class Comment extends ParseObject {
      * @return A query for the Comment Class
      */
     public static ParseQuery<Comment> getQuery(){
-        return new ParseQuery(Comment.class);
+        return new ParseQuery<>(Comment.class);
     }
 }
