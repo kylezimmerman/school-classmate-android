@@ -14,12 +14,15 @@ import android.content.Intent;
 import com.parse.ParseClassName;
 import com.parse.ParseInstallation;
 import com.parse.ParseUser;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.user.UserLoginActivity;
 
 import java.util.ArrayList;
 
 @ParseClassName("_User")
 public class ClassmateUser extends ParseUser {
+    //Note: None all of the ParseObject.getXXXX() methods return null if the key is not found
+    //      So no need for try/catch in each method
 
     /***
      * Gets the First Name of the User from the ParseObject
@@ -59,14 +62,24 @@ public class ClassmateUser extends ParseUser {
      * @param context The context to use to start the login activity
      */
     public static void logOut(Context context) {
-        //Leave all channels
-        ParseInstallation.getCurrentInstallation().put("channels", new ArrayList<String>());
-        ParseInstallation.getCurrentInstallation().saveInBackground();
+        try {
+            //Leave all channels
+            ParseInstallation.getCurrentInstallation().put("channels", new ArrayList<String>());
+            ParseInstallation.getCurrentInstallation().saveInBackground();
+        } catch (Exception ex) {
+            LogHelper.logError(context, "ClassmateUser",
+                    "Error leaving channels.\nYou may still get event notifications.", ex.getMessage());
+        }
 
-        //Logs the user out and sends them to the Login Activity
-        ParseUser.logOut();
-        Intent loginIntent = new Intent(context, UserLoginActivity.class);
-        context.startActivity(loginIntent);
+        try {
+            //Logs the user out and sends them to the Login Activity
+            ParseUser.logOut();
+            Intent loginIntent = new Intent(context, UserLoginActivity.class);
+            context.startActivity(loginIntent);
+        } catch (Exception ex) {
+            LogHelper.logError(context, "ClassmateUser",
+                    "Error logging out. Please try again", ex.getMessage());
+        }
     }
 
     /***
@@ -74,6 +87,7 @@ public class ClassmateUser extends ParseUser {
      * @return The ClassmateUser of the currently logged in user. If no user is logged in, returns null.
      */
     public static ClassmateUser getCurrentUser() {
+        //This will return null if there is no user, no need to try/catch
         return (ClassmateUser)ParseUser.getCurrentUser();
     }
 }

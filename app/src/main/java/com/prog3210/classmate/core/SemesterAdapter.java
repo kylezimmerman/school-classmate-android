@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 
 public class SemesterAdapter extends ParseQueryAdapter<Semester> {
@@ -27,6 +28,8 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
 
     //Helper function to create a Semester Query Factory that can be re-used to refresh the list
     private static QueryFactory<Semester> createQueryFactory() {
+        //This can't throw an exception, so no try/catch. It just creates the factory, it doesn't use it
+
         QueryFactory<Semester> factory = new QueryFactory<Semester>() {
             @Override
             public ParseQuery<Semester> create() {
@@ -43,17 +46,20 @@ public class SemesterAdapter extends ParseQueryAdapter<Semester> {
 
     @Override
     public View getItemView(Semester semester, View view, ViewGroup parent) {
+        try {
+            //If the view doesn't already exist, create a new one
+            if (view == null) {
+                view = View.inflate(getContext(), R.layout.spinner_list_item, null);
+            }
 
-        //If the view doesn't already exist, create a new one
-        if (view == null) {
-            view = View.inflate(getContext(), R.layout.spinner_list_item, null);
+            super.getItemView(semester, view, parent);
+
+            //Set the item's text to the semester's name
+            TextView listItem = (TextView) view.findViewById(R.id.item_name);
+            listItem.setText(semester.getSemesterName());
+        } catch (Exception ex) {
+            LogHelper.logError(getContext(), "SemesterAdapter", "Error displaying a semeseter", ex.getMessage());
         }
-
-        super.getItemView(semester, view, parent);
-
-        //Set the item's text to the semester's name
-        TextView listItem = (TextView)view.findViewById(R.id.item_name);
-        listItem.setText(semester.getSemesterName());
 
         return view;
     }

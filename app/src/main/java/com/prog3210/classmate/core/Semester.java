@@ -13,6 +13,8 @@ import com.parse.ParseQuery;
 
 @ParseClassName("Semester")
 public class Semester extends ParseObject{
+    //All of the ParseObject getXXXX() return null instead of throw an exception
+    // so no need for try/catch
 
     /***
      * Gets the name of the semester

@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 
 public abstract class BaseActivity extends AppCompatActivity {
@@ -29,24 +30,35 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        //Set up the Material toolbar
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            ActionBar supportActionbar = getSupportActionBar();
+        try {
+            //Set up the Material toolbar
+            Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+            if (toolbar != null) {
+                setSupportActionBar(toolbar);
+                ActionBar supportActionbar = getSupportActionBar();
 
-            if (toolbarBackButtonEnabled && supportActionbar != null) {
-                supportActionbar.setDisplayHomeAsUpEnabled(true);
-                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        //When the back button is clicked, finish the current activity.
-                        finish();
-                    }
-                });
+                if (toolbarBackButtonEnabled && supportActionbar != null) {
+                    supportActionbar.setDisplayHomeAsUpEnabled(true);
+                    toolbar.setNavigationOnClickListener(actionbarNavigiationOnClickedListener);
+                }
             }
+        } catch (Exception ex) {
+            //There's not much we can do to recover from this so log it.
+            //The app just won't have an actionbar
+            LogHelper.logError(this, "BaseActivity", "An error occurred creating the Toolbar.", ex.getMessage());
         }
+
     }
+
+    private View.OnClickListener actionbarNavigiationOnClickedListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            //Note: finish() can't throw an exception, so no try/catch
+
+            //When the back button is clicked, finish the current activity.
+            finish();
+        }
+    };
 
     /***
      * Gets whether this activity has the back button enabled in the action bar

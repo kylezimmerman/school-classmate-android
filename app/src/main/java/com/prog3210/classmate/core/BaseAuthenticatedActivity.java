@@ -14,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.parse.ParseUser;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.user.UserLoginActivity;
 
 public abstract class BaseAuthenticatedActivity extends BaseActivity {
@@ -27,9 +28,15 @@ public abstract class BaseAuthenticatedActivity extends BaseActivity {
             Log.i("LOGIN REQUIRED", "User was not logged in, redirecting to Login Activity");
             Toast.makeText(this, "Please Log In", Toast.LENGTH_LONG).show();
 
-            //Go to the Login activity
-            Intent loginIntent = new Intent(this, UserLoginActivity.class);
-            startActivity(loginIntent);
+            try {
+                //Go to the Login activity
+                Intent loginIntent = new Intent(this, UserLoginActivity.class);
+                startActivity(loginIntent);
+            } catch (Exception ex) {
+                LogHelper.logError(this, "BaseAuthenticatedActivity", "Could not start the login activity", ex.getMessage());
+            }
+
+            //No matter what, finish so that the user is not on a screen they shouldn't be
             finish();
         }
     }
