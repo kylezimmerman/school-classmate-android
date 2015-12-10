@@ -13,6 +13,8 @@ import com.parse.ParseQuery;
 
 @ParseClassName("EventType")
 public class EventType extends ParseObject{
+    //All of the ParseObject getXXXX() return null instead of throw an exception
+    // so no need for try/catch
 
     /***
      * Gets the name of the type of event (E.g. Test, Assignment, Exam)

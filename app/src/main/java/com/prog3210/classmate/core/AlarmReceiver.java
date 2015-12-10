@@ -15,6 +15,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.events.EventViewActivity;
 
@@ -29,30 +30,35 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // Setting up the Intent to go to the Event that the notification is meant for
-        Intent eventViewIntent = new Intent(context, EventViewActivity.class);
-        eventViewIntent.putExtra(EVENT_ID, intent.getStringExtra(EVENT_ID));
+        try {
+            // Setting up the Intent to go to the Event that the notification is meant for
+            Intent eventViewIntent = new Intent(context, EventViewActivity.class);
+            eventViewIntent.putExtra(EVENT_ID, intent.getStringExtra(EVENT_ID));
 
-        // Setting up the PendingIntent for the notification, once clicked on
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, eventViewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            // Setting up the PendingIntent for the notification, once clicked on
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, eventViewIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        // Creating the NotificationManager to get the Notification.Builder
-        NotificationManager notificationManager = (NotificationManager)context.getSystemService(Context.NOTIFICATION_SERVICE);
+            // Creating the NotificationManager to get the Notification.Builder
+            NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // Setting up the Notification.Builder to build the notification
-        Notification.Builder builder = new Notification.Builder(context);
-        builder.setContentTitle(intent.getStringExtra(NOTIFICATION_TITLE));
-        builder.setContentText(intent.getStringExtra(NOTIFICATION_MESSAGE));
-        builder.setSmallIcon(R.drawable.ic_notification);
-        builder.setContentIntent(pendingIntent);
+            // Setting up the Notification.Builder to build the notification
+            Notification.Builder builder = new Notification.Builder(context);
+            builder.setContentTitle(intent.getStringExtra(NOTIFICATION_TITLE));
+            builder.setContentText(intent.getStringExtra(NOTIFICATION_MESSAGE));
+            builder.setSmallIcon(R.drawable.ic_notification);
+            builder.setContentIntent(pendingIntent);
 
-        // Using deprecated method because 'builder.build()' is only supported in API 16+ and we support API 15+
-        Notification notification = builder.getNotification();
+            // Using deprecated method because 'builder.build()' is only supported in API 16+ and we support API 15+
+            Notification notification = builder.getNotification();
 
-        // Getting the ID for the notification
-        int notificationId = intent.getIntExtra(NOTIFICATION_ID, 0);
+            // Getting the ID for the notification
+            int notificationId = intent.getIntExtra(NOTIFICATION_ID, 0);
 
-        // Sending the notification
-        notificationManager.notify(notificationId, notification);
+            // Sending the notification
+            notificationManager.notify(notificationId, notification);
+        } catch (Exception ex) {
+            //There's not much we can do to recover from an exception here, so just log the error.
+            LogHelper.logError(context, "AlarmReceiver", "An error occured showing an event notification", ex.getMessage());
+        }
     }
 }

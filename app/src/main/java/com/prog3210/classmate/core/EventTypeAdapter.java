@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 
 public class EventTypeAdapter extends ParseQueryAdapter<EventType> {
@@ -27,6 +28,8 @@ public class EventTypeAdapter extends ParseQueryAdapter<EventType> {
 
     //Helper function to create a EventType Query Factory that can be re-used to refresh the list
     private static QueryFactory<EventType> createQueryFactory() {
+        //No exceptions can be thrown here, it just delcares the factory
+
         QueryFactory<EventType> factory = new QueryFactory<EventType>() {
             @Override
             public ParseQuery<EventType> create() {
@@ -43,16 +46,20 @@ public class EventTypeAdapter extends ParseQueryAdapter<EventType> {
 
     @Override
     public View getItemView(EventType eventType, View view, ViewGroup parent) {
-        // If there was no view that already existed, create a new one
-        if (view == null) {
-            view = View.inflate(getContext(), R.layout.spinner_list_item, null);
+        try {
+            // If there was no view that already existed, create a new one
+            if (view == null) {
+                view = View.inflate(getContext(), R.layout.spinner_list_item, null);
+            }
+
+            super.getItemView(eventType, view, parent);
+
+            //Sets the list item text to the event item name
+            TextView listItem = (TextView) view.findViewById(R.id.item_name);
+            listItem.setText(eventType.getTypeName());
+        } catch (Exception ex) {
+            LogHelper.logError(getContext(), "EventTypeAdapter", "Error loading an event item", ex.getMessage());
         }
-
-        super.getItemView(eventType, view, parent);
-
-        //Sets the list item text to the event item name
-        TextView listItem = (TextView)view.findViewById(R.id.item_name);
-        listItem.setText(eventType.getTypeName());
 
         return view;
     }
