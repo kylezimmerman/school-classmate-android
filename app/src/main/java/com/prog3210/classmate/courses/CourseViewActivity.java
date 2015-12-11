@@ -37,11 +37,13 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_view);
 
-        Intent sendingIntent = getIntent();
+        //grab spinner and fab from activity_course_view.xm;
+        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_event_button);
+        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
 
+        Intent sendingIntent = getIntent();
         final String courseId = sendingIntent.getStringExtra("course_id");
 
-        final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
 
         ParseQuery<Course> query = ParseQuery.getQuery(Course.class);
@@ -58,7 +60,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
             }
         });
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.add_event_button);
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -74,9 +76,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
         super.onResume();
 
         Intent sendingIntent = getIntent();
-
         final String courseId = sendingIntent.getStringExtra("course_id");
-
         final ProgressBar progressBar = (ProgressBar)findViewById(R.id.loading_spinner);
         progressBar.setVisibility(View.VISIBLE);
 
@@ -96,24 +96,25 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
     }
 
     private void displayCourseInfo(Course course) {
+        //grabbing TextView items from course_view_layout
         TextView courseCode = (TextView)findViewById(R.id.course_code);
-        courseCode.setText(course.getCourseCode());
-
         TextView courseName = (TextView)findViewById(R.id.course_name);
-        courseName.setText(course.getName());
-
         TextView courseSection = (TextView)findViewById(R.id.course_section);
-        courseSection.setText(course.getSection());
-
         TextView courseInstructor = (TextView)findViewById(R.id.course_instructor);
-        courseInstructor.setText(course.getTeacherName());
-
         TextView courseDate = (TextView)findViewById(R.id.course_date);
+
+        //sets text of TextViews from course parseObject
+        courseCode.setText(course.getCourseCode());
+        courseName.setText(course.getName());
+        courseSection.setText(course.getSection());
+        courseInstructor.setText(course.getTeacherName());
         courseDate.setText(String.format("%s %s", course.getSemester().getSemesterName(), course.getYear()));
 
+        //grab the course_view_layout and make it visible
         View courseView = findViewById(R.id.course_view_layout);
         courseView.setVisibility(View.VISIBLE);
 
+        //populate event list with all event for that course
         ListView eventList = (ListView)findViewById(R.id.event_list);
         final EventAdapter eventAdapter = new EventAdapter(this, course);
         eventList.setAdapter(eventAdapter);
@@ -128,6 +129,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
 
         eventList.setEmptyView(findViewById(R.id.empty_list_view));
 
+        //set pull to refresh on event list for course
         final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout)findViewById(R.id.pull_to_refresh);
         eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
             @Override

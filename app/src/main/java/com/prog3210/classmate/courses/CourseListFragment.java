@@ -36,9 +36,6 @@ import com.prog3210.classmate.core.BaseFragment;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
-    */
     public class CourseListFragment extends BaseFragment {
 
         private CourseAdapter courseAdapter;
