@@ -15,7 +15,7 @@
         android:id="@+id/classmate_logo"
         android:layout_width="150dp"
         android:layout_height="match_parent"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/classmate_logo_1024"
         android:layout_alignParentLeft="true"
         />
 
