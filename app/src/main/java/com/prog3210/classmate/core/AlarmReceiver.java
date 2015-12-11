@@ -19,14 +19,11 @@ import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.events.EventViewActivity;
 
-/**
- * Created by Justin on 2015-12-06.
- */
 public class AlarmReceiver extends BroadcastReceiver {
-    public static String NOTIFICATION_ID = "notification_id";
-    public static String NOTIFICATION_TITLE = "notification_title";
-    public static String NOTIFICATION_MESSAGE = "notification_message";
-    public static String EVENT_ID = "event_id";
+    public static final String NOTIFICATION_ID = "notification_id";
+    public static final String NOTIFICATION_TITLE = "notification_title";
+    public static final String NOTIFICATION_MESSAGE = "notification_message";
+    public static final String EVENT_ID = "event_id";
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -49,6 +46,7 @@ public class AlarmReceiver extends BroadcastReceiver {
             builder.setContentIntent(pendingIntent);
 
             // Using deprecated method because 'builder.build()' is only supported in API 16+ and we support API 15+
+            @SuppressWarnings("deprecation")
             Notification notification = builder.getNotification();
 
             // Getting the ID for the notification

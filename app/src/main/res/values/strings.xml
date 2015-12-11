@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">ClassMate</string>
-    <string name="action_settings">Settings</string>
 
     <string name="title_activity_create_course">Create Course</string>
     <string name="title_activity_user_login">UserLogin</string>
@@ -24,7 +23,6 @@
     <string name="course_name">Name</string>
     <string name="year">Year</string>
     <string name="semester">Semester</string>
-    <string name="course_desc">Description</string>
     <string name="teacher_name">Teacher Name</string>
     <string name="create">Create</string>
     <string name="course_instructor_label">Instructor:</string>

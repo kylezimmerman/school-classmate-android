@@ -24,9 +24,6 @@ import org.json.JSONObject;
 
 import java.util.Date;
 
-/**
- * Created by kzimmerman on 12/4/2015.
- */
 public class ClassmatePushBroadcastReceiver extends ParsePushBroadcastReceiver {
     @Override
     protected void onPushReceive(final Context context, Intent intent) {

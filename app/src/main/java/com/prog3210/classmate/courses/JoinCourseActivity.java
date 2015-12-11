@@ -1,14 +1,18 @@
+/*
+    JoinCourseActivity.java
+
+    displays view that will allow user to join a course
+
+    Sean Coombes, Kyle Zimmerman, Justin Coschi
+ */
 package com.prog3210.classmate.courses;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
@@ -32,14 +36,14 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_join);
-        EditText search = (EditText) findViewById(R.id.searchListView);
 
+        //set view items from activity_course_join.xml
+        EditText search = (EditText) findViewById(R.id.searchListView);
         final ProgressBar progressBar = (ProgressBar) findViewById(R.id.loading);
         courseAdapter = new CourseAdapter(this, CourseAdapter.FilterMode.Unjoined);
         ListView courseList = (ListView) findViewById(R.id.joinCourseList);
 
         courseList.setOnItemClickListener(selectedCourse);
-
         courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
             @Override
             public void onLoading() {
@@ -54,6 +58,7 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
 
         courseList.setAdapter(courseAdapter);
 
+        //adds a listener to search edit text that sends search sequence to the courseAdapter
         search.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -83,12 +88,13 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
         });
     }
 
-    private AdapterView.OnItemClickListener selectedCourse = new AdapterView.OnItemClickListener() {
+    private final AdapterView.OnItemClickListener selectedCourse = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
             final Course course = courseAdapter.getItem(position);
 
-           course.join(new SaveCallback() {
+            //joins current user to selected course
+            course.join(new SaveCallback() {
                @Override
                public void done(ParseException e) {
 

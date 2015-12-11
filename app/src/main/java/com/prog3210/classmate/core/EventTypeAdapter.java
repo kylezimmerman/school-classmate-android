@@ -30,7 +30,7 @@ public class EventTypeAdapter extends ParseQueryAdapter<EventType> {
     private static QueryFactory<EventType> createQueryFactory() {
         //No exceptions can be thrown here, it just delcares the factory
 
-        QueryFactory<EventType> factory = new QueryFactory<EventType>() {
+        return new QueryFactory<EventType>() {
             @Override
             public ParseQuery<EventType> create() {
 
@@ -41,7 +41,6 @@ public class EventTypeAdapter extends ParseQueryAdapter<EventType> {
                 return query;
             }
         };
-        return factory;
     }
 
     @Override

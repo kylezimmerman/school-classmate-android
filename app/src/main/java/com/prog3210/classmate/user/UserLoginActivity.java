@@ -9,7 +9,6 @@ package com.prog3210.classmate.user;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,17 +16,14 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.facebook.Profile;
-import com.facebook.login.LoginManager;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseInstallation;
-import com.parse.ParsePush;
 import com.parse.ParseQuery;
 import com.parse.ParseTwitterUtils;
 import com.parse.ParseUser;
-import com.parse.twitter.Twitter;
 import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.MainActivity;
 import com.prog3210.classmate.R;
@@ -63,7 +59,7 @@ public class UserLoginActivity extends BaseActivity {
     }
 
     //When clicked, attempts to log in using a classmate account
-    private View.OnClickListener attemptLogin = new View.OnClickListener() {
+    private final View.OnClickListener attemptLogin = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -110,7 +106,7 @@ public class UserLoginActivity extends BaseActivity {
     };
 
     //When clicked, attempts to log in using Facebook
-    private View.OnClickListener facebookLogin = new View.OnClickListener() {
+    private final View.OnClickListener facebookLogin = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
@@ -161,7 +157,7 @@ public class UserLoginActivity extends BaseActivity {
         }
     };
 
-    private View.OnClickListener twitterLogin = new View.OnClickListener() {
+    private final View.OnClickListener twitterLogin = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             //Calling this cannot throw an exception. If anything goes wrong the callback will be passed
@@ -208,7 +204,7 @@ public class UserLoginActivity extends BaseActivity {
         }
     }
 
-    private View.OnClickListener registerUser = new View.OnClickListener() {
+    private final View.OnClickListener registerUser = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             try {
@@ -251,7 +247,7 @@ public class UserLoginActivity extends BaseActivity {
             public void done(List<Course> courses, ParseException e) {
                 try {
                     //Build a list of all their courses by course object ID
-                    ArrayList<String> courseChannels = new ArrayList<String>();
+                    ArrayList<String> courseChannels = new ArrayList<>();
                     for (Course course : courses) {
                         courseChannels.add("course_" + course.getObjectId());
                     }

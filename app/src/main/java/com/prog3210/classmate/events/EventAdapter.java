@@ -20,9 +20,6 @@ import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.courses.Course;
 
-/**
- * Created by kzimmerman on 11/25/2015.
- */
 public class EventAdapter extends ParseQueryAdapter<Event> {
 
     /***
@@ -74,7 +71,7 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
     // Creates QueryFactory<Event> for a user to view in their feed.
     private static QueryFactory<Event> createQueryFactoryForUser(final ParseUser user) {
         // Nothing here throw an Exception, so no try-catch needed
-        QueryFactory<Event> factory = new QueryFactory<Event>() {
+        return new QueryFactory<Event>() {
             @Override
             public ParseQuery<Event> create() {
                 ParseQuery<Event> query = Event.getQuery();
@@ -84,14 +81,12 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
                 return query;
             }
         };
-
-        return factory;
     }
 
     // Creates QueryFactory<Event> for a Course to display in the Event feed for that Course.
     private static QueryFactory<Event> createQueryFactoryForCourse(final Course course) {
         // Nothing here throw an Exception, so no try-catch needed
-        QueryFactory<Event> factory = new QueryFactory<Event>() {
+        return new QueryFactory<Event>() {
             @Override
             public ParseQuery<Event> create() {
                 ParseQuery<Event> query = Event.getQuery();
@@ -101,7 +96,5 @@ public class EventAdapter extends ParseQueryAdapter<Event> {
                 return query;
             }
         };
-
-        return factory;
     }
 }

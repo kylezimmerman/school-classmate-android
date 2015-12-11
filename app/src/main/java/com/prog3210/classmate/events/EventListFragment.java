@@ -32,7 +32,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class EventListFragment extends BaseFragment {
-    EventAdapter eventAdapter;
+    private EventAdapter eventAdapter;
 
     public EventListFragment() {
         // Required empty public constructor

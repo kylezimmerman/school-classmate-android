@@ -50,7 +50,7 @@ public class ClassmateUser extends ParseUser {
 
     /***
      * Sets the last name of the user on parse
-     * @param firstName
+     * @param firstName The first name of the User
      */
     public void setLastName(String firstName) {
         put("lastName", firstName);

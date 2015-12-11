@@ -28,8 +28,6 @@ import android.widget.Toast;
 
 import com.parse.GetCallback;
 import com.parse.ParseException;
-import com.parse.ParseQuery;
-
 import com.parse.ParseQueryAdapter;
 import com.parse.SaveCallback;
 
@@ -38,9 +36,6 @@ import com.prog3210.classmate.core.BaseFragment;
 
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
-    */
     public class CourseListFragment extends BaseFragment {
 
         private CourseAdapter courseAdapter;
@@ -172,7 +167,7 @@ import java.util.List;
                                                     if (e == null) {
                                                         courseAdapter.loadObjects();
                                                     } else {
-                                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                                                        Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                                                     }
                                                 }
                                             });
@@ -180,7 +175,7 @@ import java.util.List;
                                     }).show();
                             courseAdapter.loadObjects();
                         } else {
-                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT);
+                            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

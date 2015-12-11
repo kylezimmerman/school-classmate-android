@@ -17,13 +17,13 @@ import com.prog3210.classmate.R;
 
 public class CourseAdapter extends ParseQueryAdapter<Course> {
 
-    boolean showDetails = true;
-    boolean spinnerSupportEnabled = false;
+    private boolean showDetails = true;
+    private boolean spinnerSupportEnabled = false;
     private String searchTerm;
 
     /***
      * allows user to decide to show details or not
-     * @param showDetails
+     * @param showDetails True if the details (E.g. year, semester, teacher)
      */
     public void setShowDetails(boolean showDetails) {
         this.showDetails = showDetails;
@@ -117,7 +117,7 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
      * @return QueryFactory<Course> for any lists containing courses
      */
     private static QueryFactory<Course> createQueryFactory(final FilterMode filterMode) {
-        QueryFactory<Course> factory = new QueryFactory<Course>() {
+        return new QueryFactory<Course>() {
             @Override
             public ParseQuery<Course> create() {
                 ParseQuery<Course> query = Course.getQuery();
@@ -134,7 +134,5 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
                 return query;
             }
         };
-
-        return factory;
     }
 }

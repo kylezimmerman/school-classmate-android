@@ -60,8 +60,8 @@ public class MainActivity extends BaseAuthenticatedActivity {
 
     public class ClassmatePager extends FragmentPagerAdapter {
 
-        private EventListFragment eventListFragment;
-        private CourseListFragment courseListFragment;
+        private final EventListFragment eventListFragment;
+        private final CourseListFragment courseListFragment;
 
         public ClassmatePager(FragmentManager fm) {
             super(fm);

@@ -18,19 +18,16 @@ import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.courses.Course;
 
-/**
- * Created by kzimmerman on 11/25/2015.
- */
 public class EventItemView extends LinearLayout {
 
-    TextView courseTextView;
-    TextView eventNameTextView;
-    TextView dueDateTextView;
+    private TextView courseTextView;
+    private TextView eventNameTextView;
+    private TextView dueDateTextView;
 
-    TextView upvoteCountTextView;
-    TextView downvoteCountTextView;
+    private TextView upvoteCountTextView;
+    private TextView downvoteCountTextView;
 
-    LinearLayout voteBar;
+    private LinearLayout voteBar;
 
     public EventItemView(Context context) {
         super(context);

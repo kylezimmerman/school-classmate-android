@@ -26,12 +26,12 @@ public class CommentDialog extends android.support.v4.app.DialogFragment {
     /***
      * Listener interface that will be called on the activity that impletements the interface
      */
-    EditText commentBodyText;
+    private EditText commentBodyText;
     public interface CommentDialogListener{
         void onDialogSubmitClick(String commentBody);
     }
 
-    CommentDialogListener listener;
+    private CommentDialogListener listener;
 
     @Override
     public void onAttach(Activity activity) {
