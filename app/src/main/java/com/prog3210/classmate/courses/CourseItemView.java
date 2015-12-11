@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 
 public class CourseItemView extends RelativeLayout {
@@ -61,12 +62,16 @@ public class CourseItemView extends RelativeLayout {
     public void updateValues(Course course, boolean showDetails) {
         getViews();
 
-        detailsView.setVisibility(showDetails ? VISIBLE : GONE);
+        try {
+            detailsView.setVisibility(showDetails ? VISIBLE : GONE);
 
-        courseCodeSection.setText(String.format("%s - %s", course.getCourseCode(), course.getSection()));
-        courseName.setText(course.getName());
-        teacherName.setText(course.getTeacherName());
-        year.setText(String.valueOf(course.getYear()));
+            courseCodeSection.setText(String.format("%s - %s", course.getCourseCode(), course.getSection()));
+            courseName.setText(course.getName());
+            teacherName.setText(course.getTeacherName());
+            year.setText(String.valueOf(course.getYear()));
+        } catch (Exception e) {
+            LogHelper.logError(getContext(),"CourseItemView","There was an error prepaire course", e.getMessage());
+        }
 
         if (course.getSemester() != null) {
             semesterName.setText(course.getSemester().getSemesterName());

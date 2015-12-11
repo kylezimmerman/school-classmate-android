@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.parse.ParseQuery;
 import com.parse.ParseQueryAdapter;
 import com.parse.ParseUser;
+import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 
 public class CourseAdapter extends ParseQueryAdapter<Course> {
@@ -89,14 +90,22 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
     @Override
     public View getItemView(Course course, View view, ViewGroup parent) {
 
-        if (view == null) {
-            view = View.inflate(getContext(), R.layout.course_list_item, null);
+        try {
+            if (view == null) {
+                view = View.inflate(getContext(), R.layout.course_list_item, null);
+            }
+        } catch (Exception e) {
+            LogHelper.logError(getContext(), "CourseAdapter", "Error showing courses", e.getMessage());
         }
 
         super.getItemView(course, view, parent);
 
-        CourseItemView courseItemView = (CourseItemView) view;
-        courseItemView.updateValues(course, showDetails);
+        try {
+            CourseItemView courseItemView = (CourseItemView) view;
+            courseItemView.updateValues(course, showDetails);
+        } catch (Exception e) {
+            LogHelper.logError(getContext(),"CourseAdapter","Error showing courses", e.getMessage());
+        }
 
         return view;
     }
