@@ -56,10 +56,12 @@
     <string name="due">Due Date:</string>
     <string name="description">Description</string>
     <string name="gradeWorth">Percent Of Final Grade</string>
-    <string name="createEvent">Create Event</string>
-    <string name ="course">Course:</string>
+    <string name="course">Course:</string>
     <string name="type">Type:</string>
     <string name="course_has_no_events">This course has no events.\nAdd one!</string>
 
     <string name="submit">Submit</string>
+    <string name="search">Search</string>
+    <string name="type_comment">Type Comment</string>
+    <string name="dash_separator">-</string>
 </resources>
