@@ -26,7 +26,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/searchListView"
                 android:inputType="text"
-                android:hint="Search"/>
+                android:hint="@string/search"/>
         </android.support.design.widget.TextInputLayout>
         <ListView
             android:layout_width="match_parent"

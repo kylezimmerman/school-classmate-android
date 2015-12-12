@@ -13,7 +13,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Type Comment"
+            android:hint="@string/type_comment"
             android:minLines="1"
             android:maxLines="8"
             android:id="@+id/comment_body"/>

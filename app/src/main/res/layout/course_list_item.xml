@@ -10,13 +10,11 @@
 
         <TextView
             android:id="@+id/course_code"
-            android:text="Course Code"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             style="@style/TextAppearance.AppCompat.Headline"/>
         <TextView
             android:id="@+id/course_name"
-            android:text="Mobile Application Programming II"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/course_code"
@@ -29,18 +27,16 @@
             android:layout_below="@id/course_name">
             <TextView
                 android:id="@+id/teacher_name"
-                android:text="Teacher Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/dash"
-                android:text=" - "
+                android:text="@string/dash_separator"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/teacher_name"/>
             <TextView
                 android:id="@+id/semester"
-                android:text="Semester"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingRight="6sp"
@@ -48,7 +44,6 @@
                 android:layout_alignBaseline="@id/teacher_name"/>
             <TextView
                 android:id="@+id/year"
-                android:text="Year"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/semester"
