@@ -33,7 +33,7 @@ public class CreateCourseActivity extends BaseAuthenticatedActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_create);
 
-        //prepares the spinner with all the smesters
+        //prepares the spinner with all the semesters
         Spinner semesterSpinner = (Spinner)findViewById(R.id.semester);
         SemesterAdapter semesterAdapter = new SemesterAdapter(this);
         semesterAdapter.setTextKey("semesterName");
