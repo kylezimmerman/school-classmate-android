@@ -45,23 +45,34 @@ public class CourseItemView extends RelativeLayout {
      * Gets the objects displayed in the layout for use.
      */
     private void getViews() {
-        detailsView = findViewById(R.id.course_details);
+        try {
+            detailsView = findViewById(R.id.course_details);
 
-        courseCodeSection = (TextView)findViewById(R.id.course_code);
-        courseName = (TextView)findViewById(R.id.course_name);
-        teacherName = (TextView)findViewById(R.id.teacher_name);
-        semesterName = (TextView)findViewById(R.id.semester);
-        year = (TextView)findViewById(R.id.year);
+            courseCodeSection = (TextView) findViewById(R.id.course_code);
+            courseName = (TextView) findViewById(R.id.course_name);
+            teacherName = (TextView) findViewById(R.id.teacher_name);
+            semesterName = (TextView) findViewById(R.id.semester);
+            year = (TextView) findViewById(R.id.year);
+        } catch (Exception ex) {
+            LogHelper.logError(getContext(), "CourseItemView",
+                    "Error show a course list item", ex.getMessage());
+        }
+    }
+
+    @Override
+    protected void onFinishInflate() {
+        //This method cannot throw an exception, so no try/catch
+
+        super.onFinishInflate();
+        getViews();
     }
 
     /***
-     * Updates the Event layout to display updated information for the current Event.
+     * Updates the Course layout to display updated information for the current Course.
      * @param course current course being used
      * @param showDetails bool
      */
     public void updateValues(Course course, boolean showDetails) {
-        getViews();
-
         try {
             detailsView.setVisibility(showDetails ? VISIBLE : GONE);
 
@@ -69,12 +80,13 @@ public class CourseItemView extends RelativeLayout {
             courseName.setText(course.getName());
             teacherName.setText(course.getTeacherName());
             year.setText(String.valueOf(course.getYear()));
-        } catch (Exception e) {
-            LogHelper.logError(getContext(),"CourseItemView","There was an error prepaire course", e.getMessage());
-        }
 
-        if (course.getSemester() != null) {
-            semesterName.setText(course.getSemester().getSemesterName());
+            if (course.getSemester() != null) {
+                semesterName.setText(course.getSemester().getSemesterName());
+            }
+
+        } catch (Exception e) {
+            LogHelper.logError(getContext(),"CourseItemView","There was an error show course details", e.getMessage());
         }
     }
 }

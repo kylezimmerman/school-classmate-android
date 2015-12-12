@@ -52,6 +52,7 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
      * @param query string that contains search query
      */
     public void setSearchTerm(String query) {
+        //This method cannot throw any exceptions so no try/catch
         searchTerm = query;
 
         if (searchTerm != null) {
@@ -73,17 +74,25 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
 
     @Override
     public int getItemViewType(int position) {
-        Course course = getItem(position);
+        try {
+            Course course = getItem(position);
 
-        boolean matchesFilter = (searchTerm == null || searchTerm.length() == 0)
-            || course.getName().toLowerCase().contains(searchTerm)
-            || course.getCourseCode().toLowerCase().contains(searchTerm)
-            || course.getTeacherName().toLowerCase().contains(searchTerm);
+            //If there were no search criteria entered, everything is a match
+            //If there was search criteria, include only matches that have the
+            // course name, code or teacher's name that match
+            boolean matchesFilter = (searchTerm == null || searchTerm.length() == 0)
+                    || course.getName().toLowerCase().contains(searchTerm)
+                    || course.getCourseCode().toLowerCase().contains(searchTerm)
+                    || course.getTeacherName().toLowerCase().contains(searchTerm);
 
-        if (matchesFilter) {
+            if (matchesFilter) {
+                return 0;
+            } else {
+                return 1;
+            }
+        } catch (Exception ex) {
+            LogHelper.logError(getContext(), "CourseAdapter", "Error filtering search results", ex.getMessage());
             return 0;
-        } else {
-            return 1;
         }
     }
 
@@ -94,13 +103,9 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
             if (view == null) {
                 view = View.inflate(getContext(), R.layout.course_list_item, null);
             }
-        } catch (Exception e) {
-            LogHelper.logError(getContext(), "CourseAdapter", "Error showing courses", e.getMessage());
-        }
 
-        super.getItemView(course, view, parent);
+            super.getItemView(course, view, parent);
 
-        try {
             CourseItemView courseItemView = (CourseItemView) view;
             courseItemView.updateValues(course, showDetails);
         } catch (Exception e) {
@@ -112,8 +117,12 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
 
     @Override
     public View getNextPageView(View v, ViewGroup parent) {
-        if (v == null) {
-            v = View.inflate(getContext(), R.layout.empty_view, null);
+        try {
+            if (v == null) {
+                v = View.inflate(getContext(), R.layout.empty_view, null);
+            }
+        } catch (Exception ex) {
+            LogHelper.logError(getContext(), "CourseAdapter", "Error showing next page view", ex.getMessage());
         }
 
         return v;
@@ -126,6 +135,8 @@ public class CourseAdapter extends ParseQueryAdapter<Course> {
      * @return QueryFactory<Course> for any lists containing courses
      */
     private static QueryFactory<Course> createQueryFactory(final FilterMode filterMode) {
+        //This cannot throw an exception because it's just returning the factory so no try/catch
+        //If anything goes wrong with the generated query, it must be caught elsewhere
         return new QueryFactory<Course>() {
             @Override
             public ParseQuery<Course> create() {
