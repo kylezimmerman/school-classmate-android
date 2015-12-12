@@ -28,19 +28,13 @@
             />
     </LinearLayout>
 
-    <!--<fragment-->
-        <!--android:id="@+id/course_list_fragment"-->
-        <!--android:name="com.prog3210.classmate.courses.CourseListFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--tools:layout="@layout/fragment_course_list"-->
-        <!--android:layout_marginTop="?attr/actionBarSize"/>-->
-
-    <!--<fragment-->
-        <!--android:id="@+id/event_list_fragment"-->
-        <!--android:name="com.prog3210.classmate.events.EventListFragment"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--tools:layout="@layout/fragment_event_list"-->
-        <!--android:layout_marginTop="?attr/actionBarSize"/>-->
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_white_24dp"
+        app:layout_anchor="@id/view_pager"
+        app:layout_anchorGravity="bottom|right|end"
+        android:layout_margin="@dimen/fab_margin"
+        />
 </android.support.design.widget.CoordinatorLayout>

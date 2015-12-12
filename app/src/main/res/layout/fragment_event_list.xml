@@ -27,16 +27,6 @@
         android:visibility="gone"
         android:text="@string/empty_event_list_message"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/add_event_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white_24dp"
-        app:layout_anchor="@id/event_list"
-        app:layout_anchorGravity="bottom|right|end"
-        android:layout_margin="@dimen/fab_margin"
-        />
-
     <ProgressBar
         android:id="@+id/loading"
         android:layout_width="wrap_content"

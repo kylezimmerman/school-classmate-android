@@ -12,7 +12,6 @@ package com.prog3210.classmate.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,13 +24,14 @@ import com.parse.ParseUser;
 import com.prog3210.classmate.LogHelper;
 import com.prog3210.classmate.R;
 import com.prog3210.classmate.core.BaseFragment;
+import com.prog3210.classmate.core.FloatingActionButtonOnClickListener;
 
 import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class EventListFragment extends BaseFragment {
+public class EventListFragment extends BaseFragment implements FloatingActionButtonOnClickListener {
     private EventAdapter eventAdapter;
 
     public EventListFragment() {
@@ -48,7 +48,6 @@ public class EventListFragment extends BaseFragment {
             // Gets view objects for current layout
             final SwipeRefreshLayout pullToRefresh = (SwipeRefreshLayout) view.findViewById(R.id.pull_to_refresh);
             ListView eventList = (ListView) view.findViewById(R.id.event_list);
-            FloatingActionButton fab = (FloatingActionButton) view.findViewById(R.id.add_event_button);
 
             // Sets the OnQueryLoadListener to properly display the refresh animation
             eventAdapter = new EventAdapter(getActivity(), ParseUser.getCurrentUser());
@@ -88,15 +87,6 @@ public class EventListFragment extends BaseFragment {
             // Loads the objects for display in the Event feed
             eventAdapter.loadObjects();
 
-            // Sets OnClickListener action for creating a new Event from the Event feed
-            fab.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent addEventIntent = new Intent(getActivity(), CreateEventActivity.class);
-                    startActivity(addEventIntent);
-                }
-            });
-
             return view;
         } catch (Exception e) {
             LogHelper.logError(getContext(), "EventListFragment", "Error generating Event feed.", e.getMessage());
@@ -109,5 +99,18 @@ public class EventListFragment extends BaseFragment {
         super.onResume();
         // Loads the objects for display in the Event feed
         eventAdapter.loadObjects();
+    }
+
+    private final View.OnClickListener fabListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            Intent addEventIntent = new Intent(getActivity(), CreateEventActivity.class);
+            startActivity(addEventIntent);
+        }
+    };
+
+    @Override
+    public View.OnClickListener getFloatingActionOnClickListener() {
+        return fabListener;
     }
 }
