@@ -35,6 +35,7 @@ import com.prog3210.classmate.core.BaseFragment;
 import com.prog3210.classmate.core.FloatingActionButtonOnClickListener;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class CourseListFragment extends BaseFragment implements FloatingActionButtonOnClickListener {
 
@@ -55,13 +56,18 @@ public class CourseListFragment extends BaseFragment implements FloatingActionBu
             courseAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Course>() {
                 @Override
                 public void onLoading() {
+                    //Intentional no-op, interface defines it but we don't need it
                 }
 
                 @Override
                 //sets a refresh action that allows user to pull down on screen to refresh their list of courses
                 public void onLoaded(List<Course> objects, Exception e) {
-                    progressBar.setVisibility(View.GONE);
-                    pullToRefresh.setRefreshing(false);
+                    try {
+                        progressBar.setVisibility(View.GONE);
+                        pullToRefresh.setRefreshing(false);
+                    } catch (Exception ex) {
+                        LogHelper.logError(getContext(), "CourseListFragment", "error hiding loading spinner", ex.getMessage());
+                    }
                 }
             });
 
@@ -69,7 +75,11 @@ public class CourseListFragment extends BaseFragment implements FloatingActionBu
             pullToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
                 @Override
                 public void onRefresh() {
-                    courseAdapter.loadObjects();
+                    try {
+                        courseAdapter.loadObjects();
+                    } catch (Exception ex) {
+                        LogHelper.logError(getContext(), "CourseListFragment", "Error refreshing list", ex.getMessage());
+                    }
                 }
             });
 
@@ -79,11 +89,15 @@ public class CourseListFragment extends BaseFragment implements FloatingActionBu
             courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Course course = courseAdapter.getItem(position);
+                    try {
+                        Course course = courseAdapter.getItem(position);
 
-                    Intent viewCourseIntent = new Intent(getActivity(), CourseViewActivity.class);
-                    viewCourseIntent.putExtra("course_id", course.getObjectId());
-                    startActivity(viewCourseIntent);
+                        Intent viewCourseIntent = new Intent(getActivity(), CourseViewActivity.class);
+                        viewCourseIntent.putExtra("course_id", course.getObjectId());
+                        startActivity(viewCourseIntent);
+                    } catch (Exception ex) {
+                        LogHelper.logError(getContext(), "CourseListFragment", "Error displaying course details", ex.getMessage());
+                    }
                 }
             });
             //allows user to leave a course
@@ -92,41 +106,45 @@ public class CourseListFragment extends BaseFragment implements FloatingActionBu
                 public boolean onItemLongClick(AdapterView<?> adapterView, View v, int position, long id) {
                     final Course course = courseAdapter.getItem(position);
 
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-                    builder.setTitle(R.string.confirm_leave_course_title);
-                    builder.setMessage(String.format(getResources().getString(R.string.confirm_leave_course), course.getCourseCode(), course.getName()));
-                    builder.setPositiveButton(R.string.leave, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            course.leave(new SaveCallback() {
-                                @Override
-                                public void done(ParseException e) {
-                                    if (e == null) {
-                                        courseAdapter.loadObjects();
-                                        try {
-                                            Snackbar.make(view.getRootView().findViewById(R.id.view_pager), "Left course.", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
-                                                @Override
-                                                public void onClick(View view) {
-                                                    course.join(new SaveCallback() {
-                                                        @Override
-                                                        public void done(ParseException e) {
-                                                            courseAdapter.loadObjects();
-                                                        }
-                                                    });
-                                                }
-                                            }).show();
-                                        } catch (Exception ex) {
-                                            LogHelper.logError(getContext(), "CourseLIstFragment", "Error displaying message.", ex.getMessage());
+                    try {
+                        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+                        builder.setTitle(R.string.confirm_leave_course_title);
+                        builder.setMessage(String.format(getResources().getString(R.string.confirm_leave_course), course.getCourseCode(), course.getName()));
+                        builder.setPositiveButton(R.string.leave, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                course.leave(new SaveCallback() {
+                                    @Override
+                                    public void done(ParseException e) {
+                                        if (e == null) {
+                                            courseAdapter.loadObjects();
+                                            try {
+                                                Snackbar.make(view.getRootView().findViewById(R.id.view_pager), "Left course.", Snackbar.LENGTH_LONG).setAction("Undo", new View.OnClickListener() {
+                                                    @Override
+                                                    public void onClick(View view) {
+                                                        course.join(new SaveCallback() {
+                                                            @Override
+                                                            public void done(ParseException e) {
+                                                                courseAdapter.loadObjects();
+                                                            }
+                                                        });
+                                                    }
+                                                }).show();
+                                            } catch (Exception ex) {
+                                                LogHelper.logError(getContext(), "CourseLIstFragment", "Error displaying message.", ex.getMessage());
+                                            }
+                                        } else {
+                                            Toast.makeText(getActivity(), "Error leaving course", Toast.LENGTH_SHORT).show();
                                         }
-                                    } else {
-                                        Toast.makeText(getActivity(), "Error leaving course", Toast.LENGTH_SHORT).show();
                                     }
-                                }
-                            });
-                        }
-                    });
-                    builder.setNegativeButton(R.string.cancel, null);
-                    builder.show();
+                                });
+                            }
+                        });
+                        builder.setNegativeButton(R.string.cancel, null);
+                        builder.show();
+                    } catch (Exception ex) {
+                        LogHelper.logError(getContext(), "CourseListFragment", "Error leaving a course", ex.getMessage());
+                    }
 
                     return true;
                 }
@@ -190,8 +208,12 @@ public class CourseListFragment extends BaseFragment implements FloatingActionBu
     private final View.OnClickListener fabClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            Intent joinCourseIntent = new Intent(getActivity(), JoinCourseActivity.class);
-            startActivityForResult(joinCourseIntent, 1);
+            try {
+                Intent joinCourseIntent = new Intent(getActivity(), JoinCourseActivity.class);
+                startActivityForResult(joinCourseIntent, 1);
+            } catch (Exception ex) {
+                LogHelper.logError(getContext(), "CourseListFragment", "Error show join course activity", ex.getMessage());
+            }
         }
     };
 

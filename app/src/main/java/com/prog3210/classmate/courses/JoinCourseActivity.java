@@ -70,12 +70,12 @@ public class JoinCourseActivity extends BaseAuthenticatedActivity {
 
                 @Override
                 public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                    //Intentional no-op. Interface defines it but we don't need it
                 }
 
                 @Override
                 public void afterTextChanged(Editable editable) {
-
+                    //Intentional no-op. Interface defines it but we don't need it
                 }
             });
 

@@ -35,19 +35,11 @@ public class CreateCourseActivity extends BaseAuthenticatedActivity {
             super.onCreate(savedInstanceState);
             setContentView(R.layout.activity_course_create);
 
-<<<<<<< HEAD
-            //prepares the spinner with all the smesters
-            Spinner semesterSpinner = (Spinner) findViewById(R.id.semester);
+            //prepares the spinner with all the semesters
+            Spinner semesterSpinner = (Spinner)findViewById(R.id.semester);
             SemesterAdapter semesterAdapter = new SemesterAdapter(this);
             semesterAdapter.setTextKey("semesterName");
             semesterSpinner.setAdapter(semesterAdapter);
-=======
-        //prepares the spinner with all the semesters
-        Spinner semesterSpinner = (Spinner)findViewById(R.id.semester);
-        SemesterAdapter semesterAdapter = new SemesterAdapter(this);
-        semesterAdapter.setTextKey("semesterName");
-        semesterSpinner.setAdapter(semesterAdapter);
->>>>>>> 9f24111607f0aecca23bbe9d4e1f741b2254481c
 
             //sets the create course buttons to a click event that will start the course creation
             Button createCourseButton = (Button) findViewById(R.id.create_course_button);

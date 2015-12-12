@@ -131,9 +131,13 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
             eventList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    Intent viewEventIntent = new Intent(CourseViewActivity.this, EventViewActivity.class);
-                    viewEventIntent.putExtra("event_id", eventAdapter.getItem(position).getObjectId());
-                    startActivity(viewEventIntent);
+                    try {
+                        Intent viewEventIntent = new Intent(CourseViewActivity.this, EventViewActivity.class);
+                        viewEventIntent.putExtra("event_id", eventAdapter.getItem(position).getObjectId());
+                        startActivity(viewEventIntent);
+                    } catch (Exception ex) {
+                        LogHelper.logError(CourseViewActivity.this, "CourseViewActivity", "Showing event details", ex.getMessage());
+                    }
                 }
             });
 
@@ -144,7 +148,7 @@ public class CourseViewActivity extends BaseAuthenticatedActivity {
             eventAdapter.addOnQueryLoadListener(new ParseQueryAdapter.OnQueryLoadListener<Event>() {
                 @Override
                 public void onLoading() {
-
+                    //Intentional no-op. Interface defines it but we don't need it
                 }
 
                 @Override
